@@ -15,34 +15,32 @@ namespace ITOI
     public partial class Form1 : Form
     {
         Bitmap BeginImage;
-        int width;
-        int height;
-
-        byte[] GrayArray;
+        int IWidth;
+        int IHeight;
+        
         Bitmap GrayImage;
         byte[,] GrayMatrix;
 
-        byte[] DerivativeX;
+        double[,] DerivativeX;
         Bitmap DerivativeXImage;
-        byte[] DerivativeY;
+        double[,] DerivativeY;
         Bitmap DerivativeYImage;
 
-        byte[] Sobel;
+        double[,] Sobel;
         Bitmap SobelImage;
 
         public Form1()
         {
             InitializeComponent();
             BeginImage = new Bitmap("../../../files/Begin/BeginImage1.png");
-            width = BeginImage.Width;
-            height = BeginImage.Height;
+            IWidth = BeginImage.Width;
+            IHeight = BeginImage.Height;
 
             DrawImage(BeginImage, pictureBox1);
 
-            GrayArray = ColorImageToGrayArray(BeginImage);
-            GrayImage = GrayArrayToImage(GrayArray, width, height);
+            GrayMatrix = ColorImageToGrayMatrix(BeginImage);
+            GrayImage = MatrixToImage(GrayMatrix, IWidth, IHeight);
             GrayImage.Save("../../../files/Result/GrayImage.png");
-            GrayMatrix = ArrayToMatrix(GrayArray, width, height);
             DrawImage(GrayImage, pictureBox2);
         }
 
@@ -71,43 +69,24 @@ namespace ITOI
             pictureBox.Image = bitmap;
         }
 
-        public byte[] ColorImageToGrayArray(Bitmap bitmap)
+        public byte[,] ColorImageToGrayMatrix(Bitmap bitmap)
         {
             int width = bitmap.Width;
             int height = bitmap.Height;
-            byte[] GrayImg = new byte[width * height];
+            byte[,] GrayImg = new byte[height, width];
             Color color;
-            int i = 0;
             for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)
                 {
                     color = bitmap.GetPixel(x, y);
-                    GrayImg[i] = Convert.ToByte(Math.Round(0.213 * color.R + 0.715 * color.G + 0.072 * color.B));
-                    i++;
+                    GrayImg[y, x] = Convert.ToByte(Math.Round(0.213 * color.R + 0.715 * color.G + 0.072 * color.B));
                 }
             }
             return GrayImg;
         }
 
-        public Bitmap GrayArrayToImage(byte[] GrayArray, int width, int height)
-        {
-            Bitmap bitmap = new Bitmap(width, height, PixelFormat.Format32bppArgb);
-            int i = 0;
-            Color color;
-            for (int y = 0; y < height; y++)
-            {
-                for (int x = 0; x < width; x++)
-                {
-                    color = Color.FromArgb(255, GrayArray[i], GrayArray[i], GrayArray[i]);
-                    bitmap.SetPixel(x, y, color);
-                    i++;
-                }
-            }
-            return bitmap;
-        }
-
-        public Bitmap GrayMatrixToImage(byte[,] GrayMatrix, int width, int height)
+        public Bitmap MatrixToImage(byte[,] GrayMatrix, int width, int height)
         {
             Bitmap bitmap = new Bitmap(width, height, PixelFormat.Format32bppArgb);
             Color color;
@@ -122,40 +101,63 @@ namespace ITOI
             return bitmap;
         }
 
-        public byte[] SetBrightnessToGrayArray(byte[] GrayArray, int width, int height, int r)
+        public Bitmap MatrixToImage(double[,] GrayMatrix, int width, int height)
         {
-            int N = width * height;
-            byte[] b = new byte[N];
-            int q = 0;
-            for (int i = 0; i < N; i++)
+            Bitmap bitmap = new Bitmap(width, height, PixelFormat.Format32bppArgb);
+            Color color;
+            byte[,] NormMtx = NormalizeMatrix(GrayMatrix, width, height);
+
+            for (int y = 0; y < height; y++)
             {
-                q = GrayArray[i] + r;
-                if (q > 255)
+                for (int x = 0; x < width; x++)
                 {
-                    b[i] = 255;
-                }
-                else if (q < 0)
-                {
-                    b[i] = 0;
-                }
-                else
-                {
-                    b[i] = Convert.ToByte(q);
+                    color = Color.FromArgb(255, NormMtx[y, x], NormMtx[y, x], NormMtx[y, x]);
+                    bitmap.SetPixel(x, y, color);
                 }
             }
-            return b;
+            return bitmap;
         }
 
-        public byte[] Svertka(byte[,] GrayMatrix, int width, int height, double[,] mask, int k, int kraimode)
+        public double[,] Svertka(byte[,] GrayMatrix, int width, int height, double[,] mask, int k, int kraimode)
         {
             byte[,] GrayMatrixAdd = new byte[height + 2 * k, width + 2 * k];
-            byte[,] Result = new byte[height, width];
+            double[,] Result = new double[height, width];
+            byte[,] ResultByte = new byte[height, width];
 
-            for (int y = 0; y < height + 2 * k; y++)
+            /* Краевые эффекты */
+            // Копируем значение с края изображения
+            if (kraimode == 1) 
             {
+                for (int y = 0; y < height; y++)
+                {
+                    for (int x = 0; x < width; x++)
+                    {
+                        GrayMatrixAdd[y + k, x + k] = GrayMatrix[y, x];
+                    }
+                }
+                for (int y = k; y < height + k; y++)
+                {
+                    for (int x = 0; x < k; x++)
+                    {
+                        GrayMatrixAdd[y, x] = GrayMatrixAdd[y, k];
+                        GrayMatrixAdd[y, width + k + x] = GrayMatrixAdd[y, width + k - 1];
+                    }
+                }
                 for (int x = 0; x < width + 2 * k; x++)
                 {
-                    if (kraimode == 0) // Снаружи 0
+                    for (int y = 0; y < k; y++)
+                    {
+                        GrayMatrixAdd[y, x] = GrayMatrixAdd[k, x];
+                        GrayMatrixAdd[height + k + y, x] = GrayMatrixAdd[height + k - 1, x];
+                    }
+                }
+            }
+            // Всё снаружи чёрное
+            else
+            {
+                for (int y = 0; y < height + 2 * k; y++)
+                {
+                    for (int x = 0; x < width + 2 * k; x++)
                     {
                         if (x < k || y < k || y >= height + k || x >= width + k)
                         {
@@ -168,6 +170,7 @@ namespace ITOI
                     }
                 }
             }
+            /*-----------------*/
 
             for (int y = k; y < height + k; y++)
             {
@@ -181,87 +184,65 @@ namespace ITOI
                             S += (double)GrayMatrixAdd[y - hWinY, x - hWinX] * mask[k + hWinY, k + hWinX];
                         }
                     }
-                    if (S > 255)
-                    {
-                        Result[y - k, x - k] = 255;
-                    }
-                    else if(S < 0)
-                    {
-                        Result[y - k, x - k] = 0;
-                    }
-                    else
-                    {
-                        Result[y - k, x - k] = Convert.ToByte(Math.Round(S));
-                    }
-                }
-            }
-
-            return MatrixToArray(Result, width, height);
-        }
-
-        public byte[,] SvertkaM(byte[,] GrayMatrix, int width, int height, double[,] mask, int k, int kraimode)
-        {
-            byte[,] GrayMatrixAdd = new byte[height + 2 * k, width + 2 * k];
-            byte[,] Result = new byte[height, width];
-
-            for (int y = 0; y < height + 2 * k; y++)
-            {
-                for (int x = 0; x < width + 2 * k; x++)
-                {
-                    if (kraimode == 0) // Снаружи 0
-                    {
-                        if (x < k || y < k || y >= height + k || x >= width + k)
-                        {
-                            GrayMatrixAdd[y, x] = 0;
-                        }
-                        else
-                        {
-                            GrayMatrixAdd[y, x] = GrayMatrix[y - k, x - k];
-                        }
-                    }
-                }
-            }
-
-            for (int y = k; y < height + k; y++)
-            {
-                for (int x = k; x < width + k; x++)
-                {
-                    double S = 0;
-                    for (int hWinX = -k; hWinX <= k; hWinX++)
-                    {
-                        for (int hWinY = -k; hWinY <= k; hWinY++)
-                        {
-                            S += (double)GrayMatrixAdd[y - hWinY, x - hWinX] * mask[k + hWinY, k + hWinX];
-                        }
-                    }
-                    if (S > 255)
-                    {
-                        Result[y - k, x - k] = 255;
-                    }
-                    else if (S < 0)
-                    {
-                        Result[y - k, x - k] = 0;
-                    }
-                    else
-                    {
-                        Result[y - k, x - k] = Convert.ToByte(Math.Round(S));
-                    }
+                    Result[y - k, x - k] = S;
                 }
             }
 
             return Result;
         }
 
-        public double[,] GausCore (double sigma, out int k)
+        public byte[,] NormalizeMatrix(double[,] Matrix, int width, int height)
         {
-            k = Convert.ToInt32(Math.Round(3 * sigma));
+            byte[,] ResultByte = new byte[height, width];
+            double[,] Result = new double[height, width];
+
+            double vMax = -10000;
+            double vMin = 10000;
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    Result[y, x] = Matrix[y, x];
+                    if (Result[y, x] >= vMax)
+                    {
+                        vMax = Result[y, x];
+                    }
+                    else if (Result[y, x] <= vMin)
+                    {
+                        vMin = Result[y, x];
+                    }
+                }
+            }
+
+            vMax -= vMin;
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    Result[y, x] = (Result[y, x] - vMin) * 255.0 / vMax;
+                    ResultByte[y, x] = Convert.ToByte(Result[y, x]);
+                }
+            }
+
+            return ResultByte;
+        }
+
+        public double[,] GausCore(double sigma, out int k)
+        {
+            k = Convert.ToInt32(Math.Round(3.0 * sigma));
             double[,] GausMatrix = new double[2 * k + 1, 2 * k + 1];
+            double d, stepen, e, pi, a;
 
             for (int hWinX = -k; hWinX <= k; hWinX++)
             {
                 for (int hWinY = -k; hWinY <= k; hWinY++)
                 {
-                    GausMatrix[k + hWinY, k + hWinX] = (1.0 / (2.0 * Math.PI * Math.Pow(sigma, 2))) * Math.Pow(Math.E, (-1.0 * (Math.Pow(hWinX, 2) + Math.Pow(hWinY, 2)) / (2.0 * Math.Pow(sigma, 2))));
+                    d = Math.Sqrt(hWinX * hWinX + hWinY * hWinY);
+                    stepen = -1.0 * ((d * d) / (2.0 * sigma * sigma));
+                    e = Math.Pow(Math.E, stepen);
+                    pi = Math.Sqrt(2.0 * Math.PI);
+                    a = 1.0 / (pi * sigma);
+                    GausMatrix[k + hWinY, k + hWinX] = a * e;
                 }
             }
 
@@ -298,66 +279,14 @@ namespace ITOI
             return Result;
         }
 
-        public byte[,] ArrayToMatrix(byte[] array, int width, int height)
+        public void SaveGausCore(double[,] GausMatrix, int k, string path)
         {
-            byte[,] matrix = new byte[height, width];
-
-            for (int i = 0; i < width * height; i++)
-            {
-                int x = i % width;
-                int y = i / width;
-                matrix[y, x] = array[i];
-            }
-
-            return matrix;
+            Bitmap bitmap = MatrixToImage(GausMatrix, k * 2 + 1, k * 2 + 1);
+            //DrawImage(bitmap, pictureBox);
+            bitmap.Save(path);
         }
 
-        public byte[] MatrixToArray(byte[,] matrix, int width, int height)
-        {
-            byte[] array = new byte[height * width];
 
-            int i = 0;
-            for (int y = 0; y < height; y++)
-            {
-                for (int x = 0; x < width; x++)
-                {
-                    array[i] = matrix[y, x];
-                    i++;
-                }
-            }
-
-            return array;
-        }
-
-        public void DrawGausCore(byte[,] GausMatrix, int k, PictureBox pictureBox)
-        {
-            double max = 0.0;
-            for (int i = 0; i < k * 2 + 1; i++)
-            {
-                for (int j = 0; j < k * 2 + 1; j++)
-                {
-                    if (GausMatrix[i, j] > max)
-                    {
-                        max = GausMatrix[i, j];
-                    }
-                }
-            }
-
-            double kk = 255.0 / max;
-
-            byte[,] b1 = new byte[k * 2 + 1, k * 2 + 1];
-            for (int i = 0; i < k * 2 + 1; i++)
-            {
-                for (int j = 0; j < k * 2 + 1; j++)
-                {
-                    b1[i, j] = Convert.ToByte(GausMatrix[i, j] * kk);
-                }
-            }
-            byte[] b2 = MatrixToArray(b1, k * 2 + 1, k * 2 + 1);
-            Bitmap bitmap = GrayArrayToImage(b2, k * 2 + 1, k * 2 + 1);
-            DrawImage(bitmap, pictureBox);
-            bitmap.Save("../../../files/Result/GaussCore.png");
-        }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -375,13 +304,13 @@ namespace ITOI
                 {-1, -2, -1}
             };
 
-            DerivativeX = Svertka(GrayMatrix, width, height, maskX, k, 0);
-            DerivativeXImage = GrayArrayToImage(DerivativeX, width, height);
+            DerivativeX = Svertka(GrayMatrix, IWidth, IHeight, maskX, k, 0);
+            DerivativeXImage = MatrixToImage(DerivativeX, IWidth, IHeight);
             DrawImage(DerivativeXImage, pictureBox3);
             DerivativeXImage.Save("../../../files/Result/DerivativeX.png");
 
-            DerivativeY = Svertka(GrayMatrix, width, height, maskY, k, 0);
-            DerivativeYImage = GrayArrayToImage(DerivativeY, width, height);
+            DerivativeY = Svertka(GrayMatrix, IWidth, IHeight, maskY, k, 0);
+            DerivativeYImage = MatrixToImage(DerivativeY, IWidth, IHeight);
             DrawImage(DerivativeYImage, pictureBox4);
             DerivativeYImage.Save("../../../files/Result/DerivativeY.png");
 
@@ -392,25 +321,21 @@ namespace ITOI
         {
             DrawImage(GrayImage, pictureBox6);
 
-            Sobel = new byte[height * width];
-            double S = 0;
-            for (int i = 0; i < height * width; i++)
+            Sobel = new double[IHeight, IWidth];
+            double dx = 0.0;
+            double dy = 0.0;
+
+            for (int y = 0; y < IHeight; y++)
             {
-                S = Math.Round(Math.Sqrt(Math.Pow(DerivativeX[i], 2) + Math.Pow(DerivativeY[i], 2)));
-                if (S > 255)
+                for (int x = 0; x < IWidth; x++)
                 {
-                    Sobel[i] = 255;
-                }
-                else if (S < 0)
-                {
-                    Sobel[i] = 0;
-                }
-                else
-                {
-                    Sobel[i] = Convert.ToByte(S);
+                    dx = Math.Pow(DerivativeX[y, x], 2);
+                    dy = Math.Pow(DerivativeY[y, x], 2);
+                    Sobel[y, x] = Math.Sqrt(dx + dy);
                 }
             }
-            SobelImage = GrayArrayToImage(Sobel, width, height);
+
+            SobelImage = MatrixToImage(Sobel, IWidth, IHeight);
             DrawImage(SobelImage, pictureBox5);
             SobelImage.Save("../../../files/Result/Sobel.png");
         }
@@ -426,7 +351,11 @@ namespace ITOI
             if (mTr)
             {
                 DirectoryInfo dirInfo = new DirectoryInfo("../../../files/Result/Piramida/");
-
+                foreach (FileInfo file in dirInfo.GetFiles())
+                {
+                    file.Delete();
+                }
+                dirInfo = new DirectoryInfo("../../../files/Result/Piramida/Gauss");
                 foreach (FileInfo file in dirInfo.GetFiles())
                 {
                     file.Delete();
@@ -436,7 +365,7 @@ namespace ITOI
                 int S = Convert.ToInt32(textBox2.Text);  // Число масштабов в октаве
                 double k = Math.Pow(2.0, (1.0 / (double)S)); // Интервал между масштабами
 
-                int minr = Math.Min(width, height);
+                int minr = Math.Min(IWidth, IHeight);
                 int O = 0;                                 // Число октав
                 while (minr > 32)
                 {
@@ -447,55 +376,53 @@ namespace ITOI
                 Bitmap bitmapTEK;
                 double sigmaD = sigma0;                        // Действительная сигма
                 double sigmaTEK = sigma0;
-                double qq = 0;
-                byte[,] img = new byte[height, width];
-                for (int y = 0; y < height; y++)
+                double qq = 1;
+                byte[,] img = new byte[IHeight, IWidth];
+                double[,] Dimg = new double[IHeight, IWidth];
+                for (int y = 0; y < IHeight; y++)
                 {
-                    for (int x = 0; x < width; x++)
+                    for (int x = 0; x < IWidth; x++)
                     {
                         img[y, x] = GrayMatrix[y, x];
                     }
                 }
 
-                int widthTEK = width;
-                int heightTEK = height;
-                bitmapTEK = GrayMatrixToImage(img, widthTEK, heightTEK);
+                int widthTEK = IWidth;
+                int heightTEK = IHeight;
+                bitmapTEK = MatrixToImage(img, widthTEK, heightTEK);
                 bitmapTEK.Save("../../../files/Result/Piramida/000.png");
+                double[,] GausMatrix;
+                int n;
+
+                GausMatrix = GausCore(sigma0, out n);
+                Dimg = Svertka(img, widthTEK, heightTEK, GausMatrix, n, 1);
+                img = NormalizeMatrix(Dimg, widthTEK, heightTEK);
+                bitmapTEK = MatrixToImage(img, widthTEK, heightTEK);
+                bitmapTEK.Save("../../../files/Result/Piramida/" + "00"
+                    + " - S1=" + Convert.ToString(Math.Round(sigma0, 2)) + " - Sd=" + Convert.ToString(Math.Round(sigma0, 2)) + ".png");
+                SaveGausCore(GausMatrix, n, "../../../files/Result/Piramida/Gauss/" + "00" + ".png");
+
                 for (int o = 0; o < O; o++)
                 {
-                    for (int s = 0; s < S; s++)
+                    for (int s = 1; s <= S; s++)
                     {
                         sigmaTEK = sigma0 * Math.Pow(k, s);                       // Текущая сигма
                         sigmaD = sigma0 * Math.Pow(k, qq);
                         qq++;
-                        int n;
-                        double[,] GausMatrix = GausCore(sigma0, out n);
-                        img = SvertkaM(img, widthTEK, heightTEK, GausMatrix, n, 0);
-                        bitmapTEK = GrayMatrixToImage(img, widthTEK, heightTEK);
+                        GausMatrix = GausCore(sigmaTEK, out n);
+                        Dimg = Svertka(img, widthTEK, heightTEK, GausMatrix, n, 1);
+                        img = NormalizeMatrix(Dimg, widthTEK, heightTEK);
+                        bitmapTEK = MatrixToImage(img, widthTEK, heightTEK);
                         bitmapTEK.Save("../../../files/Result/Piramida/" + Convert.ToString(o) + Convert.ToString(s)
-                            + " - S1=" + Convert.ToString(Math.Round(sigmaTEK,2)) + " - Sd=" + Convert.ToString(Math.Round(sigmaD, 2)) + ".png");
+                            + " - S1=" + Convert.ToString(Math.Round(sigmaTEK, 2)) + " - Sd=" + Convert.ToString(Math.Round(sigmaD, 2)) + ".png");
+                        SaveGausCore(GausMatrix, n, "../../../files/Result/Piramida/Gauss/" + Convert.ToString(o) + Convert.ToString(s) + ".png");
                     }
-                    sigmaTEK = sigma0 * Math.Pow(k, S);
-                    sigmaD = sigma0 * Math.Pow(k, qq);
                     img = Downsample(img, widthTEK, heightTEK, out widthTEK, out heightTEK);
-                    bitmapTEK = GrayMatrixToImage(img, widthTEK, heightTEK);
-                    bitmapTEK.Save("../../../files/Result/Piramida/" + Convert.ToString(o) + Convert.ToString(S)
-                        + " - S1=" + Convert.ToString(Math.Round(sigmaTEK, 2)) + " - Sd=" + Convert.ToString(Math.Round(sigmaD, 2)) + ".png");
+                    bitmapTEK = MatrixToImage(img, widthTEK, heightTEK);
+                    bitmapTEK.Save("../../../files/Result/Piramida/"  + Convert.ToString(o + 1) + "0"
+                            + " - S1=" + Convert.ToString(Math.Round(sigma0, 2)) + " - Sd=" + Convert.ToString(Math.Round(sigmaD, 2)) + ".png");
                 }
-
             }
-
-
-
-
-            /*
-            int k;
-            double sigma = 5.5;
-            double[,] GausMatrix = GausCore(sigma, out k);
-            DerivativeX = Svertka(GrayMatrix, width, height, GausMatrix, k, 0);
-            DerivativeXImage = GrayArrayToImage(DerivativeX, width, height);
-            //DrawImage(DerivativeXImage, pictureBox8);
-            */
         }
     }
 }

@@ -49,11 +49,12 @@
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.button3 = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -248,6 +249,7 @@
             // 
             this.tabControl2.Controls.Add(this.tabPage4);
             this.tabControl2.Controls.Add(this.tabPage5);
+            this.tabControl2.Controls.Add(this.tabPage6);
             this.tabControl2.Location = new System.Drawing.Point(3, 5);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
@@ -282,35 +284,15 @@
             this.tabPage5.Text = "Лабораторая №2";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // textBox2
             // 
-            this.button3.Location = new System.Drawing.Point(249, 55);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(140, 37);
-            this.button3.TabIndex = 1;
-            this.button3.Text = "Построить пирамиду";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.Location = new System.Drawing.Point(6, 14);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(92, 20);
-            this.label7.TabIndex = 2;
-            this.label7.Text = "Сигма(0) = ";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label8.Location = new System.Drawing.Point(262, 14);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(234, 20);
-            this.label8.TabIndex = 3;
-            this.label8.Text = "Число масштабов в октаве = ";
+            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox2.Location = new System.Drawing.Point(502, 11);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 26);
+            this.textBox2.TabIndex = 5;
+            this.textBox2.Text = "2";
+            this.textBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPress1);
             // 
             // textBox1
             // 
@@ -322,15 +304,44 @@
             this.textBox1.Text = "1";
             this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPress2);
             // 
-            // textBox2
+            // label8
             // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox2.Location = new System.Drawing.Point(502, 11);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 26);
-            this.textBox2.TabIndex = 5;
-            this.textBox2.Text = "2";
-            this.textBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPress1);
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label8.Location = new System.Drawing.Point(262, 14);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(234, 20);
+            this.label8.TabIndex = 3;
+            this.label8.Text = "Число масштабов в октаве = ";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.Location = new System.Drawing.Point(6, 14);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(92, 20);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "Сигма(0) = ";
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(249, 55);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(140, 37);
+            this.button3.TabIndex = 1;
+            this.button3.Text = "Построить пирамиду";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Size = new System.Drawing.Size(678, 653);
+            this.tabPage6.TabIndex = 2;
+            this.tabPage6.Text = "Лабораторная №3";
+            this.tabPage6.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -391,6 +402,7 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TabPage tabPage6;
     }
 }
 
