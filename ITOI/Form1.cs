@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+/*Обработка изображений*/
+
 namespace ITOI
 {
     public partial class Form1 : Form
