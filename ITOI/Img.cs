@@ -23,12 +23,13 @@ namespace ITOI
             Height = height;
             Width = width;
             Bitmap = new Bitmap(Width, Height, PixelFormat.Format32bppArgb);
-            GrayMatrix = matrix;
+            GrayMatrix = new byte[Height, Width];
             Color color;
             for (int y = 0; y < Height; y++)
             {
                 for (int x = 0; x < Width; x++)
                 {
+                    GrayMatrix[y, x] = matrix[y, x];
                     color = Color.FromArgb(255, GrayMatrix[y, x], GrayMatrix[y, x], GrayMatrix[y, x]);
                     Bitmap.SetPixel(x, y, color);
                 }
@@ -69,9 +70,9 @@ namespace ITOI
             }
         }
 
-        public Img(Bitmap bitmap)
+        /*public Img(Bitmap bitmap)
         {
-            Bitmap = bitmap;
+            Bitmap = new Bitmap(Width, Height, PixelFormat.Format32bppArgb);
             Height = Bitmap.Height;
             Width = Bitmap.Width;
             GrayMatrix = new byte[Height, Width];
@@ -80,11 +81,12 @@ namespace ITOI
             {
                 for (int x = 0; x < Width; x++)
                 {
+                    Bitmap.SetPixel(x, y, bitmap.GetPixel(x, y));
                     color = Bitmap.GetPixel(x, y);
                     GrayMatrix[y, x] = Convert.ToByte(Math.Round(0.213 * color.R + 0.715 * color.G + 0.072 * color.B));
                 }
             }
-        }
+        }*/
 
         public void Draw(PictureBox pictureBox)
         {

@@ -67,7 +67,7 @@ namespace ITOI
                 Close();
 
             */
-            BeginImg = new Img(BasePath + "Begin/BeginImage4.png");
+            BeginImg = new Img(BasePath + "Begin/BeginImage1.png");
             GrayImg = new Img(BeginImg.GrayMatrix, BeginImg.Width, BeginImg.Height);
             GrayImg.Save(BasePath + "Result/GrayImage.png");
 
@@ -194,93 +194,126 @@ namespace ITOI
         {
             GrayImg.Draw(pictureBox8);
 
-            int radius = 3;
-            int p = radius;
-            double Imin = 0;
-            double Imax = 1000;
-            double T = (Imax - Imin) * 2 / 4;
-            T = 100;
-            double[,] S = F.MoravekS(GrayImg.GrayMatrix, IWidth, IHeight, radius, 1);
-            S = F.NormalizeMatrix(S, IWidth, IHeight, Imin, Imax);
+            Moravek moravek = new Moravek(GrayImg, 1, 1, 0.5);
 
-            bool[,] InterestingPoints = new bool[IHeight, IWidth];
+            moravek.DrawImageWithPoints(pictureBox7);
+            moravek.SaveImageWithPoints(BasePath + "Lab 3/Moravek.png");
+        }
 
-            double[,] SAdd = new double[IHeight + 2 * p, IWidth + 2 * p];
+        private void button5_Click(object sender, EventArgs e)
+        {
+            GrayImg.Draw(pictureBox14);
 
-            for (int y = 0; y < IHeight + 2 * p; y++)
+            Harris harris = new Harris(GrayImg);
+
+            int radiusokna = 2;
+            int UVMAX = 2;
+            double[,] MaxL = new double[IHeight, IWidth];
+            double[,] MinL = new double[IHeight, IWidth];
+            /*
+            double[,] MinX = new double[IHeight, IWidth];
+            double[,] MinY = new double[IHeight, IWidth];
+            double[,] MaxX = new double[IHeight, IWidth];
+            double[,] MaxY = new double[IHeight, IWidth];
+            */
+            double MAXmin = -999999999;
+            double R = 0.7;
+            for (int y = radiusokna; y < IHeight - radiusokna; y++)
             {
-                for (int x = 0; x < IWidth + 2 * p; x++)
+                for (int x = radiusokna; x < IWidth - radiusokna; x++)
                 {
-                    if (x < p || y < p || y >= IHeight + p || x >= IWidth + p)
+                    double A = 0.0;
+                    double B = 0.0;
+                    double C = 0.0;
+                    for (int hWinX = -radiusokna; hWinX <= radiusokna; hWinX++)
                     {
-                        SAdd[y, x] = 0;
-                    }
-                    else
-                    {
-                        SAdd[y, x] = S[y - p, x - p];
-                    }
-                }
-            }
-
-            for (int y = p; y < IHeight + p; y++)
-            {
-                for (int x = p; x < IWidth + p; x++)
-                {
-                    double vMax = -999999999;
-                    for (int hWinX = -p; hWinX <= p; hWinX++)
-                    {
-                        for (int hWinY = -p; hWinY <= p; hWinY++)
+                        for (int hWinY = -radiusokna; hWinY <= radiusokna; hWinY++)
                         {
-                            if (hWinX == 0 && hWinY == 0)
+                            A += Math.Pow(DerivativeX[y + hWinY, x + hWinX], 2);
+                            B += DerivativeX[y + hWinY, x + hWinX] * DerivativeY[y + hWinY, x + hWinX];
+                            C += Math.Pow(DerivativeY[y + hWinY, x + hWinX], 2);
+                        }
+                    }
+                    double E;
+                    double Lmax = -999999999;
+                    double Lmin = 999999999;
+                    /*
+                    int Xmax = 0;
+                    int Ymax = 0;
+                    int Xmin = 0;
+                    int Ymin = 0;
+                    */
+                    for (int v = -UVMAX; v < UVMAX; v++)
+                    {
+                        for (int u = -UVMAX; u < UVMAX; u++)
+                        {
+                            if (x + u < IWidth && x + u >= 0
+                                && y + v < IHeight && y + v >= 0
+                                && u != 0 && v != 0)
                             {
-                                continue;
-                            }
-                            if (SAdd[y + hWinY, x + hWinX] > vMax)
-                            {
-                                vMax = SAdd[y + hWinY, x + hWinX];
+                                E = A * Math.Pow(u, 2) + 2 * B * u * v + C * Math.Pow(v, 2);
+                                if (E > Lmax)
+                                {
+                                    Lmax = E;
+                                }
+                                if (E < Lmin)
+                                {
+                                    Lmin = E;
+                                }
                             }
                         }
                     }
-                    if (SAdd[y, x] > vMax && SAdd[y, x] > T)
+                    MaxL[y, x] = Lmax;
+                    MinL[y, x] = Lmin;
+                    if (MinL[y, x] > MAXmin)
                     {
-                        InterestingPoints[y - p, x - p] = true;
-                    }
-                    else
-                    {
-                        InterestingPoints[y - p, x - p] = false;
+                        MAXmin = MinL[y, x];
                     }
                 }
             }
 
-
-
-
-
-
-            Bitmap bitmap = new Bitmap(IWidth, IHeight, PixelFormat.Format32bppArgb);
-            Color color;
-            bitmap = F.MatrixToImage(GrayImg.GrayMatrix, IWidth, IHeight);
-            for (int y = 0; y < IHeight; y++)
+            double T = MAXmin * R;
+            bool[,] InterestingPoints = new bool[IHeight, IWidth];
+            for (int y = radiusokna; y < IHeight - radiusokna; y++)
             {
-                for (int x = 0; x < IWidth; x++)
+                for (int x = radiusokna; x < IWidth - radiusokna; x++)
+                {
+                    if (MinL[y, x] > T)
+                    {
+                        InterestingPoints[y, x] = true;
+                    }
+                    else
+                    {
+                        InterestingPoints[y, x] = false;
+                    }
+                }
+            }
+
+            int r = 1;
+            Img ImageWithPoints = new Img(GrayImg.GrayMatrix, GrayImg.Width, GrayImg.Height);
+            Color color;
+            for (int y = radiusokna; y < ImageWithPoints.Height - radiusokna; y++)
+            {
+                for (int x = radiusokna; x < ImageWithPoints.Width - radiusokna; x++)
                 {
                     if (InterestingPoints[y, x])
                     {
-                        for (int hWinX = -1; hWinX <= 1; hWinX++)
+                        for (int hWinX = -r; hWinX <= r; hWinX++)
                         {
-                            for (int hWinY = -1; hWinY <= 1; hWinY++)
+                            for (int hWinY = -r; hWinY <= r; hWinY++)
                             {
-                                color = Color.FromArgb(255, 255, 0, 0);
-                                bitmap.SetPixel(x + hWinX, y + hWinY, color);
+                                if (x + hWinX < ImageWithPoints.Width && x + hWinX >= 0
+                                    && y + hWinY < ImageWithPoints.Height && y + hWinY >= 0)
+                                {
+                                    color = Color.FromArgb(255, 255, 0, 0);
+                                    ImageWithPoints.Bitmap.SetPixel(x + hWinX, y + hWinY, color);
+                                }
                             }
                         }
                     }
                 }
             }
-
-            F.DrawImage(bitmap, pictureBox7);
-            bitmap.Save("../../../files/Lab 3/Moravek.png");
-
+            ImageWithPoints.Draw(pictureBox13);
 
         }
     }
