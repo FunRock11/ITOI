@@ -253,6 +253,7 @@ namespace ITOI
                 for (int x = 0; x < width; x++)
                 {
                     Result[y, x] = (Result[y, x] - vMin) * 255.0 / vMax;
+                    double q = Result[y, x];
                     ResultByte[y, x] = Convert.ToByte(Result[y, x]);
                 }
             }

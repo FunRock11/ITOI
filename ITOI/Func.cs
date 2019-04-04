@@ -214,5 +214,78 @@ namespace ITOI
             return Result;
         }
 
+        // Свёртка
+        public double[,] Svertka(double[,] GrayMatrix, int width, int height, double[,] mask, int k, int kraimode)
+        {
+            double[,] GrayMatrixAdd = new double[height + 2 * k, width + 2 * k];
+            double[,] Result = new double[height, width];
+
+            /* Краевые эффекты */
+            // Копируем значение с края изображения
+            if (kraimode == 1)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    for (int x = 0; x < width; x++)
+                    {
+                        GrayMatrixAdd[y + k, x + k] = GrayMatrix[y, x];
+                    }
+                }
+                for (int y = k; y < height + k; y++)
+                {
+                    for (int x = 0; x < k; x++)
+                    {
+                        GrayMatrixAdd[y, x] = GrayMatrixAdd[y, k];
+                        GrayMatrixAdd[y, width + k + x] = GrayMatrixAdd[y, width + k - 1];
+                    }
+                }
+                for (int x = 0; x < width + 2 * k; x++)
+                {
+                    for (int y = 0; y < k; y++)
+                    {
+                        GrayMatrixAdd[y, x] = GrayMatrixAdd[k, x];
+                        GrayMatrixAdd[height + k + y, x] = GrayMatrixAdd[height + k - 1, x];
+                    }
+                }
+            }
+            // Всё снаружи чёрное
+            else
+            {
+                for (int y = 0; y < height + 2 * k; y++)
+                {
+                    for (int x = 0; x < width + 2 * k; x++)
+                    {
+                        if (x < k || y < k || y >= height + k || x >= width + k)
+                        {
+                            GrayMatrixAdd[y, x] = 0;
+                        }
+                        else
+                        {
+                            GrayMatrixAdd[y, x] = GrayMatrix[y - k, x - k];
+                        }
+                    }
+                }
+            }
+            /*-----------------*/
+
+            for (int y = k; y < height + k; y++)
+            {
+                for (int x = k; x < width + k; x++)
+                {
+                    double S = 0;
+                    for (int hWinX = -k; hWinX <= k; hWinX++)
+                    {
+                        for (int hWinY = -k; hWinY <= k; hWinY++)
+                        {
+                            S += GrayMatrixAdd[y - hWinY, x - hWinX] * mask[k + hWinY, k + hWinX];
+                        }
+                    }
+                    Result[y - k, x - k] = S;
+                }
+            }
+
+            return Result;
+        }
+
     }
 }

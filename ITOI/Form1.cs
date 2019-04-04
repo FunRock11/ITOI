@@ -67,7 +67,7 @@ namespace ITOI
                 Close();
 
             */
-            BeginImg = new Img(BasePath + "Begin/BeginImage5.png");
+            BeginImg = new Img(BasePath + "Begin/BeginImage6.png");
             GrayImg = new Img(BeginImg.GrayMatrix, BeginImg.Width, BeginImg.Height);
             GrayImg.Save(BasePath + "Result/GrayImage.png");
 
@@ -94,12 +94,12 @@ namespace ITOI
                 {-1, -2, -1}
             };
 
-            DerivativeX = F.Svertka(GrayImg.GrayMatrix, IWidth, IHeight, maskX, k, 0);
+            DerivativeX = F.Svertka(GrayImg.GrayMatrix, IWidth, IHeight, maskX, k, 1);
             DerivativeXImg = new Img(DerivativeX, IWidth, IHeight);
             DerivativeXImg.Draw(pictureBox3);
             DerivativeXImg.Save(BasePath + "Lab 1/DerivativeX.png");
 
-            DerivativeY = F.Svertka(GrayImg.GrayMatrix, IWidth, IHeight, maskY, k, 0);
+            DerivativeY = F.Svertka(GrayImg.GrayMatrix, IWidth, IHeight, maskY, k, 1);
             DerivativeYImg = new Img(DerivativeY, IWidth, IHeight);
             DerivativeYImg.Draw(pictureBox4);
             DerivativeYImg.Save(BasePath + "Lab 1/DerivativeY.png");
@@ -204,10 +204,18 @@ namespace ITOI
         {
             GrayImg.Draw(pictureBox14);
 
-            Harris harris = new Harris(GrayImg, 2, 0, 2, 0.8);
+            Harris harris = new Harris(GrayImg, 5, 0, 0.5);
 
-            harris.DrawImageWithPoints(pictureBox13);
-            harris.DrawColorImage(pictureBox14);
+            harris.ImageWithPoints.Draw(pictureBox13);
+
+            Img DX = new Img(harris.MinL, IWidth, IHeight);
+            Img DY = new Img(harris.MaxL, IWidth, IHeight);
+
+            DX.Draw(pictureBox16);
+            DY.Draw(pictureBox15);
+
+            //harris.DrawImageWithPoints(pictureBox13);
+            //harris.DrawColorImage(pictureBox14);
 
         }
     }

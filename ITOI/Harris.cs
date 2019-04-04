@@ -13,72 +13,37 @@ namespace ITOI
         Func F = new Func();
         public Img Image;
         public Img ImageWithPoints;
-        public Img ColorImage;
         public int WindowRadius;
         public int LocalRadius;
         public double R; // Отбираются точки, которые больше R * max
         public double[,] DerivativeX;
         public double[,] DerivativeY;
-        public int UV;
         public double[,] MinL;
+        public double[,] MaxL;
         public bool[,] InterestingPoints;
+        public GaussCore GaussMatrix;
+        double[,] MTX;
+
 
         double MAXmin = -999999999;
         double MINmin = 999999999;
-
-        public Harris(Img image, int windowradius, int localradius, int uv, double r)
+        
+        public Harris(Img image, int windowradius, int localradius, double r)
         {
-            Image = new Img(image.GrayMatrix, image.Width, image.Height);
-            /*
-            GaussCore GaussMatrix = new GaussCore(1);
-            Image.SvertkaWithNormalize(GaussMatrix.Matrix, GaussMatrix.Radius, 1);
-            */
+            Image = image;
+            GaussMatrix = new GaussCore(windowradius, 1);
+            MTX = F.Svertka(Image.GrayMatrix, Image.Width, Image.Height, GaussMatrix.Matrix, GaussMatrix.Radius, 1);
+
+            
+
             WindowRadius = windowradius;
             LocalRadius = localradius;
-            UV = uv;
             R = r;
 
             Derivative();
             Minl(1);
             IntPoints();
-            DColor();
             PColor();
-        }
-
-        public void DrawImage(PictureBox pictureBox)
-        {
-            pictureBox.Height = Image.Height;
-            pictureBox.Width = Image.Width;
-            pictureBox.Image = Image.Bitmap;
-        }
-
-        public void SaveImage(string path)
-        {
-            Image.Save(path);
-        }
-
-        public void DrawImageWithPoints(PictureBox pictureBox)
-        {
-            pictureBox.Height = ImageWithPoints.Height;
-            pictureBox.Width = ImageWithPoints.Width;
-            pictureBox.Image = ImageWithPoints.Bitmap;
-        }
-
-        public void SaveImageWithPoints(string path)
-        {
-            ImageWithPoints.Save(path);
-        }
-
-        public void DrawColorImage(PictureBox pictureBox)
-        {
-            pictureBox.Height = ColorImage.Height;
-            pictureBox.Width = ColorImage.Width;
-            pictureBox.Image = ColorImage.Bitmap;
-        }
-
-        public void SaveColorImage(string path)
-        {
-            ColorImage.Save(path);
         }
 
         private void Derivative()
@@ -97,49 +62,56 @@ namespace ITOI
                 {-1, -2, -1}
             };
 
-            DerivativeX = F.Svertka(Image.GrayMatrix, Image.Width, Image.Height, maskX, k, 0);
-            DerivativeY = F.Svertka(Image.GrayMatrix, Image.Width, Image.Height, maskY, k, 0);
+            DerivativeX = F.Svertka(MTX, Image.Width, Image.Height, maskX, k, 1);
+            DerivativeY = F.Svertka(MTX, Image.Width, Image.Height, maskY, k, 1);
         }
 
         private void Minl(int kraimode)
         {
             MinL = new double[Image.Height, Image.Width];
+            MaxL = new double[Image.Height, Image.Width];
 
             for (int y = WindowRadius; y < Image.Height - WindowRadius; y++)
             {
                 for (int x = WindowRadius; x < Image.Width - WindowRadius; x++)
                 {
-                    double A = 0.0;
-                    double B = 0.0;
-                    double C = 0.0;
+                    double[,] H = new double[2, 2];
                     for (int hWinX = -WindowRadius; hWinX <= WindowRadius; hWinX++)
                     {
                         for (int hWinY = -WindowRadius; hWinY <= WindowRadius; hWinY++)
                         {
-                            A += Math.Pow(DerivativeX[y + hWinY, x + hWinX], 2);
-                            B += DerivativeX[y + hWinY, x + hWinX] * DerivativeY[y + hWinY, x + hWinX];
-                            C += Math.Pow(DerivativeY[y + hWinY, x + hWinX], 2);
+                            double tekgauss = GaussMatrix.Matrix[WindowRadius + hWinY, WindowRadius + hWinX];
+
+                            H[0, 0] += Math.Pow(DerivativeX[y + hWinY, x + hWinX], 2) * tekgauss;
+                            H[0, 1] += DerivativeX[y + hWinY, x + hWinX] * DerivativeY[y + hWinY, x + hWinX] * tekgauss;
+                            H[1, 0] += DerivativeX[y + hWinY, x + hWinX] * DerivativeY[y + hWinY, x + hWinX] * tekgauss;
+                            H[1, 1] += Math.Pow(DerivativeY[y + hWinY, x + hWinX], 2) * tekgauss;
                         }
                     }
-                    double E;
-                    double Lmin = 999999999;
-                    for (int v = -UV; v < UV; v++)
+
+                    double b = -1 * H[0, 0] - 1 * H[1, 1];
+                    double c = H[0, 0] * H[1, 1] - H[0, 1] - H[1, 0];
+                    double D = Math.Pow(b, 2) - 4 * c;
+                    if (D >= 0)
                     {
-                        for (int u = -UV; u < UV; u++)
+                        double S1 = (-b + Math.Sqrt(D)) / 2;
+                        double S2 = (-b - Math.Sqrt(D)) / 2;
+                        if (S1 > S2)
                         {
-                            if (x + u < Image.Width && x + u >= 0
-                                && y + v < Image.Height && y + v >= 0
-                                && u != 0 && v != 0)
-                            {
-                                E = A * Math.Pow(u, 2) + 2 * B * u * v + C * Math.Pow(v, 2);
-                                if (E < Lmin)
-                                {
-                                    Lmin = E;
-                                }
-                            }
+                            MinL[y, x] = S2;
+                            MaxL[y, x] = S1;
+                        }
+                        else
+                        {
+                            MinL[y, x] = S1;
+                            MaxL[y, x] = S2;
                         }
                     }
-                    MinL[y, x] = Lmin;
+
+                    double k = 0.05;
+                    double f = (H[0, 0] * H[1, 1] - H[0, 1] * H[1, 0]) - k * Math.Pow(H[0, 0] + H[1, 1], 2);
+                    MinL[y, x] = f;
+
                     if (MinL[y, x] > MAXmin)
                     {
                         MAXmin = MinL[y, x];
@@ -148,6 +120,36 @@ namespace ITOI
                     {
                         MINmin = MinL[y, x];
                     }
+
+
+
+                }
+            }
+            for (int y = WindowRadius; y < Image.Height - WindowRadius; y++)
+            {
+                for (int x = WindowRadius; x < Image.Width - WindowRadius; x++)
+                {
+                    if (MinL[y, x] == Double.NaN || MaxL[y, x] == Double.NaN)
+                    {
+                        MinL[y, x] = MINmin;
+                        MaxL[y, x] = MINmin;
+                    }
+                }
+            }
+            for (int y = 0; y < WindowRadius; y++)
+            {
+                for (int x = 0; x < WindowRadius; x++)
+                {
+                    MinL[y, x] = MINmin;
+                    MaxL[y, x] = MINmin;
+                }
+            }
+            for (int y = Image.Height - WindowRadius; y < Image.Height; y++)
+            {
+                for (int x = Image.Width - WindowRadius; x < Image.Width; x++)
+                {
+                    MinL[y, x] = MINmin;
+                    MaxL[y, x] = MINmin;
                 }
             }
         }
@@ -161,6 +163,7 @@ namespace ITOI
             {
                 for (int x = 0; x < Image.Width; x++)
                 {
+                    /*
                     double vMax = -999999999;
                     for (int hWinX = -LocalRadius; hWinX <= LocalRadius; hWinX++)
                     {
@@ -177,7 +180,8 @@ namespace ITOI
                             }
                         }
                     }
-                    if (MinL[y, x] > vMax && MinL[y, x] > T)
+                    */
+                    if (/*MinL[y, x] > vMax &&*/ MinL[y, x] > T)
                     {
                         InterestingPoints[y, x] = true;
                     }
@@ -185,50 +189,6 @@ namespace ITOI
                     {
                         InterestingPoints[y, x] = false;
                     }
-                }
-            }
-            for (int y = 0; y < WindowRadius; y++)
-            {
-                for (int x = 0; x < WindowRadius; x++)
-                {
-                    InterestingPoints[y, x] = false;
-                }
-            }
-            for (int y = Image.Height - WindowRadius; y < Image.Height; y++)
-            {
-                for (int x = Image.Width - WindowRadius; x < Image.Width; x++)
-                {
-                    InterestingPoints[y, x] = false;
-                }
-            }
-        }
-
-        private void DColor()
-        {
-            double T = MAXmin * R;
-            ColorImage = new Img(Image.GrayMatrix, Image.Width, Image.Height);
-            Color color;
-            for (int y = 0; y < Image.Height; y++)
-            {
-                for (int x = 0; x < Image.Width; x++)
-                {
-                    if (MinL[y, x] >= MINmin && MinL[y,x] < T)
-                    {
-                        color = Color.FromArgb(255, 0, 0, 255);
-                    }
-                    else if (MinL[y, x] >= T && MinL[y, x] < T + (1 - R) * 1 / 3)
-                    {
-                        color = Color.FromArgb(255, 0, 255, 0);
-                    }
-                    else if (MinL[y, x] >= T + (1 - R) * 1 / 3 && MinL[y, x] < T + (1 - R) * 2 / 3)
-                    {
-                        color = Color.FromArgb(255, 255, 255, 0);
-                    }
-                    else
-                    {
-                        color = Color.FromArgb(255, 255, 0, 0);
-                    }
-                    ColorImage.Bitmap.SetPixel(x, y, color);
                 }
             }
         }
