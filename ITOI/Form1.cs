@@ -67,7 +67,7 @@ namespace ITOI
                 Close();
 
             */
-            BeginImg = new Img(BasePath + "Begin/BeginImage1.png");
+            BeginImg = new Img(BasePath + "Begin/BeginImage5.png");
             GrayImg = new Img(BeginImg.GrayMatrix, BeginImg.Width, BeginImg.Height);
             GrayImg.Save(BasePath + "Result/GrayImage.png");
 
@@ -204,116 +204,10 @@ namespace ITOI
         {
             GrayImg.Draw(pictureBox14);
 
-            Harris harris = new Harris(GrayImg);
+            Harris harris = new Harris(GrayImg, 2, 0, 2, 0.8);
 
-            int radiusokna = 2;
-            int UVMAX = 2;
-            double[,] MaxL = new double[IHeight, IWidth];
-            double[,] MinL = new double[IHeight, IWidth];
-            /*
-            double[,] MinX = new double[IHeight, IWidth];
-            double[,] MinY = new double[IHeight, IWidth];
-            double[,] MaxX = new double[IHeight, IWidth];
-            double[,] MaxY = new double[IHeight, IWidth];
-            */
-            double MAXmin = -999999999;
-            double R = 0.7;
-            for (int y = radiusokna; y < IHeight - radiusokna; y++)
-            {
-                for (int x = radiusokna; x < IWidth - radiusokna; x++)
-                {
-                    double A = 0.0;
-                    double B = 0.0;
-                    double C = 0.0;
-                    for (int hWinX = -radiusokna; hWinX <= radiusokna; hWinX++)
-                    {
-                        for (int hWinY = -radiusokna; hWinY <= radiusokna; hWinY++)
-                        {
-                            A += Math.Pow(DerivativeX[y + hWinY, x + hWinX], 2);
-                            B += DerivativeX[y + hWinY, x + hWinX] * DerivativeY[y + hWinY, x + hWinX];
-                            C += Math.Pow(DerivativeY[y + hWinY, x + hWinX], 2);
-                        }
-                    }
-                    double E;
-                    double Lmax = -999999999;
-                    double Lmin = 999999999;
-                    /*
-                    int Xmax = 0;
-                    int Ymax = 0;
-                    int Xmin = 0;
-                    int Ymin = 0;
-                    */
-                    for (int v = -UVMAX; v < UVMAX; v++)
-                    {
-                        for (int u = -UVMAX; u < UVMAX; u++)
-                        {
-                            if (x + u < IWidth && x + u >= 0
-                                && y + v < IHeight && y + v >= 0
-                                && u != 0 && v != 0)
-                            {
-                                E = A * Math.Pow(u, 2) + 2 * B * u * v + C * Math.Pow(v, 2);
-                                if (E > Lmax)
-                                {
-                                    Lmax = E;
-                                }
-                                if (E < Lmin)
-                                {
-                                    Lmin = E;
-                                }
-                            }
-                        }
-                    }
-                    MaxL[y, x] = Lmax;
-                    MinL[y, x] = Lmin;
-                    if (MinL[y, x] > MAXmin)
-                    {
-                        MAXmin = MinL[y, x];
-                    }
-                }
-            }
-
-            double T = MAXmin * R;
-            bool[,] InterestingPoints = new bool[IHeight, IWidth];
-            for (int y = radiusokna; y < IHeight - radiusokna; y++)
-            {
-                for (int x = radiusokna; x < IWidth - radiusokna; x++)
-                {
-                    if (MinL[y, x] > T)
-                    {
-                        InterestingPoints[y, x] = true;
-                    }
-                    else
-                    {
-                        InterestingPoints[y, x] = false;
-                    }
-                }
-            }
-
-            int r = 1;
-            Img ImageWithPoints = new Img(GrayImg.GrayMatrix, GrayImg.Width, GrayImg.Height);
-            Color color;
-            for (int y = radiusokna; y < ImageWithPoints.Height - radiusokna; y++)
-            {
-                for (int x = radiusokna; x < ImageWithPoints.Width - radiusokna; x++)
-                {
-                    if (InterestingPoints[y, x])
-                    {
-                        for (int hWinX = -r; hWinX <= r; hWinX++)
-                        {
-                            for (int hWinY = -r; hWinY <= r; hWinY++)
-                            {
-                                if (x + hWinX < ImageWithPoints.Width && x + hWinX >= 0
-                                    && y + hWinY < ImageWithPoints.Height && y + hWinY >= 0)
-                                {
-                                    color = Color.FromArgb(255, 255, 0, 0);
-                                    ImageWithPoints.Bitmap.SetPixel(x + hWinX, y + hWinY, color);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            ImageWithPoints.Draw(pictureBox13);
+            harris.DrawImageWithPoints(pictureBox13);
+            harris.DrawColorImage(pictureBox14);
 
         }
     }
