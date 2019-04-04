@@ -67,7 +67,7 @@ namespace ITOI
                 Close();
 
             */
-            BeginImg = new Img(BasePath + "Begin/BeginImage6.png");
+            BeginImg = new Img(BasePath + "Begin/BeginImage7.png");
             GrayImg = new Img(BeginImg.GrayMatrix, BeginImg.Width, BeginImg.Height);
             GrayImg.Save(BasePath + "Result/GrayImage.png");
 
@@ -204,7 +204,7 @@ namespace ITOI
         {
             GrayImg.Draw(pictureBox14);
 
-            Harris harris = new Harris(GrayImg, 5, 0, 0.5);
+            Harris harris = new Harris(GrayImg, 6, 0, 0.1);
 
             harris.ImageWithPoints.Draw(pictureBox13);
 

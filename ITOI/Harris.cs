@@ -34,8 +34,6 @@ namespace ITOI
             GaussMatrix = new GaussCore(windowradius, 1);
             MTX = F.Svertka(Image.GrayMatrix, Image.Width, Image.Height, GaussMatrix.Matrix, GaussMatrix.Radius, 1);
 
-            
-
             WindowRadius = windowradius;
             LocalRadius = localradius;
             R = r;
@@ -90,9 +88,9 @@ namespace ITOI
                     }
 
                     double b = -1 * H[0, 0] - 1 * H[1, 1];
-                    double c = H[0, 0] * H[1, 1] - H[0, 1] - H[1, 0];
+                    double c = H[0, 0] * H[1, 1] - H[0, 1] * H[1, 0];
                     double D = Math.Pow(b, 2) - 4 * c;
-                    if (D >= 0)
+                    if (D > 0)
                     {
                         double S1 = (-b + Math.Sqrt(D)) / 2;
                         double S2 = (-b - Math.Sqrt(D)) / 2;
@@ -106,22 +104,20 @@ namespace ITOI
                             MinL[y, x] = S1;
                             MaxL[y, x] = S2;
                         }
+                        if (MinL[y, x] > MAXmin)
+                        {
+                            MAXmin = MinL[y, x];
+                        }
+                        if (MinL[y, x] < MINmin)
+                        {
+                            MINmin = MinL[y, x];
+                        }
                     }
-
-                    double k = 0.05;
-                    double f = (H[0, 0] * H[1, 1] - H[0, 1] * H[1, 0]) - k * Math.Pow(H[0, 0] + H[1, 1], 2);
-                    MinL[y, x] = f;
-
-                    if (MinL[y, x] > MAXmin)
+                    else
                     {
-                        MAXmin = MinL[y, x];
+                        MinL[y, x] = -1;
+                        MaxL[y, x] = -1;
                     }
-                    if (MinL[y, x] < MINmin)
-                    {
-                        MINmin = MinL[y, x];
-                    }
-
-
 
                 }
             }
@@ -129,7 +125,7 @@ namespace ITOI
             {
                 for (int x = WindowRadius; x < Image.Width - WindowRadius; x++)
                 {
-                    if (MinL[y, x] == Double.NaN || MaxL[y, x] == Double.NaN)
+                    if (MinL[y, x] == -1 || MaxL[y, x] == -1)
                     {
                         MinL[y, x] = MINmin;
                         MaxL[y, x] = MINmin;
@@ -158,7 +154,7 @@ namespace ITOI
         {
             InterestingPoints = new bool[Image.Height, Image.Width];
 
-            double T = MAXmin * R;
+            double T = (MAXmin - MINmin) * R;
             for (int y = 0; y < Image.Height; y++)
             {
                 for (int x = 0; x < Image.Width; x++)
