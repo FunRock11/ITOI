@@ -13,19 +13,19 @@ namespace ITOI
         public Img Image;
         public Img ImageWithPoints;
         public int WindowRadius;
-        public int LocalRadius;
         public int[,] S;
         public bool[,] InterestingPoints;
         public double R; // Отбираются точки, которые больше R * max
 
-        public Moravek(Img image, int windowradius, int localradius, double r)
+
+
+        public Moravek(Img image, int windowradius, double r)
         {
             Image = image;
             WindowRadius = windowradius;
-            LocalRadius = localradius;
             R = r;
             MoravekS(WindowRadius, 1);
-            IntPoints();
+            IntPoints1();
             IWP(1);
         }
 
@@ -177,7 +177,7 @@ namespace ITOI
             WindowRadius = k;
         }
 
-        private void IntPoints()
+        /*private void IntPoints()
         {
             InterestingPoints = new bool[Image.Height, Image.Width];
             int[,] SAdd = new int[Image.Height + 2 * LocalRadius, Image.Width + 2 * LocalRadius];
@@ -238,6 +238,56 @@ namespace ITOI
                     }
                 }
             }
+        }*/
+
+        private void IntPoints1()
+        {
+            InterestingPoints = new bool[Image.Height, Image.Width];
+            double T = (MAXmin - MINmin) * R;
+
+            for (int y = 0; y < Image.Height; y++)
+            {
+                for (int x = 0; x < Image.Width; x++)
+                {
+                    if (MinL[y, x] > T)
+                    {
+                        InterestingPoints[y, x] = true;
+                    }
+                    else
+                    {
+                        InterestingPoints[y, x] = false;
+                    }
+                }
+            }
+
+            for (int y = WindowRadius; y < Image.Height - WindowRadius; y++)
+            {
+                for (int x = WindowRadius; x < Image.Width - WindowRadius; x++)
+                {
+                    if (InterestingPoints[y, x])
+                    {
+                        for (int hWinX = -WindowRadius; hWinX <= WindowRadius; hWinX++)
+                        {
+                            for (int hWinY = -WindowRadius; hWinY <= WindowRadius; hWinY++)
+                            {
+                                if (x + hWinX < Image.Width && x + hWinX >= 0
+                                    && y + hWinY < Image.Height && y + hWinY >= 0)
+                                {
+                                    if (hWinX == 0 && hWinY == 0)
+                                    {
+                                        continue;
+                                    }
+                                    else if (MinL[y + hWinY, x + hWinX] < MinL[y, x])
+                                    {
+                                        InterestingPoints[y + hWinY, x + hWinX] = false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
         }
 
         private void IWP(int r)

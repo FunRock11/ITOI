@@ -173,7 +173,7 @@
             this.tabControl1.Location = new System.Drawing.Point(6, 49);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1043, 338);
+            this.tabControl1.Size = new System.Drawing.Size(1043, 470);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
@@ -185,7 +185,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1035, 312);
+            this.tabPage1.Size = new System.Drawing.Size(1035, 444);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Исходное";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -212,7 +212,7 @@
             // 
             this.pictureBox2.Location = new System.Drawing.Point(525, 19);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(500, 280);
+            this.pictureBox2.Size = new System.Drawing.Size(500, 419);
             this.pictureBox2.TabIndex = 3;
             this.pictureBox2.TabStop = false;
             // 
@@ -220,7 +220,7 @@
             // 
             this.pictureBox1.Location = new System.Drawing.Point(6, 19);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(500, 280);
+            this.pictureBox1.Size = new System.Drawing.Size(500, 419);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
@@ -233,7 +233,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1035, 312);
+            this.tabPage2.Size = new System.Drawing.Size(1035, 444);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Частные производные";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -260,7 +260,7 @@
             // 
             this.pictureBox4.Location = new System.Drawing.Point(529, 21);
             this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(500, 280);
+            this.pictureBox4.Size = new System.Drawing.Size(500, 417);
             this.pictureBox4.TabIndex = 7;
             this.pictureBox4.TabStop = false;
             // 
@@ -268,7 +268,7 @@
             // 
             this.pictureBox3.Location = new System.Drawing.Point(9, 21);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(500, 280);
+            this.pictureBox3.Size = new System.Drawing.Size(500, 417);
             this.pictureBox3.TabIndex = 6;
             this.pictureBox3.TabStop = false;
             // 
@@ -280,7 +280,7 @@
             this.tabPage3.Controls.Add(this.pictureBox6);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(1035, 312);
+            this.tabPage3.Size = new System.Drawing.Size(1035, 444);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Оператор Собеля";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -307,7 +307,7 @@
             // 
             this.pictureBox5.Location = new System.Drawing.Point(522, 21);
             this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(500, 280);
+            this.pictureBox5.Size = new System.Drawing.Size(500, 420);
             this.pictureBox5.TabIndex = 7;
             this.pictureBox5.TabStop = false;
             // 
@@ -315,7 +315,7 @@
             // 
             this.pictureBox6.Location = new System.Drawing.Point(7, 21);
             this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(500, 280);
+            this.pictureBox6.Size = new System.Drawing.Size(500, 420);
             this.pictureBox6.TabIndex = 6;
             this.pictureBox6.TabStop = false;
             // 
@@ -445,7 +445,7 @@
             this.tabControl4.Location = new System.Drawing.Point(6, 49);
             this.tabControl4.Name = "tabControl4";
             this.tabControl4.SelectedIndex = 0;
-            this.tabControl4.Size = new System.Drawing.Size(1043, 338);
+            this.tabControl4.Size = new System.Drawing.Size(1043, 438);
             this.tabControl4.TabIndex = 5;
             // 
             // tabPage9
@@ -457,7 +457,7 @@
             this.tabPage9.Location = new System.Drawing.Point(4, 22);
             this.tabPage9.Name = "tabPage9";
             this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage9.Size = new System.Drawing.Size(1035, 312);
+            this.tabPage9.Size = new System.Drawing.Size(1035, 412);
             this.tabPage9.TabIndex = 0;
             this.tabPage9.Text = "Исходное";
             this.tabPage9.UseVisualStyleBackColor = true;
@@ -484,7 +484,7 @@
             // 
             this.pictureBox7.Location = new System.Drawing.Point(525, 19);
             this.pictureBox7.Name = "pictureBox7";
-            this.pictureBox7.Size = new System.Drawing.Size(500, 280);
+            this.pictureBox7.Size = new System.Drawing.Size(500, 387);
             this.pictureBox7.TabIndex = 3;
             this.pictureBox7.TabStop = false;
             // 
@@ -492,7 +492,7 @@
             // 
             this.pictureBox8.Location = new System.Drawing.Point(6, 19);
             this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.Size = new System.Drawing.Size(500, 280);
+            this.pictureBox8.Size = new System.Drawing.Size(500, 387);
             this.pictureBox8.TabIndex = 1;
             this.pictureBox8.TabStop = false;
             // 
@@ -505,7 +505,7 @@
             this.tabPage10.Location = new System.Drawing.Point(4, 22);
             this.tabPage10.Name = "tabPage10";
             this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage10.Size = new System.Drawing.Size(1035, 312);
+            this.tabPage10.Size = new System.Drawing.Size(1035, 412);
             this.tabPage10.TabIndex = 1;
             this.tabPage10.Text = "Частные производные";
             this.tabPage10.UseVisualStyleBackColor = true;
@@ -532,7 +532,7 @@
             // 
             this.pictureBox9.Location = new System.Drawing.Point(529, 21);
             this.pictureBox9.Name = "pictureBox9";
-            this.pictureBox9.Size = new System.Drawing.Size(500, 280);
+            this.pictureBox9.Size = new System.Drawing.Size(500, 385);
             this.pictureBox9.TabIndex = 7;
             this.pictureBox9.TabStop = false;
             // 
@@ -540,7 +540,7 @@
             // 
             this.pictureBox10.Location = new System.Drawing.Point(9, 21);
             this.pictureBox10.Name = "pictureBox10";
-            this.pictureBox10.Size = new System.Drawing.Size(500, 280);
+            this.pictureBox10.Size = new System.Drawing.Size(500, 385);
             this.pictureBox10.TabIndex = 6;
             this.pictureBox10.TabStop = false;
             // 
@@ -552,7 +552,7 @@
             this.tabPage11.Controls.Add(this.pictureBox12);
             this.tabPage11.Location = new System.Drawing.Point(4, 22);
             this.tabPage11.Name = "tabPage11";
-            this.tabPage11.Size = new System.Drawing.Size(1035, 312);
+            this.tabPage11.Size = new System.Drawing.Size(1035, 412);
             this.tabPage11.TabIndex = 2;
             this.tabPage11.Text = "Оператор Собеля";
             this.tabPage11.UseVisualStyleBackColor = true;
@@ -579,7 +579,7 @@
             // 
             this.pictureBox11.Location = new System.Drawing.Point(522, 21);
             this.pictureBox11.Name = "pictureBox11";
-            this.pictureBox11.Size = new System.Drawing.Size(500, 280);
+            this.pictureBox11.Size = new System.Drawing.Size(500, 388);
             this.pictureBox11.TabIndex = 7;
             this.pictureBox11.TabStop = false;
             // 
@@ -587,7 +587,7 @@
             // 
             this.pictureBox12.Location = new System.Drawing.Point(7, 21);
             this.pictureBox12.Name = "pictureBox12";
-            this.pictureBox12.Size = new System.Drawing.Size(500, 280);
+            this.pictureBox12.Size = new System.Drawing.Size(500, 388);
             this.pictureBox12.TabIndex = 6;
             this.pictureBox12.TabStop = false;
             // 
@@ -609,7 +609,7 @@
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(140, 37);
             this.button5.TabIndex = 6;
-            this.button5.Text = "КНОПКА 1";
+            this.button5.Text = "Старт";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
@@ -621,7 +621,7 @@
             this.tabControl5.Location = new System.Drawing.Point(6, 49);
             this.tabControl5.Name = "tabControl5";
             this.tabControl5.SelectedIndex = 0;
-            this.tabControl5.Size = new System.Drawing.Size(1043, 338);
+            this.tabControl5.Size = new System.Drawing.Size(1043, 438);
             this.tabControl5.TabIndex = 7;
             // 
             // tabPage12
@@ -633,9 +633,9 @@
             this.tabPage12.Location = new System.Drawing.Point(4, 22);
             this.tabPage12.Name = "tabPage12";
             this.tabPage12.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage12.Size = new System.Drawing.Size(1035, 312);
+            this.tabPage12.Size = new System.Drawing.Size(1035, 412);
             this.tabPage12.TabIndex = 0;
-            this.tabPage12.Text = "Исходное";
+            this.tabPage12.Text = "Харрис";
             this.tabPage12.UseVisualStyleBackColor = true;
             // 
             // label15
@@ -660,7 +660,7 @@
             // 
             this.pictureBox13.Location = new System.Drawing.Point(525, 19);
             this.pictureBox13.Name = "pictureBox13";
-            this.pictureBox13.Size = new System.Drawing.Size(500, 280);
+            this.pictureBox13.Size = new System.Drawing.Size(500, 387);
             this.pictureBox13.TabIndex = 3;
             this.pictureBox13.TabStop = false;
             // 
@@ -668,7 +668,7 @@
             // 
             this.pictureBox14.Location = new System.Drawing.Point(6, 19);
             this.pictureBox14.Name = "pictureBox14";
-            this.pictureBox14.Size = new System.Drawing.Size(500, 280);
+            this.pictureBox14.Size = new System.Drawing.Size(500, 387);
             this.pictureBox14.TabIndex = 1;
             this.pictureBox14.TabStop = false;
             // 
@@ -681,9 +681,9 @@
             this.tabPage13.Location = new System.Drawing.Point(4, 22);
             this.tabPage13.Name = "tabPage13";
             this.tabPage13.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage13.Size = new System.Drawing.Size(1035, 312);
+            this.tabPage13.Size = new System.Drawing.Size(1035, 412);
             this.tabPage13.TabIndex = 1;
-            this.tabPage13.Text = "Частные производные";
+            this.tabPage13.Text = "Отклики";
             this.tabPage13.UseVisualStyleBackColor = true;
             // 
             // label17
@@ -691,24 +691,24 @@
             this.label17.AutoSize = true;
             this.label17.Location = new System.Drawing.Point(529, 5);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(100, 13);
+            this.label17.Size = new System.Drawing.Size(30, 13);
             this.label17.TabIndex = 9;
-            this.label17.Text = "Производная по Y";
+            this.label17.Text = "MAX";
             // 
             // label18
             // 
             this.label18.AutoSize = true;
             this.label18.Location = new System.Drawing.Point(9, 5);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(100, 13);
+            this.label18.Size = new System.Drawing.Size(27, 13);
             this.label18.TabIndex = 8;
-            this.label18.Text = "Производная по X";
+            this.label18.Text = "MIN";
             // 
             // pictureBox15
             // 
             this.pictureBox15.Location = new System.Drawing.Point(529, 21);
             this.pictureBox15.Name = "pictureBox15";
-            this.pictureBox15.Size = new System.Drawing.Size(500, 280);
+            this.pictureBox15.Size = new System.Drawing.Size(500, 385);
             this.pictureBox15.TabIndex = 7;
             this.pictureBox15.TabStop = false;
             // 
@@ -716,7 +716,7 @@
             // 
             this.pictureBox16.Location = new System.Drawing.Point(9, 21);
             this.pictureBox16.Name = "pictureBox16";
-            this.pictureBox16.Size = new System.Drawing.Size(500, 280);
+            this.pictureBox16.Size = new System.Drawing.Size(500, 385);
             this.pictureBox16.TabIndex = 6;
             this.pictureBox16.TabStop = false;
             // 
@@ -728,9 +728,9 @@
             this.tabPage14.Controls.Add(this.pictureBox18);
             this.tabPage14.Location = new System.Drawing.Point(4, 22);
             this.tabPage14.Name = "tabPage14";
-            this.tabPage14.Size = new System.Drawing.Size(1035, 312);
+            this.tabPage14.Size = new System.Drawing.Size(1035, 412);
             this.tabPage14.TabIndex = 2;
-            this.tabPage14.Text = "Оператор Собеля";
+            this.tabPage14.Text = "Adaptive Non-Maximum";
             this.tabPage14.UseVisualStyleBackColor = true;
             // 
             // label19
@@ -755,7 +755,7 @@
             // 
             this.pictureBox17.Location = new System.Drawing.Point(522, 21);
             this.pictureBox17.Name = "pictureBox17";
-            this.pictureBox17.Size = new System.Drawing.Size(500, 280);
+            this.pictureBox17.Size = new System.Drawing.Size(500, 388);
             this.pictureBox17.TabIndex = 7;
             this.pictureBox17.TabStop = false;
             // 
@@ -763,7 +763,7 @@
             // 
             this.pictureBox18.Location = new System.Drawing.Point(7, 21);
             this.pictureBox18.Name = "pictureBox18";
-            this.pictureBox18.Size = new System.Drawing.Size(500, 280);
+            this.pictureBox18.Size = new System.Drawing.Size(500, 388);
             this.pictureBox18.TabIndex = 6;
             this.pictureBox18.TabStop = false;
             // 

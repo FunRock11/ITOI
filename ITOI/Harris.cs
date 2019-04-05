@@ -14,7 +14,6 @@ namespace ITOI
         public Img Image;
         public Img ImageWithPoints;
         public int WindowRadius;
-        public int LocalRadius;
         public double R; // Отбираются точки, которые больше R * max
         public double[,] DerivativeX;
         public double[,] DerivativeY;
@@ -22,25 +21,24 @@ namespace ITOI
         public double[,] MaxL;
         public bool[,] InterestingPoints;
         public GaussCore GaussMatrix;
-        double[,] MTX;
+        private double[,] MTX;
 
 
         double MAXmin = -999999999;
         double MINmin = 999999999;
         
-        public Harris(Img image, int windowradius, int localradius, double r)
+        public Harris(Img image, int windowradius, double r)
         {
             Image = image;
             GaussMatrix = new GaussCore(windowradius, 1);
             MTX = F.Svertka(Image.GrayMatrix, Image.Width, Image.Height, GaussMatrix.Matrix, GaussMatrix.Radius, 1);
 
             WindowRadius = windowradius;
-            LocalRadius = localradius;
             R = r;
 
             Derivative();
-            Minl(1);
-            IntPoints();
+            Minl();
+            IntPoints1();
             PColor();
         }
 
@@ -64,7 +62,7 @@ namespace ITOI
             DerivativeY = F.Svertka(MTX, Image.Width, Image.Height, maskY, k, 1);
         }
 
-        private void Minl(int kraimode)
+        private void Minl()
         {
             MinL = new double[Image.Height, Image.Width];
             MaxL = new double[Image.Height, Image.Width];
@@ -150,34 +148,64 @@ namespace ITOI
             }
         }
 
-        private void IntPoints()
+        /*private void IntPoints()
         {
             InterestingPoints = new bool[Image.Height, Image.Width];
 
             double T = (MAXmin - MINmin) * R;
+            for (int y = WindowRadius; y < Image.Height - WindowRadius; y++)
+            {
+                for (int x = WindowRadius; x < Image.Width - WindowRadius; x++)
+                {
+                    if (MinL[y, x] > T)
+                    {
+                        double vMax = -999999999;
+                        for (int hWinX = -WindowRadius * 2; hWinX <= WindowRadius * 2; hWinX++)
+                        {
+                            for (int hWinY = -WindowRadius * 2; hWinY <= WindowRadius * 2; hWinY++)
+                            {
+                                if (x + hWinX < Image.Width && x + hWinX >= 0
+                                    && y + hWinY < Image.Height && y + hWinY >= 0)
+                                {
+                                    if (hWinX == 0 && hWinY == 0)
+                                    {
+                                        continue;
+                                    }
+                                    else if (MinL[y + hWinY, x + hWinX] > vMax)
+                                    {
+                                        vMax = MinL[y + hWinY, x + hWinX];
+                                    }
+                                }
+                            }
+                        }
+                        if (MinL[y, x] > vMax)
+                        {
+                            InterestingPoints[y, x] = true;
+                        }
+                        else
+                        {
+                            InterestingPoints[y, x] = false;
+                        }
+                    }
+                    else
+                    {
+                        InterestingPoints[y, x] = false;
+                    }
+                    
+                }
+            }
+        }*/
+
+        private void IntPoints1()
+        {
+            InterestingPoints = new bool[Image.Height, Image.Width];
+            double T = (MAXmin - MINmin) * R;
+
             for (int y = 0; y < Image.Height; y++)
             {
                 for (int x = 0; x < Image.Width; x++)
                 {
-                    /*
-                    double vMax = -999999999;
-                    for (int hWinX = -LocalRadius; hWinX <= LocalRadius; hWinX++)
-                    {
-                        for (int hWinY = -LocalRadius; hWinY <= LocalRadius; hWinY++)
-                        {
-                            if (x + hWinX < Image.Width && x + hWinX >= 0
-                                && y + hWinY < Image.Height && y + hWinY >= 0
-                                && hWinX != 0 && hWinY != 0)
-                            {
-                                if (MinL[y + hWinY, x + hWinX] > vMax)
-                                {
-                                    vMax = MinL[y + hWinY, x + hWinX];
-                                }
-                            }
-                        }
-                    }
-                    */
-                    if (/*MinL[y, x] > vMax &&*/ MinL[y, x] > T)
+                    if (MinL[y, x] > T)
                     {
                         InterestingPoints[y, x] = true;
                     }
@@ -187,16 +215,46 @@ namespace ITOI
                     }
                 }
             }
+            
+            for (int y = WindowRadius; y < Image.Height - WindowRadius; y++)
+            {
+                for (int x = WindowRadius; x < Image.Width - WindowRadius; x++)
+                {
+                    if (InterestingPoints[y, x])
+                    {
+                        for (int hWinX = -WindowRadius; hWinX <= WindowRadius; hWinX++)
+                        {
+                            for (int hWinY = -WindowRadius; hWinY <= WindowRadius; hWinY++)
+                            {
+                                if (x + hWinX < Image.Width && x + hWinX >= 0
+                                    && y + hWinY < Image.Height && y + hWinY >= 0)
+                                {
+                                    if (hWinX == 0 && hWinY == 0)
+                                    {
+                                        continue;
+                                    }
+                                    else if (MinL[y + hWinY, x + hWinX] < MinL[y,x])
+                                    {
+                                        InterestingPoints[y + hWinY, x + hWinX] = false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
         }
+
 
         private void PColor()
         {
             int r = 1;
             ImageWithPoints = new Img(Image.GrayMatrix, Image.Width, Image.Height);
             Color color;
-            for (int y = 0; y < ImageWithPoints.Height; y++)
+            for (int y = WindowRadius; y < ImageWithPoints.Height - WindowRadius; y++)
             {
-                for (int x = 0; x < ImageWithPoints.Width; x++)
+                for (int x = WindowRadius; x < ImageWithPoints.Width - WindowRadius; x++)
                 {
                     if (InterestingPoints[y, x])
                     {
@@ -216,5 +274,7 @@ namespace ITOI
                 }
             }
         }
+
+
     }
 }
