@@ -12,10 +12,13 @@ namespace ITOI
     {
         public Img Image;
         public Img ImageWithPoints;
+        public Img ImageWithANMS;
         public int WindowRadius;
         public double[,] S;
         public bool[,] InterestingPoints;
         public double R; // Отбираются точки, которые больше R * max
+        public int NPoints;
+        public int NeedPoints;
 
         private double MAXmin = -999999999;
         private double MINmin = 999999999;
@@ -25,6 +28,7 @@ namespace ITOI
             Image = image;
             WindowRadius = windowradius;
             R = r;
+
             MoravekS();
             IntPoints1();
             IWP(1);
@@ -173,5 +177,9 @@ namespace ITOI
             }
         }
 
+        public void ANMS()
+        {
+
+        }
     }
 }

@@ -22,19 +22,20 @@ namespace ITOI
         public bool[,] InterestingPoints;
         public GaussCore GaussMatrix;
         private double[,] MTX;
-
+        public int Npoints;
 
         private double MAXmin = -999999999;
         private double MINmin = 999999999;
         
-        public Harris(Img image, int windowradius, double r)
+        public Harris(Img image, int windowradius, double r, int n)
         {
             Image = image;
-            GaussMatrix = new GaussCore(windowradius, 1);
-            MTX = F.Svertka(Image.GrayMatrix, Image.Width, Image.Height, GaussMatrix.Matrix, GaussMatrix.Radius, 1);
-
             WindowRadius = windowradius;
             R = r;
+            Npoints = n;
+
+            GaussMatrix = new GaussCore(windowradius, 1);
+            MTX = F.Svertka(Image.GrayMatrix, Image.Width, Image.Height, GaussMatrix.Matrix, GaussMatrix.Radius, 1);
 
             Derivative();
             Minl();

@@ -67,7 +67,7 @@ namespace ITOI
                 Close();
 
             */
-            BeginImg = new Img(BasePath + "Begin/BeginImage7.png");
+            BeginImg = new Img(BasePath + "Begin/BeginImage1.png");
             GrayImg = new Img(BeginImg.GrayMatrix, BeginImg.Width, BeginImg.Height);
             GrayImg.Save(BasePath + "Result/GrayImage.png");
 
@@ -192,37 +192,94 @@ namespace ITOI
 
         private void button4_Click(object sender, EventArgs e)
         {
-            GrayImg.Draw(pictureBox8);
-            GrayImg.Draw(pictureBox10);
+            if (textBox3.Text != "" && textBox4.Text != "")
+            {
+                try
+                {
+                    int radius = Convert.ToInt32(textBox3.Text);
+                    double dolya = Convert.ToDouble(textBox4.Text);
+                    int Npoints = Convert.ToInt32(textBox7.Text);
 
-            Moravek moravek = new Moravek(GrayImg, 3, 0.5);
+                    GrayImg.Draw(pictureBox8);
+                    GrayImg.Draw(pictureBox10);
 
-            Img SI = new Img(moravek.S, IWidth, IHeight);
-            SI.Draw(pictureBox9);
+                    Moravek moravek = new Moravek(GrayImg, radius, dolya);
 
-            moravek.ImageWithPoints.Draw(pictureBox7);
-            moravek.ImageWithPoints.Save(BasePath + "Lab 3/Moravek.png");
+                    Img SI = new Img(moravek.S, IWidth, IHeight);
+                    SI.Draw(pictureBox9);
+
+                    moravek.ImageWithPoints.Draw(pictureBox7);
+                    moravek.ImageWithPoints.Save(BasePath + "Lab 3/Moravek.png");
+
+                    button6.Enabled = true;
+                }
+                catch
+                {
+                    MessageBox.Show("Введите данные корректно!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Введите данные!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            GrayImg.Draw(pictureBox14);
+            if (textBox6.Text != "" && textBox5.Text != "")
+            {
+                try
+                {
+                    int radius = Convert.ToInt32(textBox6.Text);
+                    double dolya = Convert.ToDouble(textBox5.Text);
+                    int Npoints = Convert.ToInt32(textBox8.Text);
 
-            Harris harris = new Harris(GrayImg, 3, 0.1);
+                    GrayImg.Draw(pictureBox14);
 
-            harris.ImageWithPoints.Draw(pictureBox13);
+                    Harris harris = new Harris(GrayImg, radius, dolya, Npoints);
 
-            Img DX = new Img(harris.MinL, IWidth, IHeight);
-            Img DY = new Img(harris.MaxL, IWidth, IHeight);
+                    harris.ImageWithPoints.Draw(pictureBox13);
 
-            DX.Draw(pictureBox15);
-            DY.Draw(pictureBox16);
+                    Img DX = new Img(harris.MinL, IWidth, IHeight);
+                    Img DY = new Img(harris.MaxL, IWidth, IHeight);
 
-            harris.ImageWithPoints.Save(BasePath + "Lab 3/Harris.png");
+                    DX.Draw(pictureBox15);
+                    DY.Draw(pictureBox16);
 
-            //harris.DrawImageWithPoints(pictureBox13);
-            //harris.DrawColorImage(pictureBox14);
+                    harris.ImageWithPoints.Save(BasePath + "Lab 3/Harris.png");
 
+                    button7.Enabled = true;
+                }
+                catch
+                {
+                    MessageBox.Show("Введите данные корректно!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Введите данные!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (textBox7.Text != "")
+            {
+                try
+                {
+                    int Npoints = Convert.ToInt32(textBox7.Text);
+                }
+                catch
+                {
+                    MessageBox.Show("Введите данные корректно!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Введите данные!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

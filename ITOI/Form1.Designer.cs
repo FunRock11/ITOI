@@ -92,6 +92,20 @@
             this.label20 = new System.Windows.Forms.Label();
             this.pictureBox17 = new System.Windows.Forms.PictureBox();
             this.pictureBox18 = new System.Windows.Forms.PictureBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
             this.tabControl2.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -417,6 +431,13 @@
             // 
             // tabPage7
             // 
+            this.tabPage7.Controls.Add(this.button6);
+            this.tabPage7.Controls.Add(this.textBox7);
+            this.tabPage7.Controls.Add(this.label25);
+            this.tabPage7.Controls.Add(this.textBox4);
+            this.tabPage7.Controls.Add(this.label22);
+            this.tabPage7.Controls.Add(this.textBox3);
+            this.tabPage7.Controls.Add(this.label21);
             this.tabPage7.Controls.Add(this.button4);
             this.tabPage7.Controls.Add(this.tabControl4);
             this.tabPage7.Location = new System.Drawing.Point(4, 22);
@@ -554,7 +575,7 @@
             this.tabPage11.Name = "tabPage11";
             this.tabPage11.Size = new System.Drawing.Size(1035, 412);
             this.tabPage11.TabIndex = 2;
-            this.tabPage11.Text = "Оператор Собеля";
+            this.tabPage11.Text = "Adaptive Non-Maximum";
             this.tabPage11.UseVisualStyleBackColor = true;
             // 
             // label13
@@ -593,6 +614,13 @@
             // 
             // tabPage8
             // 
+            this.tabPage8.Controls.Add(this.button7);
+            this.tabPage8.Controls.Add(this.textBox8);
+            this.tabPage8.Controls.Add(this.label26);
+            this.tabPage8.Controls.Add(this.textBox5);
+            this.tabPage8.Controls.Add(this.label23);
+            this.tabPage8.Controls.Add(this.textBox6);
+            this.tabPage8.Controls.Add(this.label24);
             this.tabPage8.Controls.Add(this.button5);
             this.tabPage8.Controls.Add(this.tabControl5);
             this.tabPage8.Location = new System.Drawing.Point(4, 22);
@@ -767,6 +795,138 @@
             this.pictureBox18.TabIndex = 6;
             this.pictureBox18.TabStop = false;
             // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(162, 18);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(73, 13);
+            this.label21.TabIndex = 6;
+            this.label21.Text = "Радиус окна:";
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(241, 15);
+            this.textBox3.MaxLength = 1;
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(33, 20);
+            this.textBox3.TabIndex = 7;
+            this.textBox3.Text = "3";
+            this.textBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPress1);
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(418, 15);
+            this.textBox4.MaxLength = 5;
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(100, 20);
+            this.textBox4.TabIndex = 9;
+            this.textBox4.Text = "0,1";
+            this.textBox4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPress2);
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(337, 18);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(75, 13);
+            this.label22.TabIndex = 8;
+            this.label22.Text = "Доля порога:";
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(422, 15);
+            this.textBox5.MaxLength = 5;
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(100, 20);
+            this.textBox5.TabIndex = 13;
+            this.textBox5.Text = "0,1";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(341, 18);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(75, 13);
+            this.label23.TabIndex = 12;
+            this.label23.Text = "Доля порога:";
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(245, 15);
+            this.textBox6.MaxLength = 1;
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(33, 20);
+            this.textBox6.TabIndex = 11;
+            this.textBox6.Text = "3";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(166, 18);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(73, 13);
+            this.label24.TabIndex = 10;
+            this.label24.Text = "Радиус окна:";
+            // 
+            // textBox7
+            // 
+            this.textBox7.Location = new System.Drawing.Point(742, 15);
+            this.textBox7.MaxLength = 3;
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new System.Drawing.Size(51, 20);
+            this.textBox7.TabIndex = 11;
+            this.textBox7.Text = "250";
+            this.textBox7.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPress1);
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(565, 18);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(171, 13);
+            this.label25.TabIndex = 10;
+            this.label25.Text = "Необходимое количество точек:";
+            // 
+            // textBox8
+            // 
+            this.textBox8.Location = new System.Drawing.Point(746, 15);
+            this.textBox8.MaxLength = 3;
+            this.textBox8.Name = "textBox8";
+            this.textBox8.Size = new System.Drawing.Size(51, 20);
+            this.textBox8.TabIndex = 15;
+            this.textBox8.Text = "250";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(569, 18);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(171, 13);
+            this.label26.TabIndex = 14;
+            this.label26.Text = "Необходимое количество точек:";
+            // 
+            // button6
+            // 
+            this.button6.Enabled = false;
+            this.button6.Location = new System.Drawing.Point(815, 6);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(140, 37);
+            this.button6.TabIndex = 12;
+            this.button6.Text = "ANMS";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button7
+            // 
+            this.button7.Enabled = false;
+            this.button7.Location = new System.Drawing.Point(813, 6);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(140, 37);
+            this.button7.TabIndex = 16;
+            this.button7.Text = "ANMS";
+            this.button7.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -797,6 +957,7 @@
             this.tabPage6.ResumeLayout(false);
             this.tabControl3.ResumeLayout(false);
             this.tabPage7.ResumeLayout(false);
+            this.tabPage7.PerformLayout();
             this.tabControl4.ResumeLayout(false);
             this.tabPage9.ResumeLayout(false);
             this.tabPage9.PerformLayout();
@@ -811,6 +972,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
             this.tabPage8.ResumeLayout(false);
+            this.tabPage8.PerformLayout();
             this.tabControl5.ResumeLayout(false);
             this.tabPage12.ResumeLayout(false);
             this.tabPage12.PerformLayout();
@@ -893,6 +1055,20 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.PictureBox pictureBox17;
         private System.Windows.Forms.PictureBox pictureBox18;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button7;
     }
 }
 
