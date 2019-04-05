@@ -67,7 +67,7 @@ namespace ITOI
                 Close();
 
             */
-            BeginImg = new Img(BasePath + "Begin/BeginImage0.png");
+            BeginImg = new Img(BasePath + "Begin/BeginImage7.png");
             GrayImg = new Img(BeginImg.GrayMatrix, BeginImg.Width, BeginImg.Height);
             GrayImg.Save(BasePath + "Result/GrayImage.png");
 
@@ -193,11 +193,15 @@ namespace ITOI
         private void button4_Click(object sender, EventArgs e)
         {
             GrayImg.Draw(pictureBox8);
+            GrayImg.Draw(pictureBox10);
 
-            Moravek moravek = new Moravek(GrayImg, 2, 0.1);
+            Moravek moravek = new Moravek(GrayImg, 3, 0.5);
 
-            moravek.DrawImageWithPoints(pictureBox7);
-            moravek.SaveImageWithPoints(BasePath + "Lab 3/Moravek.png");
+            Img SI = new Img(moravek.S, IWidth, IHeight);
+            SI.Draw(pictureBox9);
+
+            moravek.ImageWithPoints.Draw(pictureBox7);
+            moravek.ImageWithPoints.Save(BasePath + "Lab 3/Moravek.png");
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -211,8 +215,8 @@ namespace ITOI
             Img DX = new Img(harris.MinL, IWidth, IHeight);
             Img DY = new Img(harris.MaxL, IWidth, IHeight);
 
-            DX.Draw(pictureBox16);
-            DY.Draw(pictureBox15);
+            DX.Draw(pictureBox15);
+            DY.Draw(pictureBox16);
 
             harris.ImageWithPoints.Save(BasePath + "Lab 3/Harris.png");
 

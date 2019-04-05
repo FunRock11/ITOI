@@ -433,7 +433,7 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(140, 37);
             this.button4.TabIndex = 4;
-            this.button4.Text = "КНОПКА 1";
+            this.button4.Text = "Старт";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -459,7 +459,7 @@
             this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage9.Size = new System.Drawing.Size(1035, 412);
             this.tabPage9.TabIndex = 0;
-            this.tabPage9.Text = "Исходное";
+            this.tabPage9.Text = "Моравек";
             this.tabPage9.UseVisualStyleBackColor = true;
             // 
             // label9
@@ -507,7 +507,7 @@
             this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage10.Size = new System.Drawing.Size(1035, 412);
             this.tabPage10.TabIndex = 1;
-            this.tabPage10.Text = "Частные производные";
+            this.tabPage10.Text = "Отклики";
             this.tabPage10.UseVisualStyleBackColor = true;
             // 
             // label11
@@ -515,18 +515,18 @@
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(529, 5);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(100, 13);
+            this.label11.Size = new System.Drawing.Size(14, 13);
             this.label11.TabIndex = 9;
-            this.label11.Text = "Производная по Y";
+            this.label11.Text = "S";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(9, 5);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(100, 13);
+            this.label12.Size = new System.Drawing.Size(127, 13);
             this.label12.TabIndex = 8;
-            this.label12.Text = "Производная по X";
+            this.label12.Text = "Исходное изображение";
             // 
             // pictureBox9
             // 
@@ -691,18 +691,18 @@
             this.label17.AutoSize = true;
             this.label17.Location = new System.Drawing.Point(529, 5);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(30, 13);
+            this.label17.Size = new System.Drawing.Size(27, 13);
             this.label17.TabIndex = 9;
-            this.label17.Text = "MAX";
+            this.label17.Text = "MIN";
             // 
             // label18
             // 
             this.label18.AutoSize = true;
             this.label18.Location = new System.Drawing.Point(9, 5);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(27, 13);
+            this.label18.Size = new System.Drawing.Size(30, 13);
             this.label18.TabIndex = 8;
-            this.label18.Text = "MIN";
+            this.label18.Text = "MAX";
             // 
             // pictureBox15
             // 

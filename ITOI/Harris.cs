@@ -24,8 +24,8 @@ namespace ITOI
         private double[,] MTX;
 
 
-        double MAXmin = -999999999;
-        double MINmin = 999999999;
+        private double MAXmin = -999999999;
+        private double MINmin = 999999999;
         
         public Harris(Img image, int windowradius, double r)
         {
