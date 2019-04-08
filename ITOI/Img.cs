@@ -70,11 +70,11 @@ namespace ITOI
             }
         }
 
-        /*public Img(Bitmap bitmap)
+        public Img(Bitmap bitmap)
         {
+            Height = bitmap.Height;
+            Width = bitmap.Width;
             Bitmap = new Bitmap(Width, Height, PixelFormat.Format32bppArgb);
-            Height = Bitmap.Height;
-            Width = Bitmap.Width;
             GrayMatrix = new byte[Height, Width];
             Color color;
             for (int y = 0; y < Height; y++)
@@ -86,7 +86,7 @@ namespace ITOI
                     GrayMatrix[y, x] = Convert.ToByte(Math.Round(0.213 * color.R + 0.715 * color.G + 0.072 * color.B));
                 }
             }
-        }*/
+        }
 
         public void Draw(PictureBox pictureBox)
         {

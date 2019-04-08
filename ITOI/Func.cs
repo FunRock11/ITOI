@@ -287,5 +287,67 @@ namespace ITOI
             return Result;
         }
 
+        // Сдвиг по x, y
+        public byte[,] Sdvig(byte[,] GrayMatrix, int width, int height, out int newwidth, out int newheight, int dx, int dy)
+        {
+            newwidth = width + Math.Abs(dx);
+            newheight = height + Math.Abs(dy);
+            byte[,] Result = new byte[newheight, newwidth];
+            for (int y = 0; y < newheight; y++)
+            {
+                for (int x = 0; x < newwidth; x++)
+                {
+                    Result[y, x] = 255;
+                }
+            }
+
+            int y1, x1;
+            int y2, x2;
+            if (dy > 0)
+            {
+                y1 = dy;
+                y2 = 0;
+            }
+            else
+            {
+                y1 = 0;
+                y2 = Math.Abs(dy);
+                dy = 0;
+            }
+            if (dx > 0)
+            {
+                x1 = dx;
+                x2 = 0;
+            }
+            else
+            {
+                x1 = 0;
+                x2 = Math.Abs(dx);
+                dx = 0;
+            }
+
+            for (int y = y1; y < newheight - y2; y++)
+            {
+                for (int x = x1; x < newwidth - x2; x++)
+                {
+                    Result[y, x] = GrayMatrix[y - dy, x - dx];
+                }
+            }
+
+            return Result;
+        }
+
+        // Поворот
+        public Bitmap RotateImage(Bitmap input, float angle)
+        {
+            Bitmap result = new Bitmap(input.Width, input.Height);
+            Graphics g = Graphics.FromImage(result);
+            g.TranslateTransform((float)input.Width / 2, (float)input.Height / 2);
+            g.RotateTransform(angle);
+            g.TranslateTransform(-(float)input.Width / 2, -(float)input.Height / 2);
+            g.DrawImage(input, new Point(0, 0));
+            return result;
+        }
+
     }
 }

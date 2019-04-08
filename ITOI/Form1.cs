@@ -33,7 +33,12 @@ namespace ITOI
         Img SobelImg;
 
         Moravek Moravek;
+        int MoraverRadius;
+        double MoravekDolya;
+
         Harris Harris;
+        int HarrisRadius;
+        double HarrisDolya;
 
         private void KeyPress1(object sender, KeyPressEventArgs e)
         {
@@ -199,13 +204,13 @@ namespace ITOI
             {
                 try
                 {
-                    int radius = Convert.ToInt32(textBox3.Text);
-                    double dolya = Convert.ToDouble(textBox4.Text);
+                    MoraverRadius = Convert.ToInt32(textBox3.Text);
+                    MoravekDolya = Convert.ToDouble(textBox4.Text);
 
                     GrayImg.Draw(pictureBox8);
                     GrayImg.Draw(pictureBox10);
 
-                    Moravek = new Moravek(GrayImg, radius, dolya);
+                    Moravek = new Moravek(GrayImg, MoraverRadius, MoravekDolya);
 
                     Img SI = new Img(Moravek.S, IWidth, IHeight);
                     SI.Draw(pictureBox9);
@@ -217,6 +222,23 @@ namespace ITOI
 
                     Moravek.ImageWithPoints.Draw(pictureBox12);
                     label14.Text = "Точек: " + Moravek.NPoints;
+                    label13.Text = "Точек: 0";
+
+                    Moravek.ImageWithPoints.Draw(pictureBox20);
+                    Moravek.ImageWithPoints.Draw(pictureBox22);
+                    Moravek.ImageWithPoints.Draw(pictureBox24);
+                    Moravek.ImageWithPoints.Draw(pictureBox26);
+                    Moravek.ImageWithPoints.Draw(pictureBox28);
+                    Moravek.ImageWithPoints.Draw(pictureBox30);
+
+                    Bitmap bmp = new Bitmap(IWidth, IHeight, PixelFormat.Format32bppArgb);
+                    pictureBox11.Image = bmp;
+                    pictureBox19.Image = bmp;
+                    pictureBox21.Image = bmp;
+                    pictureBox23.Image = bmp;
+                    pictureBox25.Image = bmp;
+                    pictureBox27.Image = bmp;
+                    pictureBox29.Image = bmp;
 
                     button6.Enabled = true;
                     button8.Enabled = true;
@@ -239,12 +261,12 @@ namespace ITOI
             {
                 try
                 {
-                    int radius = Convert.ToInt32(textBox6.Text);
-                    double dolya = Convert.ToDouble(textBox5.Text);
+                    HarrisRadius = Convert.ToInt32(textBox6.Text);
+                    HarrisDolya = Convert.ToDouble(textBox5.Text);
 
                     GrayImg.Draw(pictureBox14);
 
-                    Harris = new Harris(GrayImg, radius, dolya);
+                    Harris = new Harris(GrayImg, HarrisRadius, HarrisDolya);
 
                     Harris.ImageWithPoints.Draw(pictureBox13);
 
@@ -260,6 +282,23 @@ namespace ITOI
 
                     Harris.ImageWithPoints.Draw(pictureBox18);
                     label20.Text = "Точек: " + Harris.NPoints;
+                    label19.Text = "Точек: 0";
+                    
+                    Harris.ImageWithPoints.Draw(pictureBox32);
+                    Harris.ImageWithPoints.Draw(pictureBox34);
+                    Harris.ImageWithPoints.Draw(pictureBox36);
+                    Harris.ImageWithPoints.Draw(pictureBox38);
+                    Harris.ImageWithPoints.Draw(pictureBox40);
+                    Harris.ImageWithPoints.Draw(pictureBox42);
+                    
+                    Bitmap bmp = new Bitmap(IWidth, IHeight, PixelFormat.Format32bppArgb);
+                    pictureBox17.Image = bmp;
+                    pictureBox31.Image = bmp;
+                    pictureBox33.Image = bmp;
+                    pictureBox35.Image = bmp;
+                    pictureBox37.Image = bmp;
+                    pictureBox39.Image = bmp;
+                    pictureBox41.Image = bmp;
 
                     button7.Enabled = true;
                     button9.Enabled = true;
@@ -322,7 +361,35 @@ namespace ITOI
 
         private void button8_Click(object sender, EventArgs e)
         {
+            /*Сдвиг*/
+            byte[,] SdvigMtx = F.Sdvig(GrayImg.GrayMatrix, GrayImg.Width, GrayImg.Height, out int nWidth, out int nHeight, 50, 20);
+            Img SdvigImg = new Img(SdvigMtx, nWidth, nHeight);
+            Moravek SdvigMoravek = new Moravek(SdvigImg, MoraverRadius, MoravekDolya);
+            SdvigMoravek.ImageWithPoints.Draw(pictureBox19);
 
+            /*Поворот*/
+            Bitmap RotateBMP = new Bitmap(IWidth, IWidth, PixelFormat.Format32bppArgb);
+            /*for (int y = 0; y < IWidth; y++)
+            {
+                for (int x = 0; x < IWidth; x++)
+                {
+                    RotateBMP.SetPixel(x, y, Color.Red);
+                }
+            }*/
+            int o = (IWidth - IHeight) / 2;
+            for (int y = o; y < IHeight + o; y++)
+            {
+                for (int x = 0; x < IWidth; x++)
+                {
+                    RotateBMP.SetPixel(x, y, GrayImg.Bitmap.GetPixel(x, y - o));
+                }
+            }
+            RotateBMP = F.RotateImage(RotateBMP, 30.0F);
+            Img RotateImg = new Img(RotateBMP);
+            Moravek RotateMoravek = new Moravek(RotateImg, MoraverRadius, MoravekDolya);
+            RotateMoravek.ImageWithPoints.Draw(pictureBox21);
         }
+
+
     }
 }
