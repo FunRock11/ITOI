@@ -13,6 +13,7 @@ namespace ITOI
         Func F = new Func();
         public Img Image;
         public Img ImageWithPoints;
+        public Img ImageWithANMS;
         public int WindowRadius;
         public double R; // Отбираются точки, которые больше R * max
         public double[,] DerivativeX;
@@ -20,19 +21,21 @@ namespace ITOI
         public double[,] MinL;
         public double[,] MaxL;
         public bool[,] InterestingPoints;
+        public bool[,] InterestingPointsANMS;
         public GaussCore GaussMatrix;
         private double[,] MTX;
-        public int Npoints;
+        public int NPoints;
+        public int NewPoints;
+        public int NeedPoints;
 
         private double MAXmin = -999999999;
         private double MINmin = 999999999;
         
-        public Harris(Img image, int windowradius, double r, int n)
+        public Harris(Img image, int windowradius, double r)
         {
             Image = image;
             WindowRadius = windowradius;
             R = r;
-            Npoints = n;
 
             GaussMatrix = new GaussCore(windowradius, 1);
             MTX = F.Svertka(Image.GrayMatrix, Image.Width, Image.Height, GaussMatrix.Matrix, GaussMatrix.Radius, 1);
@@ -40,7 +43,7 @@ namespace ITOI
             Derivative();
             Minl();
             IntPoints1();
-            PColor();
+            PColor(1);
         }
 
         private void Derivative()
@@ -206,7 +209,7 @@ namespace ITOI
             {
                 for (int x = 0; x < Image.Width; x++)
                 {
-                    if (MinL[y, x] > T)
+                    if (MinL[y, x] >= T)
                     {
                         InterestingPoints[y, x] = true;
                     }
@@ -217,9 +220,9 @@ namespace ITOI
                 }
             }
             
-            for (int y = WindowRadius; y < Image.Height - WindowRadius; y++)
+            for (int y = 0; y < Image.Height - 0; y++)
             {
-                for (int x = WindowRadius; x < Image.Width - WindowRadius; x++)
+                for (int x = 0; x < Image.Width - 0; x++)
                 {
                     if (InterestingPoints[y, x])
                     {
@@ -244,13 +247,23 @@ namespace ITOI
                     }
                 }
             }
-            
+
+            NPoints = 0;
+            for (int y = 0; y < Image.Height; y++)
+            {
+                for (int x = 0; x < Image.Width; x++)
+                {
+                    if (InterestingPoints[y, x])
+                    {
+                        NPoints++;
+                    }
+                }
+            }
+
         }
 
-
-        private void PColor()
+        private void PColor(int r)
         {
-            int r = 1;
             ImageWithPoints = new Img(Image.GrayMatrix, Image.Width, Image.Height);
             Color color;
             for (int y = WindowRadius; y < ImageWithPoints.Height - WindowRadius; y++)
@@ -276,6 +289,96 @@ namespace ITOI
             }
         }
 
+        public void ANMS(int needpoints)
+        {
+            NeedPoints = needpoints;
+            RANMS();
+            IWANMS(1);
+        }
+
+        private void RANMS()
+        {
+            NewPoints = NPoints;
+            InterestingPointsANMS = new bool[Image.Height, Image.Width];
+            for (int y = 0; y < Image.Height; y++)
+            {
+                for (int x = 0; x < Image.Width; x++)
+                {
+                    InterestingPointsANMS[y, x] = InterestingPoints[y, x];
+                }
+            }
+            if (NPoints > NeedPoints)
+            {
+                int r = WindowRadius + 1;
+                while (NeedPoints < NewPoints)
+                {
+                    for (int y = 0; y < Image.Height; y++)
+                    {
+                        for (int x = 0; x < Image.Width; x++)
+                        {
+                            if (InterestingPointsANMS[y, x])
+                            {
+                                for (int hWinX = -r; hWinX <= r; hWinX++)
+                                {
+                                    for (int hWinY = -r; hWinY <= r; hWinY++)
+                                    {
+                                        if (x + hWinX < Image.Width && x + hWinX >= 0
+                                            && y + hWinY < Image.Height && y + hWinY >= 0)
+                                        {
+                                            if (InterestingPointsANMS[y + hWinY, x + hWinX])
+                                            {
+                                                if (hWinX == 0 && hWinY == 0)
+                                                {
+                                                    continue;
+                                                }
+                                                else if (MinL[y + hWinY, x + hWinX] <= MinL[y, x])
+                                                {
+                                                    InterestingPointsANMS[y + hWinY, x + hWinX] = false;
+                                                    NewPoints--;
+                                                    if (NeedPoints == NewPoints)
+                                                    {
+                                                        return;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    r++;
+                }
+
+            }
+        }
+
+        private void IWANMS(int r)
+        {
+            ImageWithANMS = new Img(Image.GrayMatrix, Image.Width, Image.Height);
+            Color color;
+            for (int y = 0; y < ImageWithANMS.Height; y++)
+            {
+                for (int x = 0; x < ImageWithANMS.Width; x++)
+                {
+                    if (InterestingPointsANMS[y, x])
+                    {
+                        for (int hWinX = -r; hWinX <= r; hWinX++)
+                        {
+                            for (int hWinY = -r; hWinY <= r; hWinY++)
+                            {
+                                if (x + hWinX < ImageWithANMS.Width && x + hWinX >= 0
+                                    && y + hWinY < ImageWithANMS.Height && y + hWinY >= 0)
+                                {
+                                    color = Color.FromArgb(255, 255, 0, 0);
+                                    ImageWithANMS.Bitmap.SetPixel(x + hWinX, y + hWinY, color);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
     }
 }

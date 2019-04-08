@@ -32,6 +32,9 @@ namespace ITOI
         Img DerivativeYImg;
         Img SobelImg;
 
+        Moravek Moravek;
+        Harris Harris;
+
         private void KeyPress1(object sender, KeyPressEventArgs e)
         {
             char number = e.KeyChar;
@@ -67,7 +70,7 @@ namespace ITOI
                 Close();
 
             */
-            BeginImg = new Img(BasePath + "Begin/BeginImage1.png");
+            BeginImg = new Img(BasePath + "Begin/BeginImage5.png");
             GrayImg = new Img(BeginImg.GrayMatrix, BeginImg.Width, BeginImg.Height);
             GrayImg.Save(BasePath + "Result/GrayImage.png");
 
@@ -198,20 +201,25 @@ namespace ITOI
                 {
                     int radius = Convert.ToInt32(textBox3.Text);
                     double dolya = Convert.ToDouble(textBox4.Text);
-                    int Npoints = Convert.ToInt32(textBox7.Text);
 
                     GrayImg.Draw(pictureBox8);
                     GrayImg.Draw(pictureBox10);
 
-                    Moravek moravek = new Moravek(GrayImg, radius, dolya);
+                    Moravek = new Moravek(GrayImg, radius, dolya);
 
-                    Img SI = new Img(moravek.S, IWidth, IHeight);
+                    Img SI = new Img(Moravek.S, IWidth, IHeight);
                     SI.Draw(pictureBox9);
 
-                    moravek.ImageWithPoints.Draw(pictureBox7);
-                    moravek.ImageWithPoints.Save(BasePath + "Lab 3/Moravek.png");
+                    Moravek.ImageWithPoints.Draw(pictureBox7);
+                    Moravek.ImageWithPoints.Save(BasePath + "Lab 3/Moravek.png");
+
+                    label9.Text = "Оператор Моравека (Точек: " + Moravek.NPoints + ")";
+
+                    Moravek.ImageWithPoints.Draw(pictureBox12);
+                    label14.Text = "Точек: " + Moravek.NPoints;
 
                     button6.Enabled = true;
+                    button8.Enabled = true;
                 }
                 catch
                 {
@@ -233,23 +241,28 @@ namespace ITOI
                 {
                     int radius = Convert.ToInt32(textBox6.Text);
                     double dolya = Convert.ToDouble(textBox5.Text);
-                    int Npoints = Convert.ToInt32(textBox8.Text);
 
                     GrayImg.Draw(pictureBox14);
 
-                    Harris harris = new Harris(GrayImg, radius, dolya, Npoints);
+                    Harris = new Harris(GrayImg, radius, dolya);
 
-                    harris.ImageWithPoints.Draw(pictureBox13);
+                    Harris.ImageWithPoints.Draw(pictureBox13);
 
-                    Img DX = new Img(harris.MinL, IWidth, IHeight);
-                    Img DY = new Img(harris.MaxL, IWidth, IHeight);
+                    Img DX = new Img(Harris.MinL, IWidth, IHeight);
+                    Img DY = new Img(Harris.MaxL, IWidth, IHeight);
 
                     DX.Draw(pictureBox15);
                     DY.Draw(pictureBox16);
 
-                    harris.ImageWithPoints.Save(BasePath + "Lab 3/Harris.png");
+                    Harris.ImageWithPoints.Save(BasePath + "Lab 3/Harris.png");
+
+                    label15.Text = "Оператор Харриса (Точек: " + Harris.NPoints + ")";
+
+                    Harris.ImageWithPoints.Draw(pictureBox18);
+                    label20.Text = "Точек: " + Harris.NPoints;
 
                     button7.Enabled = true;
+                    button9.Enabled = true;
                 }
                 catch
                 {
@@ -270,6 +283,9 @@ namespace ITOI
                 try
                 {
                     int Npoints = Convert.ToInt32(textBox7.Text);
+                    Moravek.ANMS(Npoints);
+                    Moravek.ImageWithANMS.Draw(pictureBox11);
+                    label13.Text = "Точек: " + Moravek.NewPoints;
                 }
                 catch
                 {
@@ -280,6 +296,33 @@ namespace ITOI
             {
                 MessageBox.Show("Введите данные!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            if (textBox8.Text != "")
+            {
+                try
+                {
+                    int Npoints = Convert.ToInt32(textBox8.Text);
+                    Harris.ANMS(Npoints);
+                    Harris.ImageWithANMS.Draw(pictureBox17);
+                    label19.Text = "Точек: " + Harris.NewPoints;
+                }
+                catch
+                {
+                    MessageBox.Show("Введите данные корректно!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Введите данные!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
