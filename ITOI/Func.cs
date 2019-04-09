@@ -345,8 +345,101 @@ namespace ITOI
             g.TranslateTransform((float)input.Width / 2, (float)input.Height / 2);
             g.RotateTransform(angle);
             g.TranslateTransform(-(float)input.Width / 2, -(float)input.Height / 2);
+            for (int y = 0; y < input.Width; y++)
+            {
+                for (int x = 0; x < input.Height; x++)
+                {
+                    result.SetPixel(x, y, Color.White);
+                }
+            }
             g.DrawImage(input, new Point(0, 0));
             return result;
+        }
+
+        // Шум
+        public double[,] Noise(byte[,] GrayMatrix, int width, int height, int intensive)
+        {
+            double[,] Result = new double[height, width];
+            Random Rnd = new Random();
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    double noise = (Rnd.NextDouble() + Rnd.NextDouble() + Rnd.NextDouble() + Rnd.NextDouble() - 2) * intensive;
+                    Result[y, x] = GrayMatrix[y, x] + noise;
+                }
+            }
+
+            return Result;
+        }
+
+        // Яркость
+        public byte[,] Brightness(byte[,] GrayMatrix, int width, int height, int intensive)
+        {
+            if (intensive > 255)
+            {
+                intensive = 255;
+            }
+            else if (intensive < -255)
+            {
+                intensive = -255;
+            }
+            byte[,] BrightMtx = new byte[height, width];
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    int u = GrayMatrix[y, x] + intensive;
+                    if (u > 255)
+                    {
+                        u = 255;
+                    }
+                    else if (u < 0)
+                    {
+                        u = 0;
+                    }
+                    BrightMtx[y, x] = Convert.ToByte(u);
+                }
+            }
+            return BrightMtx;
+        }
+
+        // Контрастность
+        public byte[,] Contrast(byte[,] GrayMatrix, int width, int height, int intensive)
+        {
+            if (intensive > 100)
+            {
+                intensive = 100;
+            }
+            else if (intensive < -100)
+            {
+                intensive = -100;
+            }
+            double contrast = (100.0 + intensive) / 100.0;
+            contrast = contrast * contrast;
+            byte[,] Res = new byte[height, width];
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    double u = GrayMatrix[y, x] / 255.0;
+                    u = u - 0.5;
+                    u = u * contrast;
+                    u = u + 0.5;
+                    u = u * 255;
+                    if (u > 255)
+                    {
+                        u = 255;
+                    }
+                    else if (u < 0)
+                    {
+                        u = 0;
+                    }
+                    Res[y, x] = Convert.ToByte(u);
+                }
+            }
+            return Res;
         }
 
     }

@@ -57,6 +57,7 @@
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.tabControl3 = new System.Windows.Forms.TabControl();
             this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.button8 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
@@ -81,7 +82,33 @@
             this.label14 = new System.Windows.Forms.Label();
             this.pictureBox11 = new System.Windows.Forms.PictureBox();
             this.pictureBox12 = new System.Windows.Forms.PictureBox();
+            this.tabPage15 = new System.Windows.Forms.TabPage();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.pictureBox19 = new System.Windows.Forms.PictureBox();
+            this.pictureBox20 = new System.Windows.Forms.PictureBox();
+            this.tabPage16 = new System.Windows.Forms.TabPage();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.pictureBox21 = new System.Windows.Forms.PictureBox();
+            this.pictureBox22 = new System.Windows.Forms.PictureBox();
+            this.tabPage17 = new System.Windows.Forms.TabPage();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.pictureBox23 = new System.Windows.Forms.PictureBox();
+            this.pictureBox24 = new System.Windows.Forms.PictureBox();
+            this.tabPage18 = new System.Windows.Forms.TabPage();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.pictureBox25 = new System.Windows.Forms.PictureBox();
+            this.pictureBox26 = new System.Windows.Forms.PictureBox();
+            this.tabPage19 = new System.Windows.Forms.TabPage();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
+            this.pictureBox27 = new System.Windows.Forms.PictureBox();
+            this.pictureBox28 = new System.Windows.Forms.PictureBox();
             this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.button9 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
@@ -106,68 +133,43 @@
             this.label20 = new System.Windows.Forms.Label();
             this.pictureBox17 = new System.Windows.Forms.PictureBox();
             this.pictureBox18 = new System.Windows.Forms.PictureBox();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
-            this.tabPage15 = new System.Windows.Forms.TabPage();
-            this.tabPage16 = new System.Windows.Forms.TabPage();
-            this.tabPage17 = new System.Windows.Forms.TabPage();
-            this.tabPage18 = new System.Windows.Forms.TabPage();
-            this.tabPage19 = new System.Windows.Forms.TabPage();
-            this.tabPage20 = new System.Windows.Forms.TabPage();
-            this.label27 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
-            this.pictureBox19 = new System.Windows.Forms.PictureBox();
-            this.pictureBox20 = new System.Windows.Forms.PictureBox();
-            this.label29 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
-            this.pictureBox21 = new System.Windows.Forms.PictureBox();
-            this.pictureBox22 = new System.Windows.Forms.PictureBox();
-            this.label31 = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
-            this.pictureBox23 = new System.Windows.Forms.PictureBox();
-            this.pictureBox24 = new System.Windows.Forms.PictureBox();
-            this.label33 = new System.Windows.Forms.Label();
-            this.label34 = new System.Windows.Forms.Label();
-            this.pictureBox25 = new System.Windows.Forms.PictureBox();
-            this.pictureBox26 = new System.Windows.Forms.PictureBox();
-            this.label35 = new System.Windows.Forms.Label();
-            this.label36 = new System.Windows.Forms.Label();
-            this.pictureBox27 = new System.Windows.Forms.PictureBox();
-            this.pictureBox28 = new System.Windows.Forms.PictureBox();
-            this.label37 = new System.Windows.Forms.Label();
-            this.label38 = new System.Windows.Forms.Label();
-            this.pictureBox29 = new System.Windows.Forms.PictureBox();
-            this.pictureBox30 = new System.Windows.Forms.PictureBox();
             this.tabPage21 = new System.Windows.Forms.TabPage();
-            this.tabPage22 = new System.Windows.Forms.TabPage();
-            this.tabPage23 = new System.Windows.Forms.TabPage();
-            this.tabPage24 = new System.Windows.Forms.TabPage();
-            this.tabPage25 = new System.Windows.Forms.TabPage();
-            this.tabPage26 = new System.Windows.Forms.TabPage();
             this.label39 = new System.Windows.Forms.Label();
             this.label40 = new System.Windows.Forms.Label();
             this.pictureBox31 = new System.Windows.Forms.PictureBox();
             this.pictureBox32 = new System.Windows.Forms.PictureBox();
+            this.tabPage22 = new System.Windows.Forms.TabPage();
             this.label41 = new System.Windows.Forms.Label();
             this.label42 = new System.Windows.Forms.Label();
             this.pictureBox33 = new System.Windows.Forms.PictureBox();
             this.pictureBox34 = new System.Windows.Forms.PictureBox();
+            this.tabPage23 = new System.Windows.Forms.TabPage();
             this.label43 = new System.Windows.Forms.Label();
             this.label44 = new System.Windows.Forms.Label();
             this.pictureBox35 = new System.Windows.Forms.PictureBox();
             this.pictureBox36 = new System.Windows.Forms.PictureBox();
+            this.tabPage24 = new System.Windows.Forms.TabPage();
             this.label45 = new System.Windows.Forms.Label();
             this.label46 = new System.Windows.Forms.Label();
             this.pictureBox37 = new System.Windows.Forms.PictureBox();
             this.pictureBox38 = new System.Windows.Forms.PictureBox();
+            this.tabPage25 = new System.Windows.Forms.TabPage();
             this.label47 = new System.Windows.Forms.Label();
             this.label48 = new System.Windows.Forms.Label();
             this.pictureBox39 = new System.Windows.Forms.PictureBox();
             this.pictureBox40 = new System.Windows.Forms.PictureBox();
-            this.label49 = new System.Windows.Forms.Label();
-            this.label50 = new System.Windows.Forms.Label();
-            this.pictureBox41 = new System.Windows.Forms.PictureBox();
-            this.pictureBox42 = new System.Windows.Forms.PictureBox();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.radioButton4 = new System.Windows.Forms.RadioButton();
+            this.radioButton5 = new System.Windows.Forms.RadioButton();
+            this.radioButton6 = new System.Windows.Forms.RadioButton();
+            this.radioButton12 = new System.Windows.Forms.RadioButton();
+            this.radioButton11 = new System.Windows.Forms.RadioButton();
+            this.radioButton10 = new System.Windows.Forms.RadioButton();
+            this.radioButton9 = new System.Windows.Forms.RadioButton();
+            this.radioButton8 = new System.Windows.Forms.RadioButton();
+            this.radioButton7 = new System.Windows.Forms.RadioButton();
             this.tabControl2.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -194,6 +196,21 @@
             this.tabPage11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
+            this.tabPage15.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox19)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox20)).BeginInit();
+            this.tabPage16.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox21)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox22)).BeginInit();
+            this.tabPage17.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox23)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox24)).BeginInit();
+            this.tabPage18.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox25)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox26)).BeginInit();
+            this.tabPage19.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox27)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox28)).BeginInit();
             this.tabPage8.SuspendLayout();
             this.tabControl5.SuspendLayout();
             this.tabPage12.SuspendLayout();
@@ -205,42 +222,21 @@
             this.tabPage14.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox17)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox18)).BeginInit();
-            this.tabPage15.SuspendLayout();
-            this.tabPage16.SuspendLayout();
-            this.tabPage17.SuspendLayout();
-            this.tabPage18.SuspendLayout();
-            this.tabPage19.SuspendLayout();
-            this.tabPage20.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox19)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox20)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox21)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox22)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox23)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox24)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox25)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox26)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox27)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox28)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox29)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox30)).BeginInit();
             this.tabPage21.SuspendLayout();
-            this.tabPage22.SuspendLayout();
-            this.tabPage23.SuspendLayout();
-            this.tabPage24.SuspendLayout();
-            this.tabPage25.SuspendLayout();
-            this.tabPage26.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox31)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox32)).BeginInit();
+            this.tabPage22.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox33)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox34)).BeginInit();
+            this.tabPage23.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox35)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox36)).BeginInit();
+            this.tabPage24.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox37)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox38)).BeginInit();
+            this.tabPage25.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox39)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox40)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox41)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox42)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl2
@@ -529,6 +525,12 @@
             // 
             // tabPage7
             // 
+            this.tabPage7.Controls.Add(this.radioButton6);
+            this.tabPage7.Controls.Add(this.radioButton5);
+            this.tabPage7.Controls.Add(this.radioButton4);
+            this.tabPage7.Controls.Add(this.radioButton3);
+            this.tabPage7.Controls.Add(this.radioButton2);
+            this.tabPage7.Controls.Add(this.radioButton1);
             this.tabPage7.Controls.Add(this.button8);
             this.tabPage7.Controls.Add(this.button6);
             this.tabPage7.Controls.Add(this.textBox7);
@@ -547,10 +549,21 @@
             this.tabPage7.Text = "Оператор Моравека";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
+            // button8
+            // 
+            this.button8.Enabled = false;
+            this.button8.Location = new System.Drawing.Point(1067, 6);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(140, 37);
+            this.button8.TabIndex = 13;
+            this.button8.Text = "Оценить повторяемость";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
             // button6
             // 
             this.button6.Enabled = false;
-            this.button6.Location = new System.Drawing.Point(815, 6);
+            this.button6.Location = new System.Drawing.Point(597, 6);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(140, 37);
             this.button6.TabIndex = 12;
@@ -560,7 +573,7 @@
             // 
             // textBox7
             // 
-            this.textBox7.Location = new System.Drawing.Point(742, 15);
+            this.textBox7.Location = new System.Drawing.Point(540, 15);
             this.textBox7.MaxLength = 3;
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(51, 20);
@@ -571,7 +584,7 @@
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(565, 18);
+            this.label25.Location = new System.Drawing.Point(363, 18);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(171, 13);
             this.label25.TabIndex = 10;
@@ -579,7 +592,7 @@
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(418, 15);
+            this.textBox4.Location = new System.Drawing.Point(86, 23);
             this.textBox4.MaxLength = 5;
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(100, 20);
@@ -590,7 +603,7 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(337, 18);
+            this.label22.Location = new System.Drawing.Point(5, 26);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(75, 13);
             this.label22.TabIndex = 8;
@@ -598,7 +611,7 @@
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(241, 15);
+            this.textBox3.Location = new System.Drawing.Point(86, 3);
             this.textBox3.MaxLength = 1;
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(33, 20);
@@ -609,7 +622,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(162, 18);
+            this.label21.Location = new System.Drawing.Point(7, 6);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(73, 13);
             this.label21.TabIndex = 6;
@@ -617,7 +630,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(6, 6);
+            this.button4.Location = new System.Drawing.Point(192, 6);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(140, 37);
             this.button4.TabIndex = 4;
@@ -635,7 +648,6 @@
             this.tabControl4.Controls.Add(this.tabPage17);
             this.tabControl4.Controls.Add(this.tabPage18);
             this.tabControl4.Controls.Add(this.tabPage19);
-            this.tabControl4.Controls.Add(this.tabPage20);
             this.tabControl4.Location = new System.Drawing.Point(6, 49);
             this.tabControl4.Name = "tabControl4";
             this.tabControl4.SelectedIndex = 0;
@@ -785,8 +797,249 @@
             this.pictureBox12.TabIndex = 6;
             this.pictureBox12.TabStop = false;
             // 
+            // tabPage15
+            // 
+            this.tabPage15.Controls.Add(this.label27);
+            this.tabPage15.Controls.Add(this.label28);
+            this.tabPage15.Controls.Add(this.pictureBox19);
+            this.tabPage15.Controls.Add(this.pictureBox20);
+            this.tabPage15.Location = new System.Drawing.Point(4, 22);
+            this.tabPage15.Name = "tabPage15";
+            this.tabPage15.Size = new System.Drawing.Size(1235, 575);
+            this.tabPage15.TabIndex = 3;
+            this.tabPage15.Text = "Сдвиг";
+            this.tabPage15.UseVisualStyleBackColor = true;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(636, 4);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(11, 13);
+            this.label27.TabIndex = 13;
+            this.label27.Text = "*";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(5, 4);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(56, 13);
+            this.label28.TabIndex = 12;
+            this.label28.Text = "Исходное";
+            // 
+            // pictureBox19
+            // 
+            this.pictureBox19.Location = new System.Drawing.Point(630, 20);
+            this.pictureBox19.Name = "pictureBox19";
+            this.pictureBox19.Size = new System.Drawing.Size(600, 550);
+            this.pictureBox19.TabIndex = 11;
+            this.pictureBox19.TabStop = false;
+            // 
+            // pictureBox20
+            // 
+            this.pictureBox20.Location = new System.Drawing.Point(5, 20);
+            this.pictureBox20.Name = "pictureBox20";
+            this.pictureBox20.Size = new System.Drawing.Size(600, 550);
+            this.pictureBox20.TabIndex = 10;
+            this.pictureBox20.TabStop = false;
+            // 
+            // tabPage16
+            // 
+            this.tabPage16.Controls.Add(this.label29);
+            this.tabPage16.Controls.Add(this.label30);
+            this.tabPage16.Controls.Add(this.pictureBox21);
+            this.tabPage16.Controls.Add(this.pictureBox22);
+            this.tabPage16.Location = new System.Drawing.Point(4, 22);
+            this.tabPage16.Name = "tabPage16";
+            this.tabPage16.Size = new System.Drawing.Size(1235, 575);
+            this.tabPage16.TabIndex = 4;
+            this.tabPage16.Text = "Поворот";
+            this.tabPage16.UseVisualStyleBackColor = true;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(636, 4);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(11, 13);
+            this.label29.TabIndex = 17;
+            this.label29.Text = "*";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(5, 4);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(56, 13);
+            this.label30.TabIndex = 16;
+            this.label30.Text = "Исходное";
+            // 
+            // pictureBox21
+            // 
+            this.pictureBox21.Location = new System.Drawing.Point(630, 20);
+            this.pictureBox21.Name = "pictureBox21";
+            this.pictureBox21.Size = new System.Drawing.Size(600, 550);
+            this.pictureBox21.TabIndex = 15;
+            this.pictureBox21.TabStop = false;
+            // 
+            // pictureBox22
+            // 
+            this.pictureBox22.Location = new System.Drawing.Point(5, 20);
+            this.pictureBox22.Name = "pictureBox22";
+            this.pictureBox22.Size = new System.Drawing.Size(600, 550);
+            this.pictureBox22.TabIndex = 14;
+            this.pictureBox22.TabStop = false;
+            // 
+            // tabPage17
+            // 
+            this.tabPage17.Controls.Add(this.label31);
+            this.tabPage17.Controls.Add(this.label32);
+            this.tabPage17.Controls.Add(this.pictureBox23);
+            this.tabPage17.Controls.Add(this.pictureBox24);
+            this.tabPage17.Location = new System.Drawing.Point(4, 22);
+            this.tabPage17.Name = "tabPage17";
+            this.tabPage17.Size = new System.Drawing.Size(1235, 575);
+            this.tabPage17.TabIndex = 5;
+            this.tabPage17.Text = "Шум";
+            this.tabPage17.UseVisualStyleBackColor = true;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(636, 4);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(11, 13);
+            this.label31.TabIndex = 17;
+            this.label31.Text = "*";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(5, 4);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(56, 13);
+            this.label32.TabIndex = 16;
+            this.label32.Text = "Исходное";
+            // 
+            // pictureBox23
+            // 
+            this.pictureBox23.Location = new System.Drawing.Point(630, 20);
+            this.pictureBox23.Name = "pictureBox23";
+            this.pictureBox23.Size = new System.Drawing.Size(600, 550);
+            this.pictureBox23.TabIndex = 15;
+            this.pictureBox23.TabStop = false;
+            // 
+            // pictureBox24
+            // 
+            this.pictureBox24.Location = new System.Drawing.Point(5, 20);
+            this.pictureBox24.Name = "pictureBox24";
+            this.pictureBox24.Size = new System.Drawing.Size(600, 550);
+            this.pictureBox24.TabIndex = 14;
+            this.pictureBox24.TabStop = false;
+            // 
+            // tabPage18
+            // 
+            this.tabPage18.Controls.Add(this.label33);
+            this.tabPage18.Controls.Add(this.label34);
+            this.tabPage18.Controls.Add(this.pictureBox25);
+            this.tabPage18.Controls.Add(this.pictureBox26);
+            this.tabPage18.Location = new System.Drawing.Point(4, 22);
+            this.tabPage18.Name = "tabPage18";
+            this.tabPage18.Size = new System.Drawing.Size(1235, 575);
+            this.tabPage18.TabIndex = 6;
+            this.tabPage18.Text = "Контрастность";
+            this.tabPage18.UseVisualStyleBackColor = true;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(636, 4);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(11, 13);
+            this.label33.TabIndex = 17;
+            this.label33.Text = "*";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(5, 4);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(56, 13);
+            this.label34.TabIndex = 16;
+            this.label34.Text = "Исходное";
+            // 
+            // pictureBox25
+            // 
+            this.pictureBox25.Location = new System.Drawing.Point(630, 20);
+            this.pictureBox25.Name = "pictureBox25";
+            this.pictureBox25.Size = new System.Drawing.Size(600, 550);
+            this.pictureBox25.TabIndex = 15;
+            this.pictureBox25.TabStop = false;
+            // 
+            // pictureBox26
+            // 
+            this.pictureBox26.Location = new System.Drawing.Point(5, 20);
+            this.pictureBox26.Name = "pictureBox26";
+            this.pictureBox26.Size = new System.Drawing.Size(600, 550);
+            this.pictureBox26.TabIndex = 14;
+            this.pictureBox26.TabStop = false;
+            // 
+            // tabPage19
+            // 
+            this.tabPage19.Controls.Add(this.label35);
+            this.tabPage19.Controls.Add(this.label36);
+            this.tabPage19.Controls.Add(this.pictureBox27);
+            this.tabPage19.Controls.Add(this.pictureBox28);
+            this.tabPage19.Location = new System.Drawing.Point(4, 22);
+            this.tabPage19.Name = "tabPage19";
+            this.tabPage19.Size = new System.Drawing.Size(1235, 575);
+            this.tabPage19.TabIndex = 7;
+            this.tabPage19.Text = "Яркость";
+            this.tabPage19.UseVisualStyleBackColor = true;
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(636, 4);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(11, 13);
+            this.label35.TabIndex = 17;
+            this.label35.Text = "*";
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(5, 4);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(56, 13);
+            this.label36.TabIndex = 16;
+            this.label36.Text = "Исходное";
+            // 
+            // pictureBox27
+            // 
+            this.pictureBox27.Location = new System.Drawing.Point(630, 20);
+            this.pictureBox27.Name = "pictureBox27";
+            this.pictureBox27.Size = new System.Drawing.Size(600, 550);
+            this.pictureBox27.TabIndex = 15;
+            this.pictureBox27.TabStop = false;
+            // 
+            // pictureBox28
+            // 
+            this.pictureBox28.Location = new System.Drawing.Point(5, 20);
+            this.pictureBox28.Name = "pictureBox28";
+            this.pictureBox28.Size = new System.Drawing.Size(600, 550);
+            this.pictureBox28.TabIndex = 14;
+            this.pictureBox28.TabStop = false;
+            // 
             // tabPage8
             // 
+            this.tabPage8.Controls.Add(this.radioButton12);
+            this.tabPage8.Controls.Add(this.radioButton11);
+            this.tabPage8.Controls.Add(this.radioButton10);
+            this.tabPage8.Controls.Add(this.radioButton9);
+            this.tabPage8.Controls.Add(this.radioButton8);
+            this.tabPage8.Controls.Add(this.radioButton7);
             this.tabPage8.Controls.Add(this.button9);
             this.tabPage8.Controls.Add(this.button7);
             this.tabPage8.Controls.Add(this.textBox8);
@@ -805,10 +1058,21 @@
             this.tabPage8.Text = "Оператор Харриса";
             this.tabPage8.UseVisualStyleBackColor = true;
             // 
+            // button9
+            // 
+            this.button9.Enabled = false;
+            this.button9.Location = new System.Drawing.Point(1069, 6);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(140, 37);
+            this.button9.TabIndex = 17;
+            this.button9.Text = "Оценить повторяемость";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
             // button7
             // 
             this.button7.Enabled = false;
-            this.button7.Location = new System.Drawing.Point(813, 6);
+            this.button7.Location = new System.Drawing.Point(590, 6);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(140, 37);
             this.button7.TabIndex = 16;
@@ -818,7 +1082,7 @@
             // 
             // textBox8
             // 
-            this.textBox8.Location = new System.Drawing.Point(746, 15);
+            this.textBox8.Location = new System.Drawing.Point(533, 15);
             this.textBox8.MaxLength = 3;
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new System.Drawing.Size(51, 20);
@@ -828,7 +1092,7 @@
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(569, 18);
+            this.label26.Location = new System.Drawing.Point(356, 18);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(171, 13);
             this.label26.TabIndex = 14;
@@ -836,7 +1100,7 @@
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(422, 15);
+            this.textBox5.Location = new System.Drawing.Point(82, 23);
             this.textBox5.MaxLength = 5;
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(100, 20);
@@ -846,7 +1110,7 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(341, 18);
+            this.label23.Location = new System.Drawing.Point(1, 26);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(75, 13);
             this.label23.TabIndex = 12;
@@ -854,7 +1118,7 @@
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(245, 15);
+            this.textBox6.Location = new System.Drawing.Point(82, 3);
             this.textBox6.MaxLength = 1;
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(33, 20);
@@ -864,7 +1128,7 @@
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(166, 18);
+            this.label24.Location = new System.Drawing.Point(3, 6);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(73, 13);
             this.label24.TabIndex = 10;
@@ -872,7 +1136,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(6, 6);
+            this.button5.Location = new System.Drawing.Point(188, 6);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(140, 37);
             this.button5.TabIndex = 6;
@@ -890,7 +1154,6 @@
             this.tabControl5.Controls.Add(this.tabPage23);
             this.tabControl5.Controls.Add(this.tabPage24);
             this.tabControl5.Controls.Add(this.tabPage25);
-            this.tabControl5.Controls.Add(this.tabPage26);
             this.tabControl5.Location = new System.Drawing.Point(6, 49);
             this.tabControl5.Name = "tabControl5";
             this.tabControl5.SelectedIndex = 0;
@@ -1040,309 +1303,6 @@
             this.pictureBox18.TabIndex = 6;
             this.pictureBox18.TabStop = false;
             // 
-            // button8
-            // 
-            this.button8.Enabled = false;
-            this.button8.Location = new System.Drawing.Point(985, 6);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(140, 37);
-            this.button8.TabIndex = 13;
-            this.button8.Text = "Оценить повторяемость";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
-            // 
-            // button9
-            // 
-            this.button9.Enabled = false;
-            this.button9.Location = new System.Drawing.Point(983, 6);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(140, 37);
-            this.button9.TabIndex = 17;
-            this.button9.Text = "Оценить повторяемость";
-            this.button9.UseVisualStyleBackColor = true;
-            // 
-            // tabPage15
-            // 
-            this.tabPage15.Controls.Add(this.label27);
-            this.tabPage15.Controls.Add(this.label28);
-            this.tabPage15.Controls.Add(this.pictureBox19);
-            this.tabPage15.Controls.Add(this.pictureBox20);
-            this.tabPage15.Location = new System.Drawing.Point(4, 22);
-            this.tabPage15.Name = "tabPage15";
-            this.tabPage15.Size = new System.Drawing.Size(1235, 575);
-            this.tabPage15.TabIndex = 3;
-            this.tabPage15.Text = "Сдвиг";
-            this.tabPage15.UseVisualStyleBackColor = true;
-            // 
-            // tabPage16
-            // 
-            this.tabPage16.Controls.Add(this.label29);
-            this.tabPage16.Controls.Add(this.label30);
-            this.tabPage16.Controls.Add(this.pictureBox21);
-            this.tabPage16.Controls.Add(this.pictureBox22);
-            this.tabPage16.Location = new System.Drawing.Point(4, 22);
-            this.tabPage16.Name = "tabPage16";
-            this.tabPage16.Size = new System.Drawing.Size(1235, 575);
-            this.tabPage16.TabIndex = 4;
-            this.tabPage16.Text = "Поворот";
-            this.tabPage16.UseVisualStyleBackColor = true;
-            // 
-            // tabPage17
-            // 
-            this.tabPage17.Controls.Add(this.label31);
-            this.tabPage17.Controls.Add(this.label32);
-            this.tabPage17.Controls.Add(this.pictureBox23);
-            this.tabPage17.Controls.Add(this.pictureBox24);
-            this.tabPage17.Location = new System.Drawing.Point(4, 22);
-            this.tabPage17.Name = "tabPage17";
-            this.tabPage17.Size = new System.Drawing.Size(1235, 575);
-            this.tabPage17.TabIndex = 5;
-            this.tabPage17.Text = "Шум";
-            this.tabPage17.UseVisualStyleBackColor = true;
-            // 
-            // tabPage18
-            // 
-            this.tabPage18.Controls.Add(this.label33);
-            this.tabPage18.Controls.Add(this.label34);
-            this.tabPage18.Controls.Add(this.pictureBox25);
-            this.tabPage18.Controls.Add(this.pictureBox26);
-            this.tabPage18.Location = new System.Drawing.Point(4, 22);
-            this.tabPage18.Name = "tabPage18";
-            this.tabPage18.Size = new System.Drawing.Size(1235, 575);
-            this.tabPage18.TabIndex = 6;
-            this.tabPage18.Text = "Контрастность";
-            this.tabPage18.UseVisualStyleBackColor = true;
-            // 
-            // tabPage19
-            // 
-            this.tabPage19.Controls.Add(this.label35);
-            this.tabPage19.Controls.Add(this.label36);
-            this.tabPage19.Controls.Add(this.pictureBox27);
-            this.tabPage19.Controls.Add(this.pictureBox28);
-            this.tabPage19.Location = new System.Drawing.Point(4, 22);
-            this.tabPage19.Name = "tabPage19";
-            this.tabPage19.Size = new System.Drawing.Size(1235, 575);
-            this.tabPage19.TabIndex = 7;
-            this.tabPage19.Text = "Яркость";
-            this.tabPage19.UseVisualStyleBackColor = true;
-            // 
-            // tabPage20
-            // 
-            this.tabPage20.Controls.Add(this.label37);
-            this.tabPage20.Controls.Add(this.label38);
-            this.tabPage20.Controls.Add(this.pictureBox29);
-            this.tabPage20.Controls.Add(this.pictureBox30);
-            this.tabPage20.Location = new System.Drawing.Point(4, 22);
-            this.tabPage20.Name = "tabPage20";
-            this.tabPage20.Size = new System.Drawing.Size(1235, 575);
-            this.tabPage20.TabIndex = 8;
-            this.tabPage20.Text = "ВСЁ";
-            this.tabPage20.UseVisualStyleBackColor = true;
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(636, 4);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(11, 13);
-            this.label27.TabIndex = 13;
-            this.label27.Text = "*";
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(5, 4);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(56, 13);
-            this.label28.TabIndex = 12;
-            this.label28.Text = "Исходное";
-            // 
-            // pictureBox19
-            // 
-            this.pictureBox19.Location = new System.Drawing.Point(630, 20);
-            this.pictureBox19.Name = "pictureBox19";
-            this.pictureBox19.Size = new System.Drawing.Size(600, 550);
-            this.pictureBox19.TabIndex = 11;
-            this.pictureBox19.TabStop = false;
-            // 
-            // pictureBox20
-            // 
-            this.pictureBox20.Location = new System.Drawing.Point(5, 20);
-            this.pictureBox20.Name = "pictureBox20";
-            this.pictureBox20.Size = new System.Drawing.Size(600, 550);
-            this.pictureBox20.TabIndex = 10;
-            this.pictureBox20.TabStop = false;
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(636, 4);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(11, 13);
-            this.label29.TabIndex = 17;
-            this.label29.Text = "*";
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(5, 4);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(56, 13);
-            this.label30.TabIndex = 16;
-            this.label30.Text = "Исходное";
-            // 
-            // pictureBox21
-            // 
-            this.pictureBox21.Location = new System.Drawing.Point(630, 20);
-            this.pictureBox21.Name = "pictureBox21";
-            this.pictureBox21.Size = new System.Drawing.Size(600, 550);
-            this.pictureBox21.TabIndex = 15;
-            this.pictureBox21.TabStop = false;
-            // 
-            // pictureBox22
-            // 
-            this.pictureBox22.Location = new System.Drawing.Point(5, 20);
-            this.pictureBox22.Name = "pictureBox22";
-            this.pictureBox22.Size = new System.Drawing.Size(600, 550);
-            this.pictureBox22.TabIndex = 14;
-            this.pictureBox22.TabStop = false;
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(636, 4);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(11, 13);
-            this.label31.TabIndex = 17;
-            this.label31.Text = "*";
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(5, 4);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(56, 13);
-            this.label32.TabIndex = 16;
-            this.label32.Text = "Исходное";
-            // 
-            // pictureBox23
-            // 
-            this.pictureBox23.Location = new System.Drawing.Point(630, 20);
-            this.pictureBox23.Name = "pictureBox23";
-            this.pictureBox23.Size = new System.Drawing.Size(600, 550);
-            this.pictureBox23.TabIndex = 15;
-            this.pictureBox23.TabStop = false;
-            // 
-            // pictureBox24
-            // 
-            this.pictureBox24.Location = new System.Drawing.Point(5, 20);
-            this.pictureBox24.Name = "pictureBox24";
-            this.pictureBox24.Size = new System.Drawing.Size(600, 550);
-            this.pictureBox24.TabIndex = 14;
-            this.pictureBox24.TabStop = false;
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(636, 4);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(11, 13);
-            this.label33.TabIndex = 17;
-            this.label33.Text = "*";
-            // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(5, 4);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(56, 13);
-            this.label34.TabIndex = 16;
-            this.label34.Text = "Исходное";
-            // 
-            // pictureBox25
-            // 
-            this.pictureBox25.Location = new System.Drawing.Point(630, 20);
-            this.pictureBox25.Name = "pictureBox25";
-            this.pictureBox25.Size = new System.Drawing.Size(600, 550);
-            this.pictureBox25.TabIndex = 15;
-            this.pictureBox25.TabStop = false;
-            // 
-            // pictureBox26
-            // 
-            this.pictureBox26.Location = new System.Drawing.Point(5, 20);
-            this.pictureBox26.Name = "pictureBox26";
-            this.pictureBox26.Size = new System.Drawing.Size(600, 550);
-            this.pictureBox26.TabIndex = 14;
-            this.pictureBox26.TabStop = false;
-            // 
-            // label35
-            // 
-            this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(636, 4);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(11, 13);
-            this.label35.TabIndex = 17;
-            this.label35.Text = "*";
-            // 
-            // label36
-            // 
-            this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(5, 4);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(56, 13);
-            this.label36.TabIndex = 16;
-            this.label36.Text = "Исходное";
-            // 
-            // pictureBox27
-            // 
-            this.pictureBox27.Location = new System.Drawing.Point(630, 20);
-            this.pictureBox27.Name = "pictureBox27";
-            this.pictureBox27.Size = new System.Drawing.Size(600, 550);
-            this.pictureBox27.TabIndex = 15;
-            this.pictureBox27.TabStop = false;
-            // 
-            // pictureBox28
-            // 
-            this.pictureBox28.Location = new System.Drawing.Point(5, 20);
-            this.pictureBox28.Name = "pictureBox28";
-            this.pictureBox28.Size = new System.Drawing.Size(600, 550);
-            this.pictureBox28.TabIndex = 14;
-            this.pictureBox28.TabStop = false;
-            // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(636, 4);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(11, 13);
-            this.label37.TabIndex = 17;
-            this.label37.Text = "*";
-            // 
-            // label38
-            // 
-            this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(5, 4);
-            this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(56, 13);
-            this.label38.TabIndex = 16;
-            this.label38.Text = "Исходное";
-            // 
-            // pictureBox29
-            // 
-            this.pictureBox29.Location = new System.Drawing.Point(630, 20);
-            this.pictureBox29.Name = "pictureBox29";
-            this.pictureBox29.Size = new System.Drawing.Size(600, 550);
-            this.pictureBox29.TabIndex = 15;
-            this.pictureBox29.TabStop = false;
-            // 
-            // pictureBox30
-            // 
-            this.pictureBox30.Location = new System.Drawing.Point(5, 20);
-            this.pictureBox30.Name = "pictureBox30";
-            this.pictureBox30.Size = new System.Drawing.Size(600, 550);
-            this.pictureBox30.TabIndex = 14;
-            this.pictureBox30.TabStop = false;
-            // 
             // tabPage21
             // 
             this.tabPage21.Controls.Add(this.label39);
@@ -1355,71 +1315,6 @@
             this.tabPage21.TabIndex = 3;
             this.tabPage21.Text = "Сдвиг";
             this.tabPage21.UseVisualStyleBackColor = true;
-            // 
-            // tabPage22
-            // 
-            this.tabPage22.Controls.Add(this.label41);
-            this.tabPage22.Controls.Add(this.label42);
-            this.tabPage22.Controls.Add(this.pictureBox33);
-            this.tabPage22.Controls.Add(this.pictureBox34);
-            this.tabPage22.Location = new System.Drawing.Point(4, 22);
-            this.tabPage22.Name = "tabPage22";
-            this.tabPage22.Size = new System.Drawing.Size(1235, 575);
-            this.tabPage22.TabIndex = 4;
-            this.tabPage22.Text = "Поворот";
-            this.tabPage22.UseVisualStyleBackColor = true;
-            // 
-            // tabPage23
-            // 
-            this.tabPage23.Controls.Add(this.label43);
-            this.tabPage23.Controls.Add(this.label44);
-            this.tabPage23.Controls.Add(this.pictureBox35);
-            this.tabPage23.Controls.Add(this.pictureBox36);
-            this.tabPage23.Location = new System.Drawing.Point(4, 22);
-            this.tabPage23.Name = "tabPage23";
-            this.tabPage23.Size = new System.Drawing.Size(1235, 575);
-            this.tabPage23.TabIndex = 5;
-            this.tabPage23.Text = "Шум";
-            this.tabPage23.UseVisualStyleBackColor = true;
-            // 
-            // tabPage24
-            // 
-            this.tabPage24.Controls.Add(this.label45);
-            this.tabPage24.Controls.Add(this.label46);
-            this.tabPage24.Controls.Add(this.pictureBox37);
-            this.tabPage24.Controls.Add(this.pictureBox38);
-            this.tabPage24.Location = new System.Drawing.Point(4, 22);
-            this.tabPage24.Name = "tabPage24";
-            this.tabPage24.Size = new System.Drawing.Size(1235, 575);
-            this.tabPage24.TabIndex = 6;
-            this.tabPage24.Text = "Контрастность";
-            this.tabPage24.UseVisualStyleBackColor = true;
-            // 
-            // tabPage25
-            // 
-            this.tabPage25.Controls.Add(this.label47);
-            this.tabPage25.Controls.Add(this.label48);
-            this.tabPage25.Controls.Add(this.pictureBox39);
-            this.tabPage25.Controls.Add(this.pictureBox40);
-            this.tabPage25.Location = new System.Drawing.Point(4, 22);
-            this.tabPage25.Name = "tabPage25";
-            this.tabPage25.Size = new System.Drawing.Size(1235, 575);
-            this.tabPage25.TabIndex = 7;
-            this.tabPage25.Text = "Яркость";
-            this.tabPage25.UseVisualStyleBackColor = true;
-            // 
-            // tabPage26
-            // 
-            this.tabPage26.Controls.Add(this.label49);
-            this.tabPage26.Controls.Add(this.label50);
-            this.tabPage26.Controls.Add(this.pictureBox41);
-            this.tabPage26.Controls.Add(this.pictureBox42);
-            this.tabPage26.Location = new System.Drawing.Point(4, 22);
-            this.tabPage26.Name = "tabPage26";
-            this.tabPage26.Size = new System.Drawing.Size(1235, 575);
-            this.tabPage26.TabIndex = 8;
-            this.tabPage26.Text = "ВСЁ";
-            this.tabPage26.UseVisualStyleBackColor = true;
             // 
             // label39
             // 
@@ -1455,6 +1350,19 @@
             this.pictureBox32.TabIndex = 14;
             this.pictureBox32.TabStop = false;
             // 
+            // tabPage22
+            // 
+            this.tabPage22.Controls.Add(this.label41);
+            this.tabPage22.Controls.Add(this.label42);
+            this.tabPage22.Controls.Add(this.pictureBox33);
+            this.tabPage22.Controls.Add(this.pictureBox34);
+            this.tabPage22.Location = new System.Drawing.Point(4, 22);
+            this.tabPage22.Name = "tabPage22";
+            this.tabPage22.Size = new System.Drawing.Size(1235, 575);
+            this.tabPage22.TabIndex = 4;
+            this.tabPage22.Text = "Поворот";
+            this.tabPage22.UseVisualStyleBackColor = true;
+            // 
             // label41
             // 
             this.label41.AutoSize = true;
@@ -1488,6 +1396,19 @@
             this.pictureBox34.Size = new System.Drawing.Size(600, 550);
             this.pictureBox34.TabIndex = 14;
             this.pictureBox34.TabStop = false;
+            // 
+            // tabPage23
+            // 
+            this.tabPage23.Controls.Add(this.label43);
+            this.tabPage23.Controls.Add(this.label44);
+            this.tabPage23.Controls.Add(this.pictureBox35);
+            this.tabPage23.Controls.Add(this.pictureBox36);
+            this.tabPage23.Location = new System.Drawing.Point(4, 22);
+            this.tabPage23.Name = "tabPage23";
+            this.tabPage23.Size = new System.Drawing.Size(1235, 575);
+            this.tabPage23.TabIndex = 5;
+            this.tabPage23.Text = "Шум";
+            this.tabPage23.UseVisualStyleBackColor = true;
             // 
             // label43
             // 
@@ -1523,6 +1444,19 @@
             this.pictureBox36.TabIndex = 14;
             this.pictureBox36.TabStop = false;
             // 
+            // tabPage24
+            // 
+            this.tabPage24.Controls.Add(this.label45);
+            this.tabPage24.Controls.Add(this.label46);
+            this.tabPage24.Controls.Add(this.pictureBox37);
+            this.tabPage24.Controls.Add(this.pictureBox38);
+            this.tabPage24.Location = new System.Drawing.Point(4, 22);
+            this.tabPage24.Name = "tabPage24";
+            this.tabPage24.Size = new System.Drawing.Size(1235, 575);
+            this.tabPage24.TabIndex = 6;
+            this.tabPage24.Text = "Контрастность";
+            this.tabPage24.UseVisualStyleBackColor = true;
+            // 
             // label45
             // 
             this.label45.AutoSize = true;
@@ -1556,6 +1490,19 @@
             this.pictureBox38.Size = new System.Drawing.Size(600, 550);
             this.pictureBox38.TabIndex = 14;
             this.pictureBox38.TabStop = false;
+            // 
+            // tabPage25
+            // 
+            this.tabPage25.Controls.Add(this.label47);
+            this.tabPage25.Controls.Add(this.label48);
+            this.tabPage25.Controls.Add(this.pictureBox39);
+            this.tabPage25.Controls.Add(this.pictureBox40);
+            this.tabPage25.Location = new System.Drawing.Point(4, 22);
+            this.tabPage25.Name = "tabPage25";
+            this.tabPage25.Size = new System.Drawing.Size(1235, 575);
+            this.tabPage25.TabIndex = 7;
+            this.tabPage25.Text = "Яркость";
+            this.tabPage25.UseVisualStyleBackColor = true;
             // 
             // label47
             // 
@@ -1591,39 +1538,129 @@
             this.pictureBox40.TabIndex = 14;
             this.pictureBox40.TabStop = false;
             // 
-            // label49
+            // radioButton2
             // 
-            this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(636, 4);
-            this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(11, 13);
-            this.label49.TabIndex = 17;
-            this.label49.Text = "*";
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(765, 26);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(68, 17);
+            this.radioButton2.TabIndex = 21;
+            this.radioButton2.Text = "Поворот";
+            this.radioButton2.UseVisualStyleBackColor = true;
             // 
-            // label50
+            // radioButton1
             // 
-            this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(5, 4);
-            this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(56, 13);
-            this.label50.TabIndex = 16;
-            this.label50.Text = "Исходное";
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(765, 6);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(55, 17);
+            this.radioButton1.TabIndex = 20;
+            this.radioButton1.Text = "Сдвиг";
+            this.radioButton1.UseVisualStyleBackColor = true;
             // 
-            // pictureBox41
+            // radioButton3
             // 
-            this.pictureBox41.Location = new System.Drawing.Point(630, 20);
-            this.pictureBox41.Name = "pictureBox41";
-            this.pictureBox41.Size = new System.Drawing.Size(600, 550);
-            this.pictureBox41.TabIndex = 15;
-            this.pictureBox41.TabStop = false;
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Location = new System.Drawing.Point(856, 6);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(47, 17);
+            this.radioButton3.TabIndex = 22;
+            this.radioButton3.Text = "Шум";
+            this.radioButton3.UseVisualStyleBackColor = true;
             // 
-            // pictureBox42
+            // radioButton4
             // 
-            this.pictureBox42.Location = new System.Drawing.Point(5, 20);
-            this.pictureBox42.Name = "pictureBox42";
-            this.pictureBox42.Size = new System.Drawing.Size(600, 550);
-            this.pictureBox42.TabIndex = 14;
-            this.pictureBox42.TabStop = false;
+            this.radioButton4.AutoSize = true;
+            this.radioButton4.Location = new System.Drawing.Point(856, 26);
+            this.radioButton4.Name = "radioButton4";
+            this.radioButton4.Size = new System.Drawing.Size(101, 17);
+            this.radioButton4.TabIndex = 23;
+            this.radioButton4.Text = "Контрастность";
+            this.radioButton4.UseVisualStyleBackColor = true;
+            // 
+            // radioButton5
+            // 
+            this.radioButton5.AutoSize = true;
+            this.radioButton5.Location = new System.Drawing.Point(963, 6);
+            this.radioButton5.Name = "radioButton5";
+            this.radioButton5.Size = new System.Drawing.Size(68, 17);
+            this.radioButton5.TabIndex = 24;
+            this.radioButton5.Text = "Яркость";
+            this.radioButton5.UseVisualStyleBackColor = true;
+            // 
+            // radioButton6
+            // 
+            this.radioButton6.AutoSize = true;
+            this.radioButton6.Checked = true;
+            this.radioButton6.Location = new System.Drawing.Point(963, 26);
+            this.radioButton6.Name = "radioButton6";
+            this.radioButton6.Size = new System.Drawing.Size(46, 17);
+            this.radioButton6.TabIndex = 25;
+            this.radioButton6.TabStop = true;
+            this.radioButton6.Text = "ВСЁ";
+            this.radioButton6.UseVisualStyleBackColor = true;
+            // 
+            // radioButton12
+            // 
+            this.radioButton12.AutoSize = true;
+            this.radioButton12.Checked = true;
+            this.radioButton12.Location = new System.Drawing.Point(975, 26);
+            this.radioButton12.Name = "radioButton12";
+            this.radioButton12.Size = new System.Drawing.Size(46, 17);
+            this.radioButton12.TabIndex = 31;
+            this.radioButton12.TabStop = true;
+            this.radioButton12.Text = "ВСЁ";
+            this.radioButton12.UseVisualStyleBackColor = true;
+            // 
+            // radioButton11
+            // 
+            this.radioButton11.AutoSize = true;
+            this.radioButton11.Location = new System.Drawing.Point(975, 6);
+            this.radioButton11.Name = "radioButton11";
+            this.radioButton11.Size = new System.Drawing.Size(68, 17);
+            this.radioButton11.TabIndex = 30;
+            this.radioButton11.Text = "Яркость";
+            this.radioButton11.UseVisualStyleBackColor = true;
+            // 
+            // radioButton10
+            // 
+            this.radioButton10.AutoSize = true;
+            this.radioButton10.Location = new System.Drawing.Point(868, 26);
+            this.radioButton10.Name = "radioButton10";
+            this.radioButton10.Size = new System.Drawing.Size(101, 17);
+            this.radioButton10.TabIndex = 29;
+            this.radioButton10.Text = "Контрастность";
+            this.radioButton10.UseVisualStyleBackColor = true;
+            // 
+            // radioButton9
+            // 
+            this.radioButton9.AutoSize = true;
+            this.radioButton9.Location = new System.Drawing.Point(868, 6);
+            this.radioButton9.Name = "radioButton9";
+            this.radioButton9.Size = new System.Drawing.Size(47, 17);
+            this.radioButton9.TabIndex = 28;
+            this.radioButton9.Text = "Шум";
+            this.radioButton9.UseVisualStyleBackColor = true;
+            // 
+            // radioButton8
+            // 
+            this.radioButton8.AutoSize = true;
+            this.radioButton8.Location = new System.Drawing.Point(777, 26);
+            this.radioButton8.Name = "radioButton8";
+            this.radioButton8.Size = new System.Drawing.Size(68, 17);
+            this.radioButton8.TabIndex = 27;
+            this.radioButton8.Text = "Поворот";
+            this.radioButton8.UseVisualStyleBackColor = true;
+            // 
+            // radioButton7
+            // 
+            this.radioButton7.AutoSize = true;
+            this.radioButton7.Location = new System.Drawing.Point(777, 6);
+            this.radioButton7.Name = "radioButton7";
+            this.radioButton7.Size = new System.Drawing.Size(55, 17);
+            this.radioButton7.TabIndex = 26;
+            this.radioButton7.Text = "Сдвиг";
+            this.radioButton7.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -1669,6 +1706,26 @@
             this.tabPage11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
+            this.tabPage15.ResumeLayout(false);
+            this.tabPage15.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox19)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox20)).EndInit();
+            this.tabPage16.ResumeLayout(false);
+            this.tabPage16.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox21)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox22)).EndInit();
+            this.tabPage17.ResumeLayout(false);
+            this.tabPage17.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox23)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox24)).EndInit();
+            this.tabPage18.ResumeLayout(false);
+            this.tabPage18.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox25)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox26)).EndInit();
+            this.tabPage19.ResumeLayout(false);
+            this.tabPage19.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox27)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox28)).EndInit();
             this.tabPage8.ResumeLayout(false);
             this.tabPage8.PerformLayout();
             this.tabControl5.ResumeLayout(false);
@@ -1684,54 +1741,26 @@
             this.tabPage14.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox17)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox18)).EndInit();
-            this.tabPage15.ResumeLayout(false);
-            this.tabPage15.PerformLayout();
-            this.tabPage16.ResumeLayout(false);
-            this.tabPage16.PerformLayout();
-            this.tabPage17.ResumeLayout(false);
-            this.tabPage17.PerformLayout();
-            this.tabPage18.ResumeLayout(false);
-            this.tabPage18.PerformLayout();
-            this.tabPage19.ResumeLayout(false);
-            this.tabPage19.PerformLayout();
-            this.tabPage20.ResumeLayout(false);
-            this.tabPage20.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox19)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox20)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox21)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox22)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox23)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox24)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox25)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox26)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox27)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox28)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox29)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox30)).EndInit();
             this.tabPage21.ResumeLayout(false);
             this.tabPage21.PerformLayout();
-            this.tabPage22.ResumeLayout(false);
-            this.tabPage22.PerformLayout();
-            this.tabPage23.ResumeLayout(false);
-            this.tabPage23.PerformLayout();
-            this.tabPage24.ResumeLayout(false);
-            this.tabPage24.PerformLayout();
-            this.tabPage25.ResumeLayout(false);
-            this.tabPage25.PerformLayout();
-            this.tabPage26.ResumeLayout(false);
-            this.tabPage26.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox31)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox32)).EndInit();
+            this.tabPage22.ResumeLayout(false);
+            this.tabPage22.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox33)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox34)).EndInit();
+            this.tabPage23.ResumeLayout(false);
+            this.tabPage23.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox35)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox36)).EndInit();
+            this.tabPage24.ResumeLayout(false);
+            this.tabPage24.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox37)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox38)).EndInit();
+            this.tabPage25.ResumeLayout(false);
+            this.tabPage25.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox39)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox40)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox41)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox42)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1822,7 +1851,6 @@
         private System.Windows.Forms.TabPage tabPage17;
         private System.Windows.Forms.TabPage tabPage18;
         private System.Windows.Forms.TabPage tabPage19;
-        private System.Windows.Forms.TabPage tabPage20;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.PictureBox pictureBox19;
@@ -1843,10 +1871,6 @@
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.PictureBox pictureBox27;
         private System.Windows.Forms.PictureBox pictureBox28;
-        private System.Windows.Forms.Label label37;
-        private System.Windows.Forms.Label label38;
-        private System.Windows.Forms.PictureBox pictureBox29;
-        private System.Windows.Forms.PictureBox pictureBox30;
         private System.Windows.Forms.TabPage tabPage21;
         private System.Windows.Forms.Label label39;
         private System.Windows.Forms.Label label40;
@@ -1872,11 +1896,18 @@
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.PictureBox pictureBox39;
         private System.Windows.Forms.PictureBox pictureBox40;
-        private System.Windows.Forms.TabPage tabPage26;
-        private System.Windows.Forms.Label label49;
-        private System.Windows.Forms.Label label50;
-        private System.Windows.Forms.PictureBox pictureBox41;
-        private System.Windows.Forms.PictureBox pictureBox42;
+        private System.Windows.Forms.RadioButton radioButton6;
+        private System.Windows.Forms.RadioButton radioButton5;
+        private System.Windows.Forms.RadioButton radioButton4;
+        private System.Windows.Forms.RadioButton radioButton3;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton radioButton12;
+        private System.Windows.Forms.RadioButton radioButton11;
+        private System.Windows.Forms.RadioButton radioButton10;
+        private System.Windows.Forms.RadioButton radioButton9;
+        private System.Windows.Forms.RadioButton radioButton8;
+        private System.Windows.Forms.RadioButton radioButton7;
     }
 }
 

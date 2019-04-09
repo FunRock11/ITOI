@@ -75,7 +75,7 @@ namespace ITOI
                 Close();
 
             */
-            BeginImg = new Img(BasePath + "Begin/BeginImage5.png");
+            BeginImg = new Img(BasePath + "Begin/BeginImage1.png");
             GrayImg = new Img(BeginImg.GrayMatrix, BeginImg.Width, BeginImg.Height);
             GrayImg.Save(BasePath + "Result/GrayImage.png");
 
@@ -229,7 +229,6 @@ namespace ITOI
                     Moravek.ImageWithPoints.Draw(pictureBox24);
                     Moravek.ImageWithPoints.Draw(pictureBox26);
                     Moravek.ImageWithPoints.Draw(pictureBox28);
-                    Moravek.ImageWithPoints.Draw(pictureBox30);
 
                     Bitmap bmp = new Bitmap(IWidth, IHeight, PixelFormat.Format32bppArgb);
                     pictureBox11.Image = bmp;
@@ -238,7 +237,6 @@ namespace ITOI
                     pictureBox23.Image = bmp;
                     pictureBox25.Image = bmp;
                     pictureBox27.Image = bmp;
-                    pictureBox29.Image = bmp;
 
                     button6.Enabled = true;
                     button8.Enabled = true;
@@ -289,7 +287,6 @@ namespace ITOI
                     Harris.ImageWithPoints.Draw(pictureBox36);
                     Harris.ImageWithPoints.Draw(pictureBox38);
                     Harris.ImageWithPoints.Draw(pictureBox40);
-                    Harris.ImageWithPoints.Draw(pictureBox42);
                     
                     Bitmap bmp = new Bitmap(IWidth, IHeight, PixelFormat.Format32bppArgb);
                     pictureBox17.Image = bmp;
@@ -298,7 +295,6 @@ namespace ITOI
                     pictureBox35.Image = bmp;
                     pictureBox37.Image = bmp;
                     pictureBox39.Image = bmp;
-                    pictureBox41.Image = bmp;
 
                     button7.Enabled = true;
                     button9.Enabled = true;
@@ -361,35 +357,126 @@ namespace ITOI
 
         private void button8_Click(object sender, EventArgs e)
         {
-            /*Сдвиг*/
-            byte[,] SdvigMtx = F.Sdvig(GrayImg.GrayMatrix, GrayImg.Width, GrayImg.Height, out int nWidth, out int nHeight, 50, 20);
-            Img SdvigImg = new Img(SdvigMtx, nWidth, nHeight);
-            Moravek SdvigMoravek = new Moravek(SdvigImg, MoraverRadius, MoravekDolya);
-            SdvigMoravek.ImageWithPoints.Draw(pictureBox19);
-
-            /*Поворот*/
-            Bitmap RotateBMP = new Bitmap(IWidth, IWidth, PixelFormat.Format32bppArgb);
-            /*for (int y = 0; y < IWidth; y++)
+            if (radioButton1.Checked || radioButton6.Checked)
             {
-                for (int x = 0; x < IWidth; x++)
-                {
-                    RotateBMP.SetPixel(x, y, Color.Red);
-                }
-            }*/
-            int o = (IWidth - IHeight) / 2;
-            for (int y = o; y < IHeight + o; y++)
-            {
-                for (int x = 0; x < IWidth; x++)
-                {
-                    RotateBMP.SetPixel(x, y, GrayImg.Bitmap.GetPixel(x, y - o));
-                }
+                /*Сдвиг*/
+                byte[,] SdvigMtx = F.Sdvig(GrayImg.GrayMatrix, GrayImg.Width, GrayImg.Height, out int nWidth, out int nHeight, 50, 20);
+                Img SdvigImg = new Img(SdvigMtx, nWidth, nHeight);
+                Moravek SdvigMoravek = new Moravek(SdvigImg, MoraverRadius, MoravekDolya);
+                SdvigMoravek.ImageWithPoints.Draw(pictureBox19);
             }
-            RotateBMP = F.RotateImage(RotateBMP, 30.0F);
-            Img RotateImg = new Img(RotateBMP);
-            Moravek RotateMoravek = new Moravek(RotateImg, MoraverRadius, MoravekDolya);
-            RotateMoravek.ImageWithPoints.Draw(pictureBox21);
+            if (radioButton2.Checked || radioButton6.Checked)
+            {
+                /*Поворот*/
+                int size = Convert.ToInt32(Math.Ceiling(Math.Sqrt(IWidth * IWidth + IHeight * IHeight)));
+                Bitmap RotateBMP = new Bitmap(size, size, PixelFormat.Format32bppArgb);
+                for (int y = 0; y < size; y++)
+                {
+                    for (int x = 0; x < size; x++)
+                    {
+                        RotateBMP.SetPixel(x, y, Color.White);
+                    }
+                }
+                int o = (size - IHeight) / 2;
+                int oo = (size - IWidth) / 2;
+                for (int y = o; y < IHeight + o; y++)
+                {
+                    for (int x = oo; x < IWidth + oo; x++)
+                    {
+                        RotateBMP.SetPixel(x, y, GrayImg.Bitmap.GetPixel(x - oo, y - o));
+                    }
+                }
+                RotateBMP = F.RotateImage(RotateBMP, 30.0F);
+                Img RotateImg = new Img(RotateBMP);
+                Moravek RotateMoravek = new Moravek(RotateImg, MoraverRadius, MoravekDolya);
+                RotateMoravek.ImageWithPoints.Draw(pictureBox21);
+            }
+            if (radioButton3.Checked || radioButton6.Checked)
+            {
+                /*Шум*/
+                double[,] NoiseMtx = F.Noise(GrayImg.GrayMatrix, IWidth, IHeight, 30);
+                Img NoiseImg = new Img(NoiseMtx, IWidth, IHeight);
+                Moravek NoiseMoravek = new Moravek(NoiseImg, MoraverRadius, MoravekDolya);
+                NoiseMoravek.ImageWithPoints.Draw(pictureBox23);
+            }
+            if (radioButton4.Checked || radioButton6.Checked)
+            {
+                /*Контрастность*/
+                byte[,] ContrastMtx = F.Contrast(GrayImg.GrayMatrix, IWidth, IHeight, 35);
+                Img ContrastImg = new Img(ContrastMtx, IWidth, IHeight);
+                Moravek ContrastMoravek = new Moravek(ContrastImg, MoraverRadius, MoravekDolya);
+                ContrastMoravek.ImageWithPoints.Draw(pictureBox25);
+            }
+            if (radioButton5.Checked || radioButton6.Checked)
+            {
+                /*Яркость*/
+                byte[,] BrightMtx = F.Brightness(GrayImg.GrayMatrix, IWidth, IHeight, 50);
+                Img BrightImg = new Img(BrightMtx, IWidth, IHeight);
+                Moravek BrightMoravek = new Moravek(BrightImg, MoraverRadius, MoravekDolya);
+                BrightMoravek.ImageWithPoints.Draw(pictureBox27);
+            }
         }
 
-
+        private void button9_Click(object sender, EventArgs e)
+        {
+            if (radioButton7.Checked || radioButton12.Checked)
+            {
+                /*Сдвиг*/
+                byte[,] SdvigMtx = F.Sdvig(GrayImg.GrayMatrix, GrayImg.Width, GrayImg.Height, out int nWidth, out int nHeight, 50, 20);
+                Img SdvigImg = new Img(SdvigMtx, nWidth, nHeight);
+                Harris SdvigHarris = new Harris(SdvigImg, HarrisRadius, HarrisDolya);
+                SdvigHarris.ImageWithPoints.Draw(pictureBox31);
+            }
+            if (radioButton8.Checked || radioButton12.Checked)
+            {
+                /*Поворот*/
+                int size = Convert.ToInt32(Math.Ceiling(Math.Sqrt(IWidth * IWidth + IHeight * IHeight)));
+                Bitmap RotateBMP = new Bitmap(size, size, PixelFormat.Format32bppArgb);
+                for (int y = 0; y < size; y++)
+                {
+                    for (int x = 0; x < size; x++)
+                    {
+                        RotateBMP.SetPixel(x, y, Color.White);
+                    }
+                }
+                int o = (size - IHeight) / 2;
+                int oo = (size - IWidth) / 2;
+                for (int y = o; y < IHeight + o; y++)
+                {
+                    for (int x = oo; x < IWidth + oo; x++)
+                    {
+                        RotateBMP.SetPixel(x, y, GrayImg.Bitmap.GetPixel(x - oo, y - o));
+                    }
+                }
+                RotateBMP = F.RotateImage(RotateBMP, 30.0F);
+                Img RotateImg = new Img(RotateBMP);
+                Harris RotateHarris = new Harris(RotateImg, HarrisRadius, HarrisDolya);
+                RotateHarris.ImageWithPoints.Draw(pictureBox33);
+            }
+            if (radioButton9.Checked || radioButton12.Checked)
+            {
+                /*Шум*/
+                double[,] NoiseMtx = F.Noise(GrayImg.GrayMatrix, IWidth, IHeight, 30);
+                Img NoiseImg = new Img(NoiseMtx, IWidth, IHeight);
+                Harris NoiseHarris = new Harris(NoiseImg, HarrisRadius, HarrisDolya);
+                NoiseHarris.ImageWithPoints.Draw(pictureBox35);
+            }
+            if (radioButton10.Checked || radioButton12.Checked)
+            {
+                /*Контрастность*/
+                byte[,] ContrastMtx = F.Contrast(GrayImg.GrayMatrix, IWidth, IHeight, 35);
+                Img ContrastImg = new Img(ContrastMtx, IWidth, IHeight);
+                Harris ContrastHarris = new Harris(ContrastImg, HarrisRadius, HarrisDolya);
+                ContrastHarris.ImageWithPoints.Draw(pictureBox37);
+            }
+            if (radioButton11.Checked || radioButton12.Checked)
+            {
+                /*Яркость*/
+                byte[,] BrightMtx = F.Brightness(GrayImg.GrayMatrix, IWidth, IHeight, 50);
+                Img BrightImg = new Img(BrightMtx, IWidth, IHeight);
+                Harris BrightHarris = new Harris(BrightImg, HarrisRadius, HarrisDolya);
+                BrightHarris.ImageWithPoints.Draw(pictureBox39);
+            }
+        }
     }
 }
