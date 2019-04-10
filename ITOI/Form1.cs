@@ -86,6 +86,7 @@ namespace ITOI
             GrayImg.Draw(pictureBox2);
         }
 
+        /* Частные производные */
         private void button1_Click(object sender, EventArgs e)
         {
             int k = 1;
@@ -115,6 +116,7 @@ namespace ITOI
             button2.Enabled = true;
         }
 
+        /* Собель */
         private void button2_Click(object sender, EventArgs e)
         {
             GrayImg.Draw(pictureBox6);
@@ -138,6 +140,7 @@ namespace ITOI
             SobelImg.Save(BasePath + "Lab 1/Sobel.png");
         }
 
+        /* Пирамида */
         private void button3_Click(object sender, EventArgs e)
         {
             bool mTr = true;
@@ -198,6 +201,7 @@ namespace ITOI
             }
         }
 
+        /* Моравек */
         private void button4_Click(object sender, EventArgs e)
         {
             if (textBox3.Text != "" && textBox4.Text != "")
@@ -253,6 +257,7 @@ namespace ITOI
 
         }
 
+        /* Харрис */
         private void button5_Click(object sender, EventArgs e)
         {
             if (textBox6.Text != "" && textBox5.Text != "")
@@ -311,6 +316,7 @@ namespace ITOI
 
         }
 
+        /* ANMS Моравека */
         private void button6_Click(object sender, EventArgs e)
         {
             if (textBox7.Text != "")
@@ -333,6 +339,7 @@ namespace ITOI
             }
         }
 
+        /* ANMS Харриса */
         private void button7_Click(object sender, EventArgs e)
         {
             if (textBox8.Text != "")
@@ -355,6 +362,7 @@ namespace ITOI
             }
         }
 
+        /* Повторяемость Моравека */
         private void button8_Click(object sender, EventArgs e)
         {
             if (radioButton1.Checked || radioButton6.Checked)
@@ -417,6 +425,7 @@ namespace ITOI
             }
         }
 
+        /* Повторяемость Харриса */
         private void button9_Click(object sender, EventArgs e)
         {
             if (radioButton7.Checked || radioButton12.Checked)
@@ -476,6 +485,34 @@ namespace ITOI
                 Img BrightImg = new Img(BrightMtx, IWidth, IHeight);
                 Harris BrightHarris = new Harris(BrightImg, HarrisRadius, HarrisDolya);
                 BrightHarris.ImageWithPoints.Draw(pictureBox39);
+            }
+        }
+
+        /* Дескрипторы */
+        private void button10_Click(object sender, EventArgs e)
+        {
+            if (textBox11.Text != "" && textBox11.Text != "" && textBox11.Text != "")
+            {
+                try
+                {
+                    int HarrisRadius = Convert.ToInt32(textBox11.Text);
+                    double HarrisDolya = Convert.ToDouble(textBox10.Text);
+                    int Npoints = Convert.ToInt32(textBox9.Text);
+
+                    Img BegImg1 = new Img(GrayImg.GrayMatrix, IWidth, IHeight);
+                    Img BegImg2 = new Img(GrayImg.GrayMatrix, IWidth, IHeight);
+
+                    BegImg1.Draw(pictureBox30);
+                    BegImg2.Draw(pictureBox29);
+                }
+                catch
+                {
+                    MessageBox.Show("Введите данные корректно!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Введите данные!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
