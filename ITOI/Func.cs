@@ -98,6 +98,34 @@ namespace ITOI
             return Result;
         }
 
+        // Нормализовать вектор
+        public double[] NormalizeVector(double[] Vector, int size, double newMin, double newMax)
+        {
+            double[] Result = new double[size];
+
+            double vMax = -999999999;
+            double vMin = 999999999;
+            for (int i = 0; i < size; i++)
+            {
+                Result[i] = Vector[i];
+                if (Result[i] >= vMax)
+                {
+                    vMax = Result[i];
+                }
+                else if (Result[i] <= vMin)
+                {
+                    vMin = Result[i];
+                }
+            }
+
+            for (int i = 0; i < size; i++)
+            {
+                Result[i] = (Result[i] - vMin) * (newMax - newMin) / (vMax - vMin) + newMin;
+            }
+
+            return Result;
+        }
+
         // Преобразовать матрицу byte в битмап
         public Bitmap MatrixToImage(byte[,] GrayMatrix, int width, int height)
         {
@@ -439,6 +467,22 @@ namespace ITOI
                     Res[y, x] = Convert.ToByte(u);
                 }
             }
+            return Res;
+        }
+
+        // Наименьшее расстояние
+        public double[] NR(Harris h1, Harris h2)
+        {
+            double[] Res = new double[h1.NewPoints];
+            for (int d1 = 0; d1 < h1.NewPoints; d1++)
+            {
+                for (int d2 = 0; d2 < h2.NewPoints; d2++)
+                {
+                    double L2;
+                }
+            }
+
+
             return Res;
         }
 

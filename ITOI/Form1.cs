@@ -68,14 +68,8 @@ namespace ITOI
             F.ClearDir(BasePath + "Lab 2/Core");
             F.ClearDir(BasePath + "Lab 3");
             /*-------------------------------*/
-            /*
-            openFileDialog.InitialDirectory = "C:/Users/Nick/Desktop/Обработка изображений/ITOI/files/Begin";
-            openFileDialog.Filter = "";
-            if (openFileDialog.ShowDialog() == DialogResult.Cancel)
-                Close();
 
-            */
-            BeginImg = new Img(BasePath + "Begin/BeginImage0.png");
+            BeginImg = new Img(BasePath + "Begin/BeginImage1.png");
             GrayImg = new Img(BeginImg.GrayMatrix, BeginImg.Width, BeginImg.Height);
             GrayImg.Save(BasePath + "Result/GrayImage.png");
 
@@ -495,8 +489,8 @@ namespace ITOI
         {
             if (textBox11.Text != "" && textBox11.Text != "" && textBox11.Text != "")
             {
-                try
-                {
+                //try
+                //{
                     int HarrisRadius = Convert.ToInt32(textBox11.Text);
                     double HarrisDolya = Convert.ToDouble(textBox10.Text);
                     int Npoints = Convert.ToInt32(textBox9.Text);
@@ -506,11 +500,25 @@ namespace ITOI
 
                     BegImg1.Draw(pictureBox30);
                     BegImg2.Draw(pictureBox29);
-                }
-                catch
-                {
-                    MessageBox.Show("Введите данные корректно!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+
+                    Harris Harris1 = new Harris(BegImg1, HarrisRadius, HarrisDolya);
+                    Harris1.ANMS(Npoints);
+                    Harris Harris2 = new Harris(BegImg2, HarrisRadius, HarrisDolya);
+                    Harris2.ANMS(Npoints);
+
+                    Harris1.ImageWithANMS.Draw(pictureBox42);
+                    Harris2.ImageWithANMS.Draw(pictureBox41);
+
+                Harris1.Descript();
+                Harris2.Descript();
+
+
+
+                //}
+                //catch
+                //{
+                //    MessageBox.Show("Введите данные корректно!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //}
             }
             else
             {
