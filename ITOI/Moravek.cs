@@ -10,6 +10,7 @@ namespace ITOI
 {
     class Moravek
     {
+        Func F = new Func();
         public Img Image;
         public Img ImageWithPoints;
         public Img ImageWithANMS;
@@ -21,6 +22,7 @@ namespace ITOI
         public int NPoints;
         public int NewPoints;
         public int NeedPoints;
+        public double[,] Mtx;
 
         private double MAXmin = -999999999;
         private double MINmin = 999999999;
@@ -28,6 +30,9 @@ namespace ITOI
         public Moravek(Img image, int windowradius, double r)
         {
             Image = image;
+
+            GaussCore GaussMatrix = new GaussCore(1);
+            Mtx = F.Svertka(Image.GrayMatrix, Image.Width, Image.Height, GaussMatrix.Matrix, GaussMatrix.Radius, 1);
             WindowRadius = windowradius;
             R = r;
 
@@ -61,7 +66,7 @@ namespace ITOI
                                 {
                                     for (int hWinY = -WindowRadius; hWinY <= WindowRadius; hWinY++)
                                     {
-                                        C += Math.Pow((double)Image.GrayMatrix[y + hWinY, x + hWinX] - (double)Image.GrayMatrix[y + hWinY + dx, x + hWinX + dy], 2);
+                                        C += Math.Pow((double)Mtx[y + hWinY, x + hWinX] - (double)Mtx[y + hWinY + dx, x + hWinX + dy], 2);
                                     }
                                 }
                                 if (C < Q)
@@ -138,7 +143,7 @@ namespace ITOI
                                     {
                                         continue;
                                     }
-                                    else if (S[y + hWinY, x + hWinX] < S[y, x])
+                                    else if (S[y + hWinY, x + hWinX] <= S[y, x])
                                     {
                                         InterestingPoints[y + hWinY, x + hWinX] = false;
                                     }

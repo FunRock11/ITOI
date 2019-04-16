@@ -75,7 +75,7 @@ namespace ITOI
                 Close();
 
             */
-            BeginImg = new Img(BasePath + "Begin/BeginImage1.png");
+            BeginImg = new Img(BasePath + "Begin/BeginImage0.png");
             GrayImg = new Img(BeginImg.GrayMatrix, BeginImg.Width, BeginImg.Height);
             GrayImg.Save(BasePath + "Result/GrayImage.png");
 
@@ -183,14 +183,16 @@ namespace ITOI
                 {
                     for (int s = 1; s <= S; s++)
                     {
-                        sigmaTEK = sigma0 * Math.Pow(k, s);                       // Текущая сигма
+                        double sigma1 = sigma0 * Math.Pow(k, (s - 1));
+                        double sigma2 = sigma0 * Math.Pow(k, s);                       
+                        sigmaTEK = Math.Sqrt(sigma2 * sigma2 - sigma1 * sigma1);// Текущая сигма
                         sigmaD = sigma0 * Math.Pow(k, qq);
                         qq++;
                         GaussMatrix = new GaussCore(sigmaTEK);
                         GaussImg = new Img(GaussMatrix.Matrix, GaussMatrix.Size, GaussMatrix.Size);
                         TekImg.SvertkaWithNormalize(GaussMatrix.Matrix, GaussMatrix.Radius, 1);
                         TekImg.Save(BasePath + "Lab 2/" + Convert.ToString(o) + Convert.ToString(s)
-                            + " - S1=" + Convert.ToString(Math.Round(sigmaTEK, 2)) + " - Sd=" + Convert.ToString(Math.Round(sigmaD, 2)) + ".png");
+                            + " - S1=" + Convert.ToString(Math.Round(sigma2, 2)) + " - Sd=" + Convert.ToString(Math.Round(sigmaD, 2)) + ".png");
                         GaussImg.Save(BasePath + "Lab 2/Core/" + Convert.ToString(o) + Convert.ToString(s) + ".png");
 
                     }

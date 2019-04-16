@@ -150,6 +150,7 @@ namespace ITOI
                     MaxL[y, x] = MINmin;
                 }
             }
+
         }
 
         /*private void IntPoints()
@@ -237,7 +238,7 @@ namespace ITOI
                                     {
                                         continue;
                                     }
-                                    else if (MinL[y + hWinY, x + hWinX] < MinL[y,x])
+                                    else if (MinL[y + hWinY, x + hWinX] <= MinL[y,x])
                                     {
                                         InterestingPoints[y + hWinY, x + hWinX] = false;
                                     }
