@@ -318,8 +318,8 @@ namespace ITOI
         // Сдвиг по x, y
         public byte[,] Sdvig(byte[,] GrayMatrix, int width, int height, out int newwidth, out int newheight, int dx, int dy)
         {
-            newwidth = width + Math.Abs(dx);
-            newheight = height + Math.Abs(dy);
+            newwidth = width + dx;
+            newheight = height + dy;
             byte[,] Result = new byte[newheight, newwidth];
             for (int y = 0; y < newheight; y++)
             {
@@ -329,36 +329,15 @@ namespace ITOI
                 }
             }
 
-            int y1, x1;
-            int y2, x2;
-            if (dy > 0)
+            for (int y = 0; y < newheight; y++)
             {
-                y1 = dy;
-                y2 = 0;
-            }
-            else
-            {
-                y1 = 0;
-                y2 = Math.Abs(dy);
-                dy = 0;
-            }
-            if (dx > 0)
-            {
-                x1 = dx;
-                x2 = 0;
-            }
-            else
-            {
-                x1 = 0;
-                x2 = Math.Abs(dx);
-                dx = 0;
-            }
-
-            for (int y = y1; y < newheight - y2; y++)
-            {
-                for (int x = x1; x < newwidth - x2; x++)
+                for (int x = 0; x < newwidth; x++)
                 {
-                    Result[y, x] = GrayMatrix[y - dy, x - dx];
+                    if (y - dy >= 0 && y - dy < height
+                        && x - dx >=0 && x - dx < width)
+                    {
+                        Result[y, x] = GrayMatrix[y - dy, x - dx];
+                    }
                 }
             }
 
@@ -470,15 +449,108 @@ namespace ITOI
             return Res;
         }
 
-        // Наименьшее расстояние
-        public double[] NR(Harris h1, Harris h2)
+        // Ищем соответствия
+        public int[] DescriptSootv(Harris h1, Harris h2, double T)
         {
-            double[] Res = new double[h1.NewPoints];
+            int[] Res = new int[h1.NewPoints];
             for (int d1 = 0; d1 < h1.NewPoints; d1++)
             {
+                double L2min1 = 999999999;
+                double L2min2 = 999999999;
+                int desc1 = -1;
+                int desc2 = -1;
+                double[] L2D = new double[h2.NewPoints];
                 for (int d2 = 0; d2 < h2.NewPoints; d2++)
                 {
-                    double L2;
+                    double L2 = 0;
+                    for (int i = 0; i < 128; i++)
+                    {
+                        L2 += Math.Pow((h1.Descriptors[d1, i] - h2.Descriptors[d2, i]), 2);
+                    }
+                    L2D[d2] = Math.Sqrt(L2);
+                }
+                for (int d2 = 0; d2 < h2.NewPoints; d2++)
+                {
+                    if (L2D[d2] < L2min1)
+                    {
+                        L2min1 = L2D[d2];
+                        desc1 = d2;
+                    }
+                }
+                for (int d2 = 0; d2 < h2.NewPoints; d2++)
+                {
+                    if (desc1 == d2)
+                    {
+                        continue;
+                    }
+                    else if (L2D[d2] < L2min2)
+                    {
+                        L2min2 = L2D[d2];
+                        desc2 = d2;
+                    }
+                }
+                double NNDR = L2min1 / L2min2;
+                if (NNDR > T)
+                {
+                    Res[d1] = -1;
+                }
+                else
+                {
+                    double L2min13 = 999999999;
+                    int desc13 = -1;
+                    double[] L2D3 = new double[h1.NewPoints];
+                    for (int d3 = 0; d3 < h1.NewPoints; d3++)
+                    {
+                        double L23 = 0;
+                        for (int i = 0; i < 128; i++)
+                        {
+                            L23 += Math.Pow((h2.Descriptors[desc1, i] - h1.Descriptors[d3, i]), 2);
+                        }
+                        L2D3[d3] = Math.Sqrt(L23);
+                    }
+                    for (int d3 = 0; d3 < h1.NewPoints; d3++)
+                    {
+                        if (L2D3[d3] < L2min13)
+                        {
+                            L2min13 = L2D3[d3];
+                            desc13 = d3;
+                        }
+                    }
+                    if (desc13 == d1)
+                    {
+                        Res[d1] = desc1;
+                    }
+                    else
+                    {
+                        L2min13 = 999999999;
+                        desc13 = -1;
+                        L2D3 = new double[h1.NewPoints];
+                        for (int d3 = 0; d3 < h1.NewPoints; d3++)
+                        {
+                            double L23 = 0;
+                            for (int i = 0; i < 128; i++)
+                            {
+                                L23 += Math.Pow((h2.Descriptors[desc2, i] - h1.Descriptors[d3, i]), 2);
+                            }
+                            L2D3[d3] = Math.Sqrt(L23);
+                        }
+                        for (int d3 = 0; d3 < h1.NewPoints; d3++)
+                        {
+                            if (L2D3[d3] < L2min13)
+                            {
+                                L2min13 = L2D3[d3];
+                                desc13 = d3;
+                            }
+                        }
+                        if (desc13 == d1)
+                        {
+                            Res[d1] = desc2;
+                        }
+                        else
+                        {
+                            Res[d1] = -1;
+                        }
+                    }
                 }
             }
 
