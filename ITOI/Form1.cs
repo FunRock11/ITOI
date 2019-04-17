@@ -71,7 +71,7 @@ namespace ITOI
             F.ClearDir(BasePath + "Lab 5");
             /*-------------------------------*/
 
-            BeginImg = new Img(BasePath + "Begin/BeginImage1.png");
+            BeginImg = new Img(BasePath + "Begin/BeginImage0.png");
             GrayImg = new Img(BeginImg.GrayMatrix, BeginImg.Width, BeginImg.Height);
             GrayImg.Save(BasePath + "Result/GrayImage.png");
 
@@ -520,7 +520,7 @@ namespace ITOI
                             RotateBMP.SetPixel(x, y, GrayImg.Bitmap.GetPixel(x - oo, y - o));
                         }
                     }
-                    RotateBMP = F.RotateImage(RotateBMP, 30.0F);
+                    RotateBMP = F.RotateImage(RotateBMP, 5.0F);
                     Img TempImg = new Img(RotateBMP);
 
                     byte[,] SdvigMtx = F.Sdvig(TempImg.GrayMatrix, TempImg.Width, TempImg.Height, out int nWidth, out int nHeight, 0, -100);
@@ -606,8 +606,8 @@ namespace ITOI
         {
             if (textBox14.Text != "" && textBox13.Text != "" && textBox12.Text != "")
             {
-                //try
-                //{
+                try
+                {
                     int HarrisRadius = Convert.ToInt32(textBox14.Text);
                     double HarrisDolya = Convert.ToDouble(textBox13.Text);
                     int Npoints = Convert.ToInt32(textBox12.Text);
@@ -633,10 +633,10 @@ namespace ITOI
                             RotateBMP.SetPixel(x, y, GrayImg.Bitmap.GetPixel(x - oo, y - o));
                         }
                     }
-                    RotateBMP = F.RotateImage(RotateBMP, 30.0F);
+                    RotateBMP = F.RotateImage(RotateBMP, 45.0F);
                     Img TempImg = new Img(RotateBMP);
 
-                    byte[,] SdvigMtx = F.Sdvig(TempImg.GrayMatrix, TempImg.Width, TempImg.Height, out int nWidth, out int nHeight, 0, -100);
+                    byte[,] SdvigMtx = F.Sdvig(TempImg.GrayMatrix, TempImg.Width, TempImg.Height, out int nWidth, out int nHeight, 0, -50);
                     TempImg = new Img(SdvigMtx, nWidth, nHeight);
 
                     byte[,] ContrastMtx = F.Contrast(TempImg.GrayMatrix, TempImg.Width, TempImg.Height, -10);
@@ -702,11 +702,11 @@ namespace ITOI
                     Harris2.ImageWithANMS.Save(BasePath + "Lab 5/HarrisANMS2.png");
                     SootvBmp.Save(BasePath + "Lab 5/Result.png");
 
-                //}
-                //catch
-                //{
-                //    MessageBox.Show("Введите данные корректно!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //}
+                }
+                catch
+                {
+                    MessageBox.Show("Введите данные корректно!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {

@@ -348,7 +348,6 @@ namespace ITOI
 
         private void SobelAndTheta()
         {
-            double d;
             double dx = 0.0;
             double dy = 0.0;
             Theta = new double[Image.Height, Image.Width];
@@ -591,7 +590,7 @@ namespace ITOI
                     if (InterestingPointsAdd[y, x])
                     {
                         point++;
-                        double[] D = new double[16 * 36];
+                        double[] D = new double[36];
                         int region = 0;
                         for (int RegionY = -2; RegionY < 2; RegionY++)
                         {
@@ -665,21 +664,22 @@ namespace ITOI
                                         }
 
                                         double L1 = L * gauss.Matrix[(RegionY + 2) * 4 + dy, (RegionX + 2) * 4 + dx];
-                                        D[region * 36 + korzina1] += L1 * c1;
-                                        D[region * 36 + korzina2] += L1 * c2;
+                                        D[korzina1] += L1 * c1;
+                                        D[korzina2] += L1 * c2;
                                     }
                                 }
                                 region++;
                             }
                         }
-                        double[] DR = new double[36];
+                        //double[] DR = new double[36];
+                        /*
                         for (int i = 0; i < 36; i++)
                         {
                             for (int j = 0; j < 16; j++)
                             {
                                 DR[i] = D[j * 36 + i];
                             }
-                        }
+                        }*/
                         /* Ищем пики */
                         double GMaxVal1 = -999999999;
                         double GMaxVal2 = -999999999;
@@ -688,7 +688,7 @@ namespace ITOI
 
                         for (int i = 0; i < 36; i++)
                         {
-                            if (DR[i] > GMaxVal1)
+                            if (D[i] > GMaxVal1)
                             {
                                 GMaxVal1 = D[i];
                                 GMax1 = i;
@@ -700,7 +700,7 @@ namespace ITOI
                             {
                                 continue;
                             }
-                            else if (DR[i] > GMaxVal2)
+                            else if (D[i] > GMaxVal2)
                             {
                                 GMaxVal2 = D[i];
                                 GMax2 = i;
@@ -709,6 +709,20 @@ namespace ITOI
 
                         double alpha1 = (korzinaO[GMax1, 1] - korzinaO[GMax1, 0]) / 2 + korzinaO[GMax1, 0];
                         /*------------------------*/
+
+                        int[,] mX = new int[16, 16];
+                        int[,] mY = new int[16, 16];
+
+                        for (int cy = 0; cy < 16; cy++)
+                        {
+                            for (int cx = 0; cx < 16; cx++)
+                            {
+                                int dx = cx - 8;
+                                int dy = cy - 8;
+                                mX[cy, cx] = Convert.ToInt32(Math.Round(dx * Math.Cos(alpha1) + dy * Math.Sin(alpha1)));
+                                mY[cy, cx] = Convert.ToInt32(Math.Round(dy * Math.Cos(alpha1) - dx * Math.Sin(alpha1)));
+                            }
+                        }
 
                         D = new double[16 * 8];
                         region = 0;
@@ -723,11 +737,12 @@ namespace ITOI
                                         //int Nx = x + RegionX * 4 + dx;
                                         //int Ny = y + RegionY * 4 + dy;
 
-                                        int cx = Convert.ToInt32(Math.Round(dx * Math.Cos(alpha1) + dy * Math.Sin(alpha1)));
-                                        int cy = Convert.ToInt32(Math.Round(dy * Math.Cos(alpha1) - dx * Math.Sin(alpha1)));
+                                        int cx = mX[(RegionY + 2) * 4 + dy, (RegionX + 2) * 4 + dx];
+                                        int cy = mY[(RegionY + 2) * 4 + dy, (RegionX + 2) * 4 + dx];
 
-                                        double L = SobelAdd[y + RegionY * 4 + cy, x + RegionX * 4 + cx];
-                                        double Fi = ThetaAdd[y + RegionY * 4 + cy, x + RegionX * 4 + cx] - alpha1;
+                                        double L = SobelAdd[y + cy, x + cx];
+                                        double Fi = ThetaAdd[y + cy, x + cx] - alpha1;
+
                                         if (Fi <= 0)
                                         {
                                             Fi = Fi + Math.PI * 2;
@@ -822,6 +837,18 @@ namespace ITOI
                             double alpha2 = (korzinaO[GMax2, 1] - korzinaO[GMax2, 0]) / 2 + korzinaO[GMax2, 0];
                             /*------------------------*/
 
+                            mX = new int[16, 16];
+                            mY = new int[16, 16];
+
+                            for (int cy = 0; cy < 16; cy++)
+                            {
+                                for (int cx = 0; cx < 16; cx++)
+                                {
+                                    mX[cy, cx] = Convert.ToInt32(Math.Round(cx * Math.Cos(alpha2) + cy * Math.Sin(alpha2)));
+                                    mY[cy, cx] = Convert.ToInt32(Math.Round(cy * Math.Cos(alpha2) - cx * Math.Sin(alpha2)));
+                                }
+                            }
+
                             D = new double[16 * 8];
                             region = 0;
                             for (int RegionY = -2; RegionY < 2; RegionY++)
@@ -835,11 +862,11 @@ namespace ITOI
                                             //int Nx = x + RegionX * 4 + dx;
                                             //int Ny = y + RegionY * 4 + dy;
 
-                                            int cx = Convert.ToInt32(Math.Round(dx * Math.Cos(alpha2) + dy * Math.Sin(alpha2)));
-                                            int cy = Convert.ToInt32(Math.Round(dy * Math.Cos(alpha2) - dx * Math.Sin(alpha2)));
+                                            int cx = mX[(RegionY + 2) * 4 + dy, (RegionX + 2) * 4 + dx];
+                                            int cy = mY[(RegionY + 2) * 4 + dy, (RegionX + 2) * 4 + dx];
 
-                                            double L = SobelAdd[y + RegionY * 4 + cy, x + RegionX * 4 + cx];
-                                            double Fi = ThetaAdd[y + RegionY * 4 + cy, x + RegionX * 4 + cx] - alpha2;
+                                            double L = SobelAdd[y + cy - 8, x + cx - 8];
+                                            double Fi = ThetaAdd[y + cy - 8, x + cx - 8] - alpha2;
                                             if (Fi <= 0)
                                             {
                                                 Fi = Fi + Math.PI * 2;
@@ -957,7 +984,7 @@ namespace ITOI
         public void Descript5()
         {
             SobelAndTheta();
-            MtxAdd(8, out int NewHeight, out int NewWidth);
+            MtxAdd(48, out int NewHeight, out int NewWidth);
             IntPointsCoords();
             Descr5(NewHeight, NewWidth);
         }

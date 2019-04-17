@@ -522,6 +522,8 @@ namespace ITOI
                     }
                     else
                     {
+                        Res[d1] = -1;
+                        /*
                         L2min13 = 999999999;
                         desc13 = -1;
                         L2D3 = new double[h1.NewPoints];
@@ -550,6 +552,7 @@ namespace ITOI
                         {
                             Res[d1] = -1;
                         }
+                        */
                     }
                 }
             }
@@ -581,26 +584,48 @@ namespace ITOI
                     }
                     L2D[d2] = Math.Sqrt(L2);
 
-                    L2 = 0;
-                    for (int i = 0; i < GistogramSize; i++)
+                    if (h2.Descriptors2[d2, 0] != -1)
                     {
-                        L2 += Math.Pow((h1.Descriptors[d1, i] - h2.Descriptors2[d2, i]), 2);
+                        L2 = 0;
+                        for (int i = 0; i < GistogramSize; i++)
+                        {
+                            L2 += Math.Pow((h1.Descriptors[d1, i] - h2.Descriptors2[d2, i]), 2);
+                        }
+                        L2D_2[d2] = Math.Sqrt(L2);
                     }
-                    L2D_2[d2] = Math.Sqrt(L2);
+                    else
+                    {
+                        L2D_2[d2] = -1;
+                    }
 
-                    L2 = 0;
-                    for (int i = 0; i < GistogramSize; i++)
-                    {
-                        L2 += Math.Pow((h1.Descriptors2[d1, i] - h2.Descriptors[d2, i]), 2);
-                    }
-                    L2D_3[d2] = Math.Sqrt(L2);
 
-                    L2 = 0;
-                    for (int i = 0; i < GistogramSize; i++)
+                    if (h1.Descriptors2[d1, 0] != -1)
                     {
-                        L2 += Math.Pow((h1.Descriptors2[d1, i] - h2.Descriptors2[d2, i]), 2);
+                        L2 = 0;
+                        for (int i = 0; i < GistogramSize; i++)
+                        {
+                            L2 += Math.Pow((h1.Descriptors2[d1, i] - h2.Descriptors[d2, i]), 2);
+                        }
+                        L2D_3[d2] = Math.Sqrt(L2);
                     }
-                    L2D_4[d2] = Math.Sqrt(L2);
+                    else
+                    {
+                        L2D_3[d2] = -1;
+                    }
+
+                    if (h1.Descriptors2[d1, 0] != -1 && h2.Descriptors2[d2, 0] != -1)
+                    {
+                        L2 = 0;
+                        for (int i = 0; i < GistogramSize; i++)
+                        {
+                            L2 += Math.Pow((h1.Descriptors2[d1, i] - h2.Descriptors2[d2, i]), 2);
+                        }
+                        L2D_4[d2] = Math.Sqrt(L2);
+                    }
+                    else
+                    {
+                        L2D_4[d2] = -1;
+                    }
 
                 }
                 for (int d2 = 0; d2 < h2.NewPoints; d2++)
@@ -613,26 +638,35 @@ namespace ITOI
                 }
                 for (int d2 = 0; d2 < h2.NewPoints; d2++)
                 {
-                    if (L2D_2[d2] < L2min1)
+                    if (L2D_2[d2] != -1)
                     {
-                        L2min1 = L2D_2[d2];
-                        desc1 = d2;
+                        if (L2D_2[d2] < L2min1)
+                        {
+                            L2min1 = L2D_2[d2];
+                            desc1 = d2;
+                        }
                     }
                 }
                 for (int d2 = 0; d2 < h2.NewPoints; d2++)
                 {
-                    if (L2D_3[d2] < L2min1)
+                    if (L2D_3[d2] != -1)
                     {
-                        L2min1 = L2D_3[d2];
-                        desc1 = d2;
+                        if (L2D_3[d2] < L2min1)
+                        {
+                            L2min1 = L2D_3[d2];
+                            desc1 = d2;
+                        }
                     }
                 }
                 for (int d2 = 0; d2 < h2.NewPoints; d2++)
                 {
-                    if (L2D_4[d2] < L2min1)
+                    if (L2D_4[d2] != -1)
                     {
-                        L2min1 = L2D_4[d2];
-                        desc1 = d2;
+                        if (L2D_4[d2] < L2min1)
+                        {
+                            L2min1 = L2D_4[d2];
+                            desc1 = d2;
+                        }
                     }
                 }
                 for (int d2 = 0; d2 < h2.NewPoints; d2++)
@@ -653,10 +687,13 @@ namespace ITOI
                     {
                         continue;
                     }
-                    else if (L2D_2[d2] < L2min2)
+                    else if (L2D_2[d2] != -1)
                     {
-                        L2min2 = L2D_2[d2];
-                        desc2 = d2;
+                        if (L2D_2[d2] < L2min2)
+                        {
+                            L2min2 = L2D_2[d2];
+                            desc2 = d2;
+                        }
                     }
                 }
                 for (int d2 = 0; d2 < h2.NewPoints; d2++)
@@ -665,10 +702,13 @@ namespace ITOI
                     {
                         continue;
                     }
-                    else if (L2D_3[d2] < L2min2)
+                    else if (L2D_3[d2] != -1)
                     {
-                        L2min2 = L2D_3[d2];
-                        desc2 = d2;
+                        if (L2D_3[d2] < L2min2)
+                        {
+                            L2min2 = L2D_3[d2];
+                            desc2 = d2;
+                        }
                     }
                 }
                 for (int d2 = 0; d2 < h2.NewPoints; d2++)
@@ -677,10 +717,13 @@ namespace ITOI
                     {
                         continue;
                     }
-                    else if (L2D_4[d2] < L2min2)
+                    else if (L2D_4[d2] != -1)
                     {
-                        L2min2 = L2D_4[d2];
-                        desc2 = d2;
+                        if (L2D_4[d2] < L2min2)
+                        {
+                            L2min2 = L2D_4[d2];
+                            desc2 = d2;
+                        }
                     }
                 }
                 double NNDR = L2min1 / L2min2;
@@ -690,6 +733,7 @@ namespace ITOI
                 }
                 else
                 {
+                    
                     double L2min13 = 999999999;
                     int desc13 = -1;
                     double[] L2D3 = new double[h1.NewPoints];
@@ -705,26 +749,48 @@ namespace ITOI
                         }
                         L2D3[d3] = Math.Sqrt(L23);
 
-                        L23 = 0;
-                        for (int i = 0; i < GistogramSize; i++)
+                        if (h1.Descriptors2[d3, 0] != -1)
                         {
-                            L23 += Math.Pow((h2.Descriptors[desc1, i] - h1.Descriptors2[d3, i]), 2);
+                            L23 = 0;
+                            for (int i = 0; i < GistogramSize; i++)
+                            {
+                                L23 += Math.Pow((h2.Descriptors[desc1, i] - h1.Descriptors2[d3, i]), 2);
+                            }
+                            L2D3_2[d3] = Math.Sqrt(L23);
                         }
-                        L2D3_2[d3] = Math.Sqrt(L23);
+                        else
+                        {
+                            L2D3_2[d3] = -1;
+                        }
 
-                        L23 = 0;
-                        for (int i = 0; i < GistogramSize; i++)
+                        if (h2.Descriptors2[desc1, 0] != -1)
                         {
-                            L23 += Math.Pow((h2.Descriptors2[desc1, i] - h1.Descriptors[d3, i]), 2);
+                            L23 = 0;
+                            for (int i = 0; i < GistogramSize; i++)
+                            {
+                                L23 += Math.Pow((h2.Descriptors2[desc1, i] - h1.Descriptors[d3, i]), 2);
+                            }
+                            L2D3_3[d3] = Math.Sqrt(L23);
                         }
-                        L2D3_3[d3] = Math.Sqrt(L23);
+                        else
+                        {
+                            L2D3_3[d3] = -1;
+                        }
 
-                        L23 = 0;
-                        for (int i = 0; i < GistogramSize; i++)
+
+                        if (h2.Descriptors2[desc1, 0] != -1 && h1.Descriptors2[d3, 0] != -1)
                         {
-                            L23 += Math.Pow((h2.Descriptors2[desc1, i] - h1.Descriptors2[d3, i]), 2);
+                            L23 = 0;
+                            for (int i = 0; i < GistogramSize; i++)
+                            {
+                                L23 += Math.Pow((h2.Descriptors2[desc1, i] - h1.Descriptors2[d3, i]), 2);
+                            }
+                            L2D3_4[d3] = Math.Sqrt(L23);
                         }
-                        L2D3_4[d3] = Math.Sqrt(L23);
+                        else
+                        {
+                            L2D3_4[d3] = -1;
+                        }
                     }
                     for (int d3 = 0; d3 < h1.NewPoints; d3++)
                     {
@@ -736,27 +802,40 @@ namespace ITOI
                     }
                     for (int d3 = 0; d3 < h1.NewPoints; d3++)
                     {
-                        if (L2D3_2[d3] < L2min13)
+                        if (L2D3_2[d3] != -1)
                         {
-                            L2min13 = L2D3_2[d3];
-                            desc13 = d3;
+                            if (L2D3_2[d3] < L2min13)
+                            {
+                                L2min13 = L2D3_2[d3];
+                                desc13 = d3;
+                            }
                         }
+
                     }
                     for (int d3 = 0; d3 < h1.NewPoints; d3++)
                     {
-                        if (L2D3_3[d3] < L2min13)
+
+                        if (L2D3_3[d3] != -1)
                         {
-                            L2min13 = L2D3_3[d3];
-                            desc13 = d3;
+                            if (L2D3_3[d3] < L2min13)
+                            {
+                                L2min13 = L2D3_3[d3];
+                                desc13 = d3;
+                            }
                         }
+
                     }
                     for (int d3 = 0; d3 < h1.NewPoints; d3++)
                     {
-                        if (L2D3_4[d3] < L2min13)
+                        if (L2D3_4[d3] != -1)
                         {
-                            L2min13 = L2D3_4[d3];
-                            desc13 = d3;
+                            if (L2D3_4[d3] < L2min13)
+                            {
+                                L2min13 = L2D3_4[d3];
+                                desc13 = d3;
+                            }
                         }
+
                     }
                     if (desc13 == d1)
                     {
@@ -764,6 +843,8 @@ namespace ITOI
                     }
                     else
                     {
+                        Res[d1] = -1;
+                        /*
                         L2min13 = 999999999;
                         desc13 = -1;
                         L2D3 = new double[h1.NewPoints];
@@ -779,26 +860,47 @@ namespace ITOI
                             }
                             L2D3[d3] = Math.Sqrt(L23);
 
-                            L23 = 0;
-                            for (int i = 0; i < GistogramSize; i++)
+                            if (h1.Descriptors2[d3, 0] != -1)
                             {
-                                L23 += Math.Pow((h2.Descriptors[desc2, i] - h1.Descriptors2[d3, i]), 2);
+                                L23 = 0;
+                                for (int i = 0; i < GistogramSize; i++)
+                                {
+                                    L23 += Math.Pow((h2.Descriptors[desc2, i] - h1.Descriptors2[d3, i]), 2);
+                                }
+                                L2D3_2[d3] = Math.Sqrt(L23);
                             }
-                            L2D3_2[d3] = Math.Sqrt(L23);
+                            else
+                            {
+                                L2D3_2[d3] = -1;
+                            }
 
-                            L23 = 0;
-                            for (int i = 0; i < GistogramSize; i++)
+                            if (h2.Descriptors2[desc2, 0] != -1)
                             {
-                                L23 += Math.Pow((h2.Descriptors2[desc2, i] - h1.Descriptors[d3, i]), 2);
+                                L23 = 0;
+                                for (int i = 0; i < GistogramSize; i++)
+                                {
+                                    L23 += Math.Pow((h2.Descriptors2[desc2, i] - h1.Descriptors[d3, i]), 2);
+                                }
+                                L2D3_3[d3] = Math.Sqrt(L23);
                             }
-                            L2D3_3[d3] = Math.Sqrt(L23);
+                            else
+                            {
+                                L2D3_3[d3] = -1;
+                            }
 
-                            L23 = 0;
-                            for (int i = 0; i < GistogramSize; i++)
+                            if (h2.Descriptors2[desc2, 0] != -1 && h1.Descriptors2[d3, 0] != -1)
                             {
-                                L23 += Math.Pow((h2.Descriptors2[desc2, i] - h1.Descriptors2[d3, i]), 2);
+                                L23 = 0;
+                                for (int i = 0; i < GistogramSize; i++)
+                                {
+                                    L23 += Math.Pow((h2.Descriptors2[desc2, i] - h1.Descriptors2[d3, i]), 2);
+                                }
+                                L2D3_4[d3] = Math.Sqrt(L23);
                             }
-                            L2D3_4[d3] = Math.Sqrt(L23);
+                            else
+                            {
+                                L2D3_4[d3] = -1;
+                            }
                         }
                         for (int d3 = 0; d3 < h1.NewPoints; d3++)
                         {
@@ -810,27 +912,39 @@ namespace ITOI
                         }
                         for (int d3 = 0; d3 < h1.NewPoints; d3++)
                         {
-                            if (L2D3_2[d3] < L2min13)
+                            if (L2D3_2[d3] != -1)
                             {
-                                L2min13 = L2D3_2[d3];
-                                desc13 = d3;
+                                if (L2D3_2[d3] < L2min13)
+                                {
+                                    L2min13 = L2D3_2[d3];
+                                    desc13 = d3;
+                                }
                             }
+
                         }
                         for (int d3 = 0; d3 < h1.NewPoints; d3++)
                         {
-                            if (L2D3_3[d3] < L2min13)
+                            if (L2D3_3[d3] != -1)
                             {
-                                L2min13 = L2D3_3[d3];
-                                desc13 = d3;
+                                if (L2D3_3[d3] < L2min13)
+                                {
+                                    L2min13 = L2D3_3[d3];
+                                    desc13 = d3;
+                                }
                             }
+
                         }
                         for (int d3 = 0; d3 < h1.NewPoints; d3++)
                         {
-                            if (L2D3_4[d3] < L2min13)
+                            if (L2D3_4[d3] != -1)
                             {
-                                L2min13 = L2D3_4[d3];
-                                desc13 = d3;
+                                if (L2D3_4[d3] < L2min13)
+                                {
+                                    L2min13 = L2D3_4[d3];
+                                    desc13 = d3;
+                                }
                             }
+
                         }
                         if (desc13 == d1)
                         {
@@ -840,6 +954,7 @@ namespace ITOI
                         {
                             Res[d1] = -1;
                         }
+                        */
                     }
                 }
             }
