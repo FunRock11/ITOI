@@ -344,15 +344,7 @@ namespace ITOI
 
         public int[,] IntPointsCoord;
         public double[,] Descriptors;
-
-
-        public void Descript()
-        {
-            SobelAndTheta();
-            MtxAdd(8, out int NewHeight, out int NewWidth);
-            IntPointsCoords();
-            Descr1(NewHeight, NewWidth);
-        }
+        public double[,] Descriptors2;
 
         private void SobelAndTheta()
         {
@@ -366,12 +358,7 @@ namespace ITOI
             {
                 for (int x = 0; x < Image.Width; x++)
                 {
-                    d = DerivativeX[y, x] / DerivativeY[y, x];
-                    if (Double.IsNaN(d))
-                    {
-                        d = 0;
-                    }
-                    Theta[y, x] = Math.Atan(d) + Math.PI;
+                    Theta[y, x] = Math.Atan2(DerivativeX[y, x], DerivativeY[y, x]) + Math.PI;
 
                     dx = Math.Pow(DerivativeX[y, x], 2);
                     dy = Math.Pow(DerivativeY[y, x], 2);
@@ -454,7 +441,7 @@ namespace ITOI
             }
         }
 
-        private void Descr1(int NewHeight, int NewWidth)
+        private void Descr4(int NewHeight, int NewWidth)
         {
             Descriptors = new double[NewPoints, 16 * 8];
             GaussCore gauss = new GaussCore(8, 1);
@@ -572,6 +559,407 @@ namespace ITOI
                 }
             }
 
+        }
+
+        private void Descr5(int NewHeight, int NewWidth)
+        {
+            Descriptors = new double[NewPoints, 16 * 8];
+            Descriptors2 = new double[NewPoints, 16 * 8];
+            for (int i = 0; i < NewPoints; i++)
+            {
+                Descriptors2[i, 0] = -1;
+            }
+            GaussCore gauss = new GaussCore(8, 1);
+            double[,] korzina = new double[8, 2];
+            double[,] korzinaO = new double[36, 2];
+            for (int i = 0; i < 8; i++)
+            {
+                korzina[i, 0] = (Math.PI / 4) * i;
+                korzina[i, 1] = (Math.PI / 4) * (i + 1);
+            }
+            for (int i = 0; i < 36; i++)
+            {
+                korzinaO[i, 0] = (Math.PI / 18) * i;
+                korzinaO[i, 1] = (Math.PI / 18) * (i + 1);
+            }
+
+            int point = -1;
+            for (int y = 0; y < NewHeight; y++)
+            {
+                for (int x = 0; x < NewWidth; x++)
+                {
+                    if (InterestingPointsAdd[y, x])
+                    {
+                        point++;
+                        double[] D = new double[16 * 36];
+                        int region = 0;
+                        for (int RegionY = -2; RegionY < 2; RegionY++)
+                        {
+                            for (int RegionX = -2; RegionX < 2; RegionX++)
+                            {
+                                for (int dy = 0; dy < 4; dy++)
+                                {
+                                    for (int dx = 0; dx < 4; dx++)
+                                    {
+                                        double L = SobelAdd[y + RegionY * 4 + dy, x + RegionX * 4 + dx];
+                                        double Fi = ThetaAdd[y + RegionY * 4 + dy, x + RegionX * 4 + dx];
+                                        int korzina1 = -10, korzina2 = -10; // смежные корзины
+                                        double c1 = 0, c2 = 0; // коэф-ты для корзин
+                                        for (int i = 0; i < 36; i++)
+                                        {
+                                            if (Fi == korzinaO[i, 1])
+                                            {
+                                                korzina1 = i;
+                                                korzina2 = i + 1;
+                                                if (korzina2 == 36)
+                                                {
+                                                    korzina2 = 0;
+                                                }
+                                                c1 = 0.5;
+                                                c2 = 0.5;
+                                            }
+                                        }
+                                        if (korzina1 == -10 || korzina2 == -10)
+                                        {
+                                            for (int i = 0; i < 36; i++)
+                                            {
+                                                if (Fi > korzinaO[i, 0] && Fi < korzinaO[i, 1])
+                                                {
+                                                    korzina1 = i;
+                                                    double a1 = korzinaO[i, 1] - Fi;
+                                                    double a0 = Fi - korzinaO[i, 0];
+                                                    if (a0 > a1)
+                                                    {
+                                                        korzina2 = i + 1;
+                                                        if (korzina2 == 36)
+                                                        {
+                                                            korzina2 = 0;
+                                                        }
+                                                        
+                                                        double d = Math.PI / 18;
+                                                        double b = a1 + (Math.PI / 36);
+                                                        c1 = b / d;
+                                                        c2 = 1 - c1;
+                                                    }
+                                                    else if (a1 > a0)
+                                                    {
+                                                        korzina2 = i - 1;
+                                                        if (korzina2 == -1)
+                                                        {
+                                                            korzina2 = 35;
+                                                        }
+                                                        
+                                                        double d = Math.PI / 18;
+                                                        double b = a0 + (Math.PI / 36);
+                                                        c1 = b / d;
+                                                        c2 = 1 - c1;
+                                                    }
+                                                    else
+                                                    {
+                                                        korzina2 = 0;
+                                                        c1 = 1;
+                                                        c2 = 0;
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        double L1 = L * gauss.Matrix[(RegionY + 2) * 4 + dy, (RegionX + 2) * 4 + dx];
+                                        D[region * 36 + korzina1] += L1 * c1;
+                                        D[region * 36 + korzina2] += L1 * c2;
+                                    }
+                                }
+                                region++;
+                            }
+                        }
+                        double[] DR = new double[36];
+                        for (int i = 0; i < 36; i++)
+                        {
+                            for (int j = 0; j < 16; j++)
+                            {
+                                DR[i] = D[j * 36 + i];
+                            }
+                        }
+                        /* Ищем пики */
+                        double GMaxVal1 = -999999999;
+                        double GMaxVal2 = -999999999;
+                        int GMax1 = 0;
+                        int GMax2 = 0;
+
+                        for (int i = 0; i < 36; i++)
+                        {
+                            if (DR[i] > GMaxVal1)
+                            {
+                                GMaxVal1 = D[i];
+                                GMax1 = i;
+                            }
+                        }
+                        for (int i = 0; i < 36; i++)
+                        {
+                            if (i == GMax1)
+                            {
+                                continue;
+                            }
+                            else if (DR[i] > GMaxVal2)
+                            {
+                                GMaxVal2 = D[i];
+                                GMax2 = i;
+                            }
+                        }
+
+                        double alpha1 = (korzinaO[GMax1, 1] - korzinaO[GMax1, 0]) / 2 + korzinaO[GMax1, 0];
+                        /*------------------------*/
+
+                        D = new double[16 * 8];
+                        region = 0;
+                        for (int RegionY = -2; RegionY < 2; RegionY++)
+                        {
+                            for (int RegionX = -2; RegionX < 2; RegionX++)
+                            {
+                                for (int dy = 0; dy < 4; dy++)
+                                {
+                                    for (int dx = 0; dx < 4; dx++)
+                                    {
+                                        //int Nx = x + RegionX * 4 + dx;
+                                        //int Ny = y + RegionY * 4 + dy;
+
+                                        int cx = Convert.ToInt32(Math.Round(dx * Math.Cos(alpha1) + dy * Math.Sin(alpha1)));
+                                        int cy = Convert.ToInt32(Math.Round(dy * Math.Cos(alpha1) - dx * Math.Sin(alpha1)));
+
+                                        double L = SobelAdd[y + RegionY * 4 + cy, x + RegionX * 4 + cx];
+                                        double Fi = ThetaAdd[y + RegionY * 4 + cy, x + RegionX * 4 + cx] - alpha1;
+                                        if (Fi <= 0)
+                                        {
+                                            Fi = Fi + Math.PI * 2;
+                                        }
+                                        int korzina1 = -10, korzina2 = -10; // смежные корзины
+                                        double c1 = 0, c2 = 0; // коэф-ты для корзин
+                                        for (int i = 0; i < 8; i++)
+                                        {
+                                            if (Fi == korzina[i, 1])
+                                            {
+                                                korzina1 = i;
+                                                korzina2 = i + 1;
+                                                if (korzina2 == 8)
+                                                {
+                                                    korzina2 = 0;
+                                                }
+                                                c1 = 0.5;
+                                                c2 = 0.5;
+                                            }
+                                        }
+                                        if (korzina1 == -10 || korzina2 == -10)
+                                        {
+                                            for (int i = 0; i < 8; i++)
+                                            {
+                                                if (Fi > korzina[i, 0] && Fi < korzina[i, 1])
+                                                {
+                                                    korzina1 = i;
+                                                    double a1 = korzina[i, 1] - Fi;
+                                                    double a0 = Fi - korzina[i, 0];
+                                                    if (a0 > a1)
+                                                    {
+                                                        korzina2 = i + 1;
+                                                        if (korzina2 == 8)
+                                                        {
+                                                            korzina2 = 0;
+                                                        }
+
+                                                        double d = Math.PI / 4;
+                                                        double b = a1 + (Math.PI / 8);
+                                                        c1 = b / d;
+                                                        c2 = 1 - c1;
+                                                    }
+                                                    else if (a1 > a0)
+                                                    {
+                                                        korzina2 = i - 1;
+                                                        if (korzina2 == -1)
+                                                        {
+                                                            korzina2 = 7;
+                                                        }
+
+                                                        double d = Math.PI / 4;
+                                                        double b = a0 + (Math.PI / 8);
+                                                        c1 = b / d;
+                                                        c2 = 1 - c1;
+                                                    }
+                                                    else
+                                                    {
+                                                        korzina2 = 0;
+                                                        c1 = 1;
+                                                        c2 = 0;
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        double L1 = L * gauss.Matrix[(RegionY + 2) * 4 + dy, (RegionX + 2) * 4 + dx];
+                                        D[region * 8 + korzina1] += L1 * c1;
+                                        D[region * 8 + korzina2] += L1 * c2;
+                                    }
+                                }
+                                region++;
+                            }
+                        }
+                        D = F.NormalizeVector(D, 16 * 8, 0, 1);
+                        for (int i = 0; i < 16 * 8; i++)
+                        {
+                            if (D[i] > 0.2)
+                            {
+                                D[i] = 0.2;
+                            }
+                        }
+                        D = F.NormalizeVector(D, 16 * 8, 0, 1);
+                        for (int i = 0; i < 16 * 8; i++)
+                        {
+                            Descriptors[point, i] = D[i];
+                        }
+
+                        /*------------------------*/
+
+                        if (GMaxVal2 / GMaxVal1 >= 0.8)
+                        {
+                            double alpha2 = (korzinaO[GMax2, 1] - korzinaO[GMax2, 0]) / 2 + korzinaO[GMax2, 0];
+                            /*------------------------*/
+
+                            D = new double[16 * 8];
+                            region = 0;
+                            for (int RegionY = -2; RegionY < 2; RegionY++)
+                            {
+                                for (int RegionX = -2; RegionX < 2; RegionX++)
+                                {
+                                    for (int dy = 0; dy < 4; dy++)
+                                    {
+                                        for (int dx = 0; dx < 4; dx++)
+                                        {
+                                            //int Nx = x + RegionX * 4 + dx;
+                                            //int Ny = y + RegionY * 4 + dy;
+
+                                            int cx = Convert.ToInt32(Math.Round(dx * Math.Cos(alpha2) + dy * Math.Sin(alpha2)));
+                                            int cy = Convert.ToInt32(Math.Round(dy * Math.Cos(alpha2) - dx * Math.Sin(alpha2)));
+
+                                            double L = SobelAdd[y + RegionY * 4 + cy, x + RegionX * 4 + cx];
+                                            double Fi = ThetaAdd[y + RegionY * 4 + cy, x + RegionX * 4 + cx] - alpha2;
+                                            if (Fi <= 0)
+                                            {
+                                                Fi = Fi + Math.PI * 2;
+                                            }
+                                            int korzina1 = -10, korzina2 = -10; // смежные корзины
+                                            double c1 = 0, c2 = 0; // коэф-ты для корзин
+                                            for (int i = 0; i < 8; i++)
+                                            {
+                                                if (Fi == korzina[i, 1])
+                                                {
+                                                    korzina1 = i;
+                                                    korzina2 = i + 1;
+                                                    if (korzina2 == 8)
+                                                    {
+                                                        korzina2 = 0;
+                                                    }
+                                                    c1 = 0.5;
+                                                    c2 = 0.5;
+                                                }
+                                            }
+                                            if (korzina1 == -10 || korzina2 == -10)
+                                            {
+                                                for (int i = 0; i < 8; i++)
+                                                {
+                                                    if (Fi > korzina[i, 0] && Fi < korzina[i, 1])
+                                                    {
+                                                        korzina1 = i;
+                                                        double a1 = korzina[i, 1] - Fi;
+                                                        double a0 = Fi - korzina[i, 0];
+                                                        if (a0 > a1)
+                                                        {
+                                                            korzina2 = i + 1;
+                                                            if (korzina2 == 8)
+                                                            {
+                                                                korzina2 = 0;
+                                                            }
+
+                                                            double d = Math.PI / 4;
+                                                            double b = a1 + (Math.PI / 8);
+                                                            c1 = b / d;
+                                                            c2 = 1 - c1;
+                                                        }
+                                                        else if (a1 > a0)
+                                                        {
+                                                            korzina2 = i - 1;
+                                                            if (korzina2 == -1)
+                                                            {
+                                                                korzina2 = 7;
+                                                            }
+
+                                                            double d = Math.PI / 4;
+                                                            double b = a0 + (Math.PI / 8);
+                                                            c1 = b / d;
+                                                            c2 = 1 - c1;
+                                                        }
+                                                        else
+                                                        {
+                                                            korzina2 = 0;
+                                                            c1 = 1;
+                                                            c2 = 0;
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                            double L1 = L * gauss.Matrix[(RegionY + 2) * 4 + dy, (RegionX + 2) * 4 + dx];
+                                            D[region * 8 + korzina1] += L1 * c1;
+                                            D[region * 8 + korzina2] += L1 * c2;
+                                        }
+                                    }
+                                    region++;
+                                }
+                            }
+                            D = F.NormalizeVector(D, 16 * 8, 0, 1);
+                            for (int i = 0; i < 16 * 8; i++)
+                            {
+                                if (D[i] > 0.2)
+                                {
+                                    D[i] = 0.2;
+                                }
+                            }
+                            D = F.NormalizeVector(D, 16 * 8, 0, 1);
+                            for (int i = 0; i < 16 * 8; i++)
+                            {
+                                Descriptors2[point, i] = D[i];
+                            }
+
+                            /*------------------------*/
+                        }
+
+
+
+
+
+
+
+
+                    }
+                }
+            }
+
+        }
+
+
+
+
+        public void Descript4()
+        {
+            SobelAndTheta();
+            MtxAdd(8, out int NewHeight, out int NewWidth);
+            IntPointsCoords();
+            Descr4(NewHeight, NewWidth);
+        }
+
+        public void Descript5()
+        {
+            SobelAndTheta();
+            MtxAdd(8, out int NewHeight, out int NewWidth);
+            IntPointsCoords();
+            Descr5(NewHeight, NewWidth);
         }
 
     }

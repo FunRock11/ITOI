@@ -449,8 +449,8 @@ namespace ITOI
             return Res;
         }
 
-        // Ищем соответствия
-        public int[] DescriptSootv(Harris h1, Harris h2, double T)
+        // Ищем соответствия 4 
+        public int[] DescriptSootv4(Harris h1, Harris h2, int GistogramSize, double T)
         {
             int[] Res = new int[h1.NewPoints];
             for (int d1 = 0; d1 < h1.NewPoints; d1++)
@@ -463,7 +463,7 @@ namespace ITOI
                 for (int d2 = 0; d2 < h2.NewPoints; d2++)
                 {
                     double L2 = 0;
-                    for (int i = 0; i < 128; i++)
+                    for (int i = 0; i < GistogramSize; i++)
                     {
                         L2 += Math.Pow((h1.Descriptors[d1, i] - h2.Descriptors[d2, i]), 2);
                     }
@@ -502,7 +502,7 @@ namespace ITOI
                     for (int d3 = 0; d3 < h1.NewPoints; d3++)
                     {
                         double L23 = 0;
-                        for (int i = 0; i < 128; i++)
+                        for (int i = 0; i < GistogramSize; i++)
                         {
                             L23 += Math.Pow((h2.Descriptors[desc1, i] - h1.Descriptors[d3, i]), 2);
                         }
@@ -528,7 +528,7 @@ namespace ITOI
                         for (int d3 = 0; d3 < h1.NewPoints; d3++)
                         {
                             double L23 = 0;
-                            for (int i = 0; i < 128; i++)
+                            for (int i = 0; i < GistogramSize; i++)
                             {
                                 L23 += Math.Pow((h2.Descriptors[desc2, i] - h1.Descriptors[d3, i]), 2);
                             }
@@ -539,6 +539,296 @@ namespace ITOI
                             if (L2D3[d3] < L2min13)
                             {
                                 L2min13 = L2D3[d3];
+                                desc13 = d3;
+                            }
+                        }
+                        if (desc13 == d1)
+                        {
+                            Res[d1] = desc2;
+                        }
+                        else
+                        {
+                            Res[d1] = -1;
+                        }
+                    }
+                }
+            }
+
+
+            return Res;
+        }
+
+        // Ищем соответствия 5 
+        public int[] DescriptSootv5(Harris h1, Harris h2, int GistogramSize, double T)
+        {
+            int[] Res = new int[h1.NewPoints];
+            for (int d1 = 0; d1 < h1.NewPoints; d1++)
+            {
+                double L2min1 = 999999999;
+                double L2min2 = 999999999;
+                int desc1 = -1;
+                int desc2 = -1;
+                double[] L2D = new double[h2.NewPoints];
+                double[] L2D_2 = new double[h2.NewPoints];
+                double[] L2D_3 = new double[h2.NewPoints];
+                double[] L2D_4 = new double[h2.NewPoints];
+                for (int d2 = 0; d2 < h2.NewPoints; d2++)
+                {
+                    double L2 = 0;
+                    for (int i = 0; i < GistogramSize; i++)
+                    {
+                        L2 += Math.Pow((h1.Descriptors[d1, i] - h2.Descriptors[d2, i]), 2);
+                    }
+                    L2D[d2] = Math.Sqrt(L2);
+
+                    L2 = 0;
+                    for (int i = 0; i < GistogramSize; i++)
+                    {
+                        L2 += Math.Pow((h1.Descriptors[d1, i] - h2.Descriptors2[d2, i]), 2);
+                    }
+                    L2D_2[d2] = Math.Sqrt(L2);
+
+                    L2 = 0;
+                    for (int i = 0; i < GistogramSize; i++)
+                    {
+                        L2 += Math.Pow((h1.Descriptors2[d1, i] - h2.Descriptors[d2, i]), 2);
+                    }
+                    L2D_3[d2] = Math.Sqrt(L2);
+
+                    L2 = 0;
+                    for (int i = 0; i < GistogramSize; i++)
+                    {
+                        L2 += Math.Pow((h1.Descriptors2[d1, i] - h2.Descriptors2[d2, i]), 2);
+                    }
+                    L2D_4[d2] = Math.Sqrt(L2);
+
+                }
+                for (int d2 = 0; d2 < h2.NewPoints; d2++)
+                {
+                    if (L2D[d2] < L2min1)
+                    {
+                        L2min1 = L2D[d2];
+                        desc1 = d2;
+                    }
+                }
+                for (int d2 = 0; d2 < h2.NewPoints; d2++)
+                {
+                    if (L2D_2[d2] < L2min1)
+                    {
+                        L2min1 = L2D_2[d2];
+                        desc1 = d2;
+                    }
+                }
+                for (int d2 = 0; d2 < h2.NewPoints; d2++)
+                {
+                    if (L2D_3[d2] < L2min1)
+                    {
+                        L2min1 = L2D_3[d2];
+                        desc1 = d2;
+                    }
+                }
+                for (int d2 = 0; d2 < h2.NewPoints; d2++)
+                {
+                    if (L2D_4[d2] < L2min1)
+                    {
+                        L2min1 = L2D_4[d2];
+                        desc1 = d2;
+                    }
+                }
+                for (int d2 = 0; d2 < h2.NewPoints; d2++)
+                {
+                    if (desc1 == d2)
+                    {
+                        continue;
+                    }
+                    else if (L2D[d2] < L2min2)
+                    {
+                        L2min2 = L2D[d2];
+                        desc2 = d2;
+                    }
+                }
+                for (int d2 = 0; d2 < h2.NewPoints; d2++)
+                {
+                    if (desc1 == d2)
+                    {
+                        continue;
+                    }
+                    else if (L2D_2[d2] < L2min2)
+                    {
+                        L2min2 = L2D_2[d2];
+                        desc2 = d2;
+                    }
+                }
+                for (int d2 = 0; d2 < h2.NewPoints; d2++)
+                {
+                    if (desc1 == d2)
+                    {
+                        continue;
+                    }
+                    else if (L2D_3[d2] < L2min2)
+                    {
+                        L2min2 = L2D_3[d2];
+                        desc2 = d2;
+                    }
+                }
+                for (int d2 = 0; d2 < h2.NewPoints; d2++)
+                {
+                    if (desc1 == d2)
+                    {
+                        continue;
+                    }
+                    else if (L2D_4[d2] < L2min2)
+                    {
+                        L2min2 = L2D_4[d2];
+                        desc2 = d2;
+                    }
+                }
+                double NNDR = L2min1 / L2min2;
+                if (NNDR > T)
+                {
+                    Res[d1] = -1;
+                }
+                else
+                {
+                    double L2min13 = 999999999;
+                    int desc13 = -1;
+                    double[] L2D3 = new double[h1.NewPoints];
+                    double[] L2D3_2 = new double[h1.NewPoints];
+                    double[] L2D3_3 = new double[h1.NewPoints];
+                    double[] L2D3_4 = new double[h1.NewPoints];
+                    for (int d3 = 0; d3 < h1.NewPoints; d3++)
+                    {
+                        double L23 = 0;
+                        for (int i = 0; i < GistogramSize; i++)
+                        {
+                            L23 += Math.Pow((h2.Descriptors[desc1, i] - h1.Descriptors[d3, i]), 2);
+                        }
+                        L2D3[d3] = Math.Sqrt(L23);
+
+                        L23 = 0;
+                        for (int i = 0; i < GistogramSize; i++)
+                        {
+                            L23 += Math.Pow((h2.Descriptors[desc1, i] - h1.Descriptors2[d3, i]), 2);
+                        }
+                        L2D3_2[d3] = Math.Sqrt(L23);
+
+                        L23 = 0;
+                        for (int i = 0; i < GistogramSize; i++)
+                        {
+                            L23 += Math.Pow((h2.Descriptors2[desc1, i] - h1.Descriptors[d3, i]), 2);
+                        }
+                        L2D3_3[d3] = Math.Sqrt(L23);
+
+                        L23 = 0;
+                        for (int i = 0; i < GistogramSize; i++)
+                        {
+                            L23 += Math.Pow((h2.Descriptors2[desc1, i] - h1.Descriptors2[d3, i]), 2);
+                        }
+                        L2D3_4[d3] = Math.Sqrt(L23);
+                    }
+                    for (int d3 = 0; d3 < h1.NewPoints; d3++)
+                    {
+                        if (L2D3[d3] < L2min13)
+                        {
+                            L2min13 = L2D3[d3];
+                            desc13 = d3;
+                        }
+                    }
+                    for (int d3 = 0; d3 < h1.NewPoints; d3++)
+                    {
+                        if (L2D3_2[d3] < L2min13)
+                        {
+                            L2min13 = L2D3_2[d3];
+                            desc13 = d3;
+                        }
+                    }
+                    for (int d3 = 0; d3 < h1.NewPoints; d3++)
+                    {
+                        if (L2D3_3[d3] < L2min13)
+                        {
+                            L2min13 = L2D3_3[d3];
+                            desc13 = d3;
+                        }
+                    }
+                    for (int d3 = 0; d3 < h1.NewPoints; d3++)
+                    {
+                        if (L2D3_4[d3] < L2min13)
+                        {
+                            L2min13 = L2D3_4[d3];
+                            desc13 = d3;
+                        }
+                    }
+                    if (desc13 == d1)
+                    {
+                        Res[d1] = desc1;
+                    }
+                    else
+                    {
+                        L2min13 = 999999999;
+                        desc13 = -1;
+                        L2D3 = new double[h1.NewPoints];
+                        L2D3_2 = new double[h1.NewPoints];
+                        L2D3_3 = new double[h1.NewPoints];
+                        L2D3_4 = new double[h1.NewPoints];
+                        for (int d3 = 0; d3 < h1.NewPoints; d3++)
+                        {
+                            double L23 = 0;
+                            for (int i = 0; i < GistogramSize; i++)
+                            {
+                                L23 += Math.Pow((h2.Descriptors[desc2, i] - h1.Descriptors[d3, i]), 2);
+                            }
+                            L2D3[d3] = Math.Sqrt(L23);
+
+                            L23 = 0;
+                            for (int i = 0; i < GistogramSize; i++)
+                            {
+                                L23 += Math.Pow((h2.Descriptors[desc2, i] - h1.Descriptors2[d3, i]), 2);
+                            }
+                            L2D3_2[d3] = Math.Sqrt(L23);
+
+                            L23 = 0;
+                            for (int i = 0; i < GistogramSize; i++)
+                            {
+                                L23 += Math.Pow((h2.Descriptors2[desc2, i] - h1.Descriptors[d3, i]), 2);
+                            }
+                            L2D3_3[d3] = Math.Sqrt(L23);
+
+                            L23 = 0;
+                            for (int i = 0; i < GistogramSize; i++)
+                            {
+                                L23 += Math.Pow((h2.Descriptors2[desc2, i] - h1.Descriptors2[d3, i]), 2);
+                            }
+                            L2D3_4[d3] = Math.Sqrt(L23);
+                        }
+                        for (int d3 = 0; d3 < h1.NewPoints; d3++)
+                        {
+                            if (L2D3[d3] < L2min13)
+                            {
+                                L2min13 = L2D3[d3];
+                                desc13 = d3;
+                            }
+                        }
+                        for (int d3 = 0; d3 < h1.NewPoints; d3++)
+                        {
+                            if (L2D3_2[d3] < L2min13)
+                            {
+                                L2min13 = L2D3_2[d3];
+                                desc13 = d3;
+                            }
+                        }
+                        for (int d3 = 0; d3 < h1.NewPoints; d3++)
+                        {
+                            if (L2D3_3[d3] < L2min13)
+                            {
+                                L2min13 = L2D3_3[d3];
+                                desc13 = d3;
+                            }
+                        }
+                        for (int d3 = 0; d3 < h1.NewPoints; d3++)
+                        {
+                            if (L2D3_4[d3] < L2min13)
+                            {
+                                L2min13 = L2D3_4[d3];
                                 desc13 = d3;
                             }
                         }
