@@ -32,7 +32,7 @@ namespace ITOI
             Image = image;
 
             GaussCore GaussMatrix = new GaussCore(1);
-            Mtx = F.Svertka(Image.GrayMatrix, Image.Width, Image.Height, GaussMatrix.Matrix, GaussMatrix.Radius, 1);
+            Mtx = F.Svertka(Image.GrayMatrixDouble, Image.Width, Image.Height, GaussMatrix.Matrix, GaussMatrix.Radius, 1);
             WindowRadius = windowradius;
             R = r;
 
@@ -109,7 +109,7 @@ namespace ITOI
         private void IntPoints1()
         {
             InterestingPoints = new bool[Image.Height, Image.Width];
-            double T = (MAXmin - MINmin) * R;
+            double T = R;
 
             for (int y = 0; y < Image.Height; y++)
             {

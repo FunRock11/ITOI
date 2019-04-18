@@ -38,7 +38,7 @@ namespace ITOI
             R = r;
 
             GaussMatrix = new GaussCore(windowradius, 1);
-            MTX = F.Svertka(Image.GrayMatrix, Image.Width, Image.Height, GaussMatrix.Matrix, GaussMatrix.Radius, 1);
+            MTX = F.Svertka(Image.GrayMatrixDouble, Image.Width, Image.Height, GaussMatrix.Matrix, GaussMatrix.Radius, 1);
 
             Derivative();
             Minl();
@@ -156,7 +156,7 @@ namespace ITOI
         private void IntPoints1()
         {
             InterestingPoints = new bool[Image.Height, Image.Width];
-            double T = (MAXmin - MINmin) * R;
+            double T = R;
 
             for (int y = 0; y < Image.Height; y++)
             {
@@ -173,9 +173,9 @@ namespace ITOI
                 }
             }
             
-            for (int y = 0; y < Image.Height - 0; y++)
+            for (int y = 0; y < Image.Height; y++)
             {
-                for (int x = 0; x < Image.Width - 0; x++)
+                for (int x = 0; x < Image.Width; x++)
                 {
                     if (InterestingPoints[y, x])
                     {
@@ -190,7 +190,7 @@ namespace ITOI
                                     {
                                         continue;
                                     }
-                                    else if (MinL[y + hWinY, x + hWinX] <= MinL[y,x])
+                                    else if (MinL[y + hWinY, x + hWinX] >= MinL[y,x])
                                     {
                                         InterestingPoints[y + hWinY, x + hWinX] = false;
                                     }

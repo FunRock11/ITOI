@@ -633,12 +633,12 @@ namespace ITOI
                             RotateBMP.SetPixel(x, y, GrayImg.Bitmap.GetPixel(x - oo, y - o));
                         }
                     }
-                    RotateBMP = F.RotateImage(RotateBMP, 45.0F);
+                    RotateBMP = F.RotateImage(RotateBMP, 90.0F);
                     Img TempImg = new Img(RotateBMP);
-
+                    
                     byte[,] SdvigMtx = F.Sdvig(TempImg.GrayMatrix, TempImg.Width, TempImg.Height, out int nWidth, out int nHeight, 0, -50);
                     TempImg = new Img(SdvigMtx, nWidth, nHeight);
-
+                    
                     byte[,] ContrastMtx = F.Contrast(TempImg.GrayMatrix, TempImg.Width, TempImg.Height, -10);
                     Img BegImg2 = new Img(ContrastMtx, TempImg.Width, TempImg.Height);
                     /*--------------------------*/
@@ -684,13 +684,36 @@ namespace ITOI
                         }
                     }
 
+                    Random rand = new Random();
                     Graphics g = Graphics.FromImage(SootvBmp);
-                    Pen pen = new Pen(Brushes.Blue, 2);
+                    Pen pen;
                     Point p1, p2;
                     for (int i = 0; i < Harris1.NewPoints; i++)
                     {
                         if (S[i] != -1)
                         {
+                            int ra = rand.Next(0, 101);
+                            if (ra >= 0 && ra < 20)
+                            {
+                                pen = new Pen(Brushes.Blue, 2);
+                            }
+                            else if (ra >= 20 && ra < 40)
+                            {
+                                pen = new Pen(Brushes.Green, 2);
+                            }
+                            else if (ra >= 40 && ra < 60)
+                            {
+                                pen = new Pen(Brushes.Aqua, 2);
+                            }
+                            else if (ra >= 60 && ra < 80)
+                            {
+                                pen = new Pen(Brushes.Yellow, 2);
+                            }
+                            else
+                            {
+                                pen = new Pen(Brushes.Violet, 2);
+                            }
+
                             p1 = new Point(Harris1.IntPointsCoord[i, 1], Harris1.IntPointsCoord[i, 0]);
                             p2 = new Point(Harris2.IntPointsCoord[S[i], 1] + (Harris1.ImageWithANMS.Width + rst), Harris2.IntPointsCoord[S[i], 0]);
                             g.DrawLine(pen, p1, p2);

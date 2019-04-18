@@ -731,11 +731,11 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(5, 26);
+            this.label22.Location = new System.Drawing.Point(39, 26);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(75, 13);
+            this.label22.Size = new System.Drawing.Size(41, 13);
             this.label22.TabIndex = 8;
-            this.label22.Text = "Доля порога:";
+            this.label22.Text = "Порог:";
             // 
             // textBox3
             // 
@@ -1302,11 +1302,11 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(1, 26);
+            this.label23.Location = new System.Drawing.Point(35, 26);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(75, 13);
+            this.label23.Size = new System.Drawing.Size(41, 13);
             this.label23.TabIndex = 12;
-            this.label23.Text = "Доля порога:";
+            this.label23.Text = "Порог:";
             // 
             // textBox6
             // 
@@ -2173,7 +2173,7 @@
             this.ClientSize = new System.Drawing.Size(1284, 731);
             this.Controls.Add(this.tabControl2);
             this.MaximumSize = new System.Drawing.Size(1300, 770);
-            this.MinimumSize = new System.Drawing.Size(1300, 770);
+            this.MinimumSize = new System.Drawing.Size(1300, 726);
             this.Name = "Form1";
             this.Text = "Обработка изображений";
             this.tabControl2.ResumeLayout(false);

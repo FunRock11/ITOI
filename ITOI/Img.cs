@@ -15,6 +15,7 @@ namespace ITOI
         public int Width;
         public Bitmap Bitmap;
         public byte[,] GrayMatrix;
+        public double[,] GrayMatrixDouble;
 
         public Img() { }
 
@@ -34,6 +35,7 @@ namespace ITOI
                     Bitmap.SetPixel(x, y, color);
                 }
             }
+            GrayMatrixDouble = NormalizeMatrix(GrayMatrix, Width, Height);
         }
 
         public Img(double[,] matrix, int width, int height)
@@ -51,6 +53,7 @@ namespace ITOI
                     Bitmap.SetPixel(x, y, color);
                 }
             }
+            GrayMatrixDouble = NormalizeMatrix(GrayMatrix, Width, Height);
         }
 
         public Img(string path)
@@ -68,6 +71,7 @@ namespace ITOI
                     GrayMatrix[y, x] = Convert.ToByte(Math.Round(0.213 * color.R + 0.715 * color.G + 0.072 * color.B));
                 }
             }
+            GrayMatrixDouble = NormalizeMatrix(GrayMatrix, Width, Height);
         }
 
         public Img(Bitmap bitmap)
@@ -86,6 +90,7 @@ namespace ITOI
                     GrayMatrix[y, x] = Convert.ToByte(Math.Round(0.213 * color.R + 0.715 * color.G + 0.072 * color.B));
                 }
             }
+            GrayMatrixDouble = NormalizeMatrix(GrayMatrix, Width, Height);
         }
 
         public void Draw(PictureBox pictureBox)
@@ -259,6 +264,34 @@ namespace ITOI
             }
 
             return ResultByte;
+        }
+
+        // Нормализовать матрицу
+        public double[,] NormalizeMatrix(byte[,] Matrix, int width, int height)
+        {
+            double[,] Result = new double[height, width];
+
+            double vMax = 255;
+            double vMin = 0;
+            double newMax = 1;
+            double newMin = 0;
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    Result[y, x] = Matrix[y, x];
+                }
+            }
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    Result[y, x] = (Result[y, x] - vMin) * (newMax - newMin) / (vMax - vMin) + newMin;
+                }
+            }
+
+            return Result;
         }
     }
 }
