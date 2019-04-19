@@ -633,15 +633,18 @@ namespace ITOI
                             RotateBMP.SetPixel(x, y, GrayImg.Bitmap.GetPixel(x - oo, y - o));
                         }
                     }
-                    RotateBMP = F.RotateImage(RotateBMP, 90.0F);
-                    Img TempImg = new Img(RotateBMP);
-                    
+                    RotateBMP = F.RotateImage(RotateBMP, 45.0F);
+                    Img BegImg2 = new Img(RotateBMP);
+                    /*
                     byte[,] SdvigMtx = F.Sdvig(TempImg.GrayMatrix, TempImg.Width, TempImg.Height, out int nWidth, out int nHeight, 0, -50);
                     TempImg = new Img(SdvigMtx, nWidth, nHeight);
                     
                     byte[,] ContrastMtx = F.Contrast(TempImg.GrayMatrix, TempImg.Width, TempImg.Height, -10);
                     Img BegImg2 = new Img(ContrastMtx, TempImg.Width, TempImg.Height);
+                    */
                     /*--------------------------*/
+
+                    //Img BegImg2 = new Img(BasePath + "Temp/GrayImage.png");
 
                     BegImg1.Draw(pictureBox45);
                     BegImg2.Draw(pictureBox43);

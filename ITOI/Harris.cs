@@ -602,6 +602,10 @@ namespace ITOI
                                     {
                                         double L = SobelAdd[y + RegionY * 4 + dy, x + RegionX * 4 + dx];
                                         double Fi = ThetaAdd[y + RegionY * 4 + dy, x + RegionX * 4 + dx];
+                                        if (Fi == 0)
+                                        {
+                                            Fi = Math.PI * 2;
+                                        }
                                         int korzina1 = -10, korzina2 = -10; // смежные корзины
                                         double c1 = 0, c2 = 0; // коэф-ты для корзин
                                         for (int i = 0; i < 36; i++)
