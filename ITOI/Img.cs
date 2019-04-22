@@ -145,11 +145,12 @@ namespace ITOI
                     Bitmap.SetPixel(x, y, color);
                 }
             }
+            GrayMatrixDouble = NormalizeMatrix(GrayMatrix, Width, Height);
         }
 
         public void SvertkaWithNormalize(double[,] mask, int k, int kraimode)
         {
-            byte[,] GrayMatrixAdd = new byte[Height + 2 * k, Width + 2 * k];
+            double[,] GrayMatrixAdd = new double[Height + 2 * k, Width + 2 * k];
             double[,] Result = new double[Height, Width];
 
             /* Краевые эффекты */
@@ -160,7 +161,7 @@ namespace ITOI
                 {
                     for (int x = 0; x < Width; x++)
                     {
-                        GrayMatrixAdd[y + k, x + k] = GrayMatrix[y, x];
+                        GrayMatrixAdd[y + k, x + k] = GrayMatrixDouble[y, x];
                     }
                 }
                 for (int y = k; y < Height + k; y++)
@@ -193,7 +194,7 @@ namespace ITOI
                         }
                         else
                         {
-                            GrayMatrixAdd[y, x] = GrayMatrix[y - k, x - k];
+                            GrayMatrixAdd[y, x] = GrayMatrixDouble[y - k, x - k];
                         }
                     }
                 }
@@ -209,7 +210,7 @@ namespace ITOI
                     {
                         for (int hWinY = -k; hWinY <= k; hWinY++)
                         {
-                            S += (double)GrayMatrixAdd[y - hWinY, x - hWinX] * mask[k + hWinY, k + hWinX];
+                            S += GrayMatrixAdd[y - hWinY, x - hWinX] * mask[k + hWinY, k + hWinX];
                         }
                     }
                     Result[y - k, x - k] = S;
@@ -226,6 +227,7 @@ namespace ITOI
                     Bitmap.SetPixel(x, y, color);
                 }
             }
+            GrayMatrixDouble = NormalizeMatrix(GrayMatrix, Width, Height);
         }
 
         /* Вспомогательные */

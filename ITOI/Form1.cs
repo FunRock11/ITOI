@@ -180,7 +180,7 @@ namespace ITOI
                     for (int s = 1; s <= S; s++)
                     {
                         double sigma1 = sigma0 * Math.Pow(k, (s - 1));
-                        double sigma2 = sigma0 * Math.Pow(k, s);                       
+                        double sigma2 = sigma0 * Math.Pow(k, s);
                         sigmaTEK = Math.Sqrt(sigma2 * sigma2 - sigma1 * sigma1);// Текущая сигма
                         sigmaD = sigma0 * Math.Pow(k, qq);
                         qq++;
