@@ -35,7 +35,7 @@ namespace ITOI
                     Bitmap.SetPixel(x, y, color);
                 }
             }
-            GrayMatrixDouble = NormalizeMatrix(GrayMatrix, Width, Height);
+            GrayMatrixDouble = InitDoubleGrayMatrix(GrayMatrix, Width, Height);
         }
 
         public Img(double[,] matrix, int width, int height)
@@ -43,7 +43,7 @@ namespace ITOI
             Height = height;
             Width = width;
             Bitmap = new Bitmap(Width, Height, PixelFormat.Format32bppArgb);
-            GrayMatrix = NormalizeMatrix(matrix, Width, Height);
+            GrayMatrix = InitGrayMatrix(matrix, Width, Height);
             Color color;
             for (int y = 0; y < Height; y++)
             {
@@ -53,7 +53,7 @@ namespace ITOI
                     Bitmap.SetPixel(x, y, color);
                 }
             }
-            GrayMatrixDouble = NormalizeMatrix(GrayMatrix, Width, Height);
+            GrayMatrixDouble = InitDoubleGrayMatrix(GrayMatrix, Width, Height);
         }
 
         public Img(string path)
@@ -71,7 +71,7 @@ namespace ITOI
                     GrayMatrix[y, x] = Convert.ToByte(Math.Round(0.213 * color.R + 0.715 * color.G + 0.072 * color.B));
                 }
             }
-            GrayMatrixDouble = NormalizeMatrix(GrayMatrix, Width, Height);
+            GrayMatrixDouble = InitDoubleGrayMatrix(GrayMatrix, Width, Height);
         }
 
         public Img(Bitmap bitmap)
@@ -90,7 +90,7 @@ namespace ITOI
                     GrayMatrix[y, x] = Convert.ToByte(Math.Round(0.213 * color.R + 0.715 * color.G + 0.072 * color.B));
                 }
             }
-            GrayMatrixDouble = NormalizeMatrix(GrayMatrix, Width, Height);
+            GrayMatrixDouble = InitDoubleGrayMatrix(GrayMatrix, Width, Height);
         }
 
         public void Draw(PictureBox pictureBox)
@@ -145,7 +145,7 @@ namespace ITOI
                     Bitmap.SetPixel(x, y, color);
                 }
             }
-            GrayMatrixDouble = NormalizeMatrix(GrayMatrix, Width, Height);
+            GrayMatrixDouble = NormalizeMatrix(GrayMatrix, Width, Height, GrayMatrixDouble);
         }
 
         public void SvertkaWithNormalize(double[,] mask, int k, int kraimode)
@@ -217,7 +217,8 @@ namespace ITOI
                 }
             }
             Bitmap = new Bitmap(Width, Height, PixelFormat.Format32bppArgb);
-            GrayMatrix = NormalizeMatrix(Result, Width, Height);
+            GrayMatrixDouble = NormalizeMatrix(Result, Width, Height, GrayMatrixDouble);
+            GrayMatrix = NormalizeMatrix(GrayMatrixDouble, Width, Height, GrayMatrix);
             Color color;
             for (int y = 0; y < Height; y++)
             {
@@ -227,13 +228,11 @@ namespace ITOI
                     Bitmap.SetPixel(x, y, color);
                 }
             }
-            GrayMatrixDouble = NormalizeMatrix(GrayMatrix, Width, Height);
         }
 
-        /* Вспомогательные */
-        private byte[,] NormalizeMatrix(double[,] Matrix, int width, int height)
+        // Нормализовать матрицу
+        public double[,] NormalizeMatrix(double[,] Matrix, int width, int height, double[,] TekMatrix)
         {
-            byte[,] ResultByte = new byte[height, width];
             double[,] Result = new double[height, width];
 
             double vMax = -999999999;
@@ -254,34 +253,20 @@ namespace ITOI
                 }
             }
 
-            vMax -= vMin;
+            double newMax = -999999999;
+            double newMin = 999999999;
             for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)
                 {
-                    Result[y, x] = (Result[y, x] - vMin) * 255.0 / vMax;
-                    double q = Result[y, x];
-                    ResultByte[y, x] = Convert.ToByte(Result[y, x]);
-                }
-            }
-
-            return ResultByte;
-        }
-
-        // Нормализовать матрицу
-        public double[,] NormalizeMatrix(byte[,] Matrix, int width, int height)
-        {
-            double[,] Result = new double[height, width];
-
-            double vMax = 255;
-            double vMin = 0;
-            double newMax = 1;
-            double newMin = 0;
-            for (int y = 0; y < height; y++)
-            {
-                for (int x = 0; x < width; x++)
-                {
-                    Result[y, x] = Matrix[y, x];
+                    if (TekMatrix[y, x] >= newMax)
+                    {
+                        newMax = TekMatrix[y, x];
+                    }
+                    else if (TekMatrix[y, x] <= newMin)
+                    {
+                        newMin = TekMatrix[y, x];
+                    }
                 }
             }
 
@@ -295,5 +280,176 @@ namespace ITOI
 
             return Result;
         }
+
+        // Нормализовать матрицу
+        public byte[,] NormalizeMatrix(double[,] Matrix, int width, int height, byte[,] TekMatrix)
+        {
+            double[,] Result = new double[height, width];
+            byte[,] ResultByte = new byte[height, width];
+
+            double vMax = -999999999;
+            double vMin = 999999999;
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    Result[y, x] = Matrix[y, x];
+                    if (Result[y, x] >= vMax)
+                    {
+                        vMax = Result[y, x];
+                    }
+                    else if (Result[y, x] <= vMin)
+                    {
+                        vMin = Result[y, x];
+                    }
+                }
+            }
+
+            double newMax = -999999999;
+            double newMin = 999999999;
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    if (TekMatrix[y, x] >= newMax)
+                    {
+                        newMax = TekMatrix[y, x];
+                    }
+                    else if (TekMatrix[y, x] <= newMin)
+                    {
+                        newMin = TekMatrix[y, x];
+                    }
+                }
+            }
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    Result[y, x] = (Result[y, x] - vMin) * (newMax - newMin) / (vMax - vMin) + newMin;
+                    ResultByte[y, x] = Convert.ToByte(Result[y, x]);
+                }
+            }
+
+            return ResultByte;
+        }
+
+        // Нормализовать матрицу
+        public double[,] NormalizeMatrix(byte[,] Matrix, int width, int height, double[,] TekMatrix)
+        {
+            double[,] Result = new double[height, width];
+
+            double vMax = -999999999;
+            double vMin = 999999999;
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    Result[y, x] = Matrix[y, x];
+                    if (Result[y, x] >= vMax)
+                    {
+                        vMax = Result[y, x];
+                    }
+                    else if (Result[y, x] <= vMin)
+                    {
+                        vMin = Result[y, x];
+                    }
+                }
+            }
+
+            double newMax = -999999999;
+            double newMin = 999999999;
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    if (TekMatrix[y, x] >= newMax)
+                    {
+                        newMax = TekMatrix[y, x];
+                    }
+                    else if (TekMatrix[y, x] <= newMin)
+                    {
+                        newMin = TekMatrix[y, x];
+                    }
+                }
+            }
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    Result[y, x] = (Result[y, x] - vMin) * (newMax - newMin) / (vMax - vMin) + newMin;
+                }
+            }
+
+            return Result;
+        }
+
+        private double[,] InitDoubleGrayMatrix(byte[,] Matrix, int width, int height)
+        {
+            double[,] Result = new double[height, width];
+
+            double vMax = 255;
+            double vMin = 0;
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    Result[y, x] = Matrix[y, x];
+                }
+            }
+
+            double newMax = 1;
+            double newMin = 0;
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    Result[y, x] = (Result[y, x] - vMin) * (newMax - newMin) / (vMax - vMin) + newMin;
+                }
+            }
+
+            return Result;
+        }
+
+        private byte[,] InitGrayMatrix(double[,] Matrix, int width, int height)
+        {
+            double[,] Result = new double[height, width];
+            byte[,] ResultByte = new byte[height, width];
+
+            double vMax = -999999999;
+            double vMin = 999999999;
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    Result[y, x] = Matrix[y, x];
+                    if (Result[y, x] >= vMax)
+                    {
+                        vMax = Result[y, x];
+                    }
+                    else if (Result[y, x] <= vMin)
+                    {
+                        vMin = Result[y, x];
+                    }
+                }
+            }
+
+            double newMax = 255;
+            double newMin = 0;
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    Result[y, x] = (Result[y, x] - vMin) * (newMax - newMin) / (vMax - vMin) + newMin;
+                    ResultByte[y, x] = Convert.ToByte(Result[y, x]);
+                }
+            }
+
+            return ResultByte;
+        }
+
     }
 }

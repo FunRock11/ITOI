@@ -214,6 +214,28 @@
             this.tabPage32 = new System.Windows.Forms.TabPage();
             this.label62 = new System.Windows.Forms.Label();
             this.pictureBox48 = new System.Windows.Forms.PictureBox();
+            this.tabPage33 = new System.Windows.Forms.TabPage();
+            this.textBox15 = new System.Windows.Forms.TextBox();
+            this.label63 = new System.Windows.Forms.Label();
+            this.textBox16 = new System.Windows.Forms.TextBox();
+            this.label64 = new System.Windows.Forms.Label();
+            this.textBox17 = new System.Windows.Forms.TextBox();
+            this.label65 = new System.Windows.Forms.Label();
+            this.button12 = new System.Windows.Forms.Button();
+            this.tabControl8 = new System.Windows.Forms.TabControl();
+            this.tabPage34 = new System.Windows.Forms.TabPage();
+            this.label66 = new System.Windows.Forms.Label();
+            this.label67 = new System.Windows.Forms.Label();
+            this.pictureBox49 = new System.Windows.Forms.PictureBox();
+            this.pictureBox50 = new System.Windows.Forms.PictureBox();
+            this.tabPage35 = new System.Windows.Forms.TabPage();
+            this.label68 = new System.Windows.Forms.Label();
+            this.label69 = new System.Windows.Forms.Label();
+            this.pictureBox51 = new System.Windows.Forms.PictureBox();
+            this.pictureBox52 = new System.Windows.Forms.PictureBox();
+            this.tabPage36 = new System.Windows.Forms.TabPage();
+            this.label70 = new System.Windows.Forms.Label();
+            this.pictureBox53 = new System.Windows.Forms.PictureBox();
             this.tabControl2.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -301,6 +323,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox47)).BeginInit();
             this.tabPage32.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox48)).BeginInit();
+            this.tabPage33.SuspendLayout();
+            this.tabControl8.SuspendLayout();
+            this.tabPage34.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox49)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox50)).BeginInit();
+            this.tabPage35.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox51)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox52)).BeginInit();
+            this.tabPage36.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox53)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl2
@@ -310,6 +342,7 @@
             this.tabControl2.Controls.Add(this.tabPage6);
             this.tabControl2.Controls.Add(this.tabPage20);
             this.tabControl2.Controls.Add(this.tabPage29);
+            this.tabControl2.Controls.Add(this.tabPage33);
             this.tabControl2.Location = new System.Drawing.Point(5, 5);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
@@ -2166,6 +2199,222 @@
             this.pictureBox48.TabIndex = 6;
             this.pictureBox48.TabStop = false;
             // 
+            // tabPage33
+            // 
+            this.tabPage33.Controls.Add(this.textBox15);
+            this.tabPage33.Controls.Add(this.label63);
+            this.tabPage33.Controls.Add(this.textBox16);
+            this.tabPage33.Controls.Add(this.label64);
+            this.tabPage33.Controls.Add(this.textBox17);
+            this.tabPage33.Controls.Add(this.label65);
+            this.tabPage33.Controls.Add(this.button12);
+            this.tabPage33.Controls.Add(this.tabControl8);
+            this.tabPage33.Location = new System.Drawing.Point(4, 22);
+            this.tabPage33.Name = "tabPage33";
+            this.tabPage33.Size = new System.Drawing.Size(1269, 692);
+            this.tabPage33.TabIndex = 5;
+            this.tabPage33.Text = "Лабораторная №6";
+            this.tabPage33.UseVisualStyleBackColor = true;
+            // 
+            // textBox15
+            // 
+            this.textBox15.Location = new System.Drawing.Point(421, 8);
+            this.textBox15.MaxLength = 3;
+            this.textBox15.Name = "textBox15";
+            this.textBox15.Size = new System.Drawing.Size(51, 20);
+            this.textBox15.TabIndex = 37;
+            this.textBox15.Text = "50";
+            // 
+            // label63
+            // 
+            this.label63.AutoSize = true;
+            this.label63.Location = new System.Drawing.Point(244, 11);
+            this.label63.Name = "label63";
+            this.label63.Size = new System.Drawing.Size(171, 13);
+            this.label63.TabIndex = 36;
+            this.label63.Text = "Необходимое количество точек:";
+            // 
+            // textBox16
+            // 
+            this.textBox16.Location = new System.Drawing.Point(91, 25);
+            this.textBox16.MaxLength = 5;
+            this.textBox16.Name = "textBox16";
+            this.textBox16.Size = new System.Drawing.Size(100, 20);
+            this.textBox16.TabIndex = 35;
+            this.textBox16.Text = "0,1";
+            // 
+            // label64
+            // 
+            this.label64.AutoSize = true;
+            this.label64.Location = new System.Drawing.Point(10, 28);
+            this.label64.Name = "label64";
+            this.label64.Size = new System.Drawing.Size(75, 13);
+            this.label64.TabIndex = 34;
+            this.label64.Text = "Доля порога:";
+            // 
+            // textBox17
+            // 
+            this.textBox17.Location = new System.Drawing.Point(91, 5);
+            this.textBox17.MaxLength = 1;
+            this.textBox17.Name = "textBox17";
+            this.textBox17.Size = new System.Drawing.Size(33, 20);
+            this.textBox17.TabIndex = 33;
+            this.textBox17.Text = "3";
+            // 
+            // label65
+            // 
+            this.label65.AutoSize = true;
+            this.label65.Location = new System.Drawing.Point(12, 8);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(73, 13);
+            this.label65.TabIndex = 32;
+            this.label65.Text = "Радиус окна:";
+            // 
+            // button12
+            // 
+            this.button12.Location = new System.Drawing.Point(510, 5);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(140, 37);
+            this.button12.TabIndex = 31;
+            this.button12.Text = "Старт";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
+            // tabControl8
+            // 
+            this.tabControl8.Controls.Add(this.tabPage34);
+            this.tabControl8.Controls.Add(this.tabPage35);
+            this.tabControl8.Controls.Add(this.tabPage36);
+            this.tabControl8.Location = new System.Drawing.Point(6, 51);
+            this.tabControl8.Name = "tabControl8";
+            this.tabControl8.SelectedIndex = 0;
+            this.tabControl8.Size = new System.Drawing.Size(1257, 637);
+            this.tabControl8.TabIndex = 30;
+            // 
+            // tabPage34
+            // 
+            this.tabPage34.Controls.Add(this.label66);
+            this.tabPage34.Controls.Add(this.label67);
+            this.tabPage34.Controls.Add(this.pictureBox49);
+            this.tabPage34.Controls.Add(this.pictureBox50);
+            this.tabPage34.Location = new System.Drawing.Point(4, 22);
+            this.tabPage34.Name = "tabPage34";
+            this.tabPage34.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage34.Size = new System.Drawing.Size(1249, 611);
+            this.tabPage34.TabIndex = 0;
+            this.tabPage34.Text = "Исходные";
+            this.tabPage34.UseVisualStyleBackColor = true;
+            // 
+            // label66
+            // 
+            this.label66.AutoSize = true;
+            this.label66.Location = new System.Drawing.Point(650, 3);
+            this.label66.Name = "label66";
+            this.label66.Size = new System.Drawing.Size(86, 13);
+            this.label66.TabIndex = 5;
+            this.label66.Text = "Изображение 2";
+            // 
+            // label67
+            // 
+            this.label67.AutoSize = true;
+            this.label67.Location = new System.Drawing.Point(6, 3);
+            this.label67.Name = "label67";
+            this.label67.Size = new System.Drawing.Size(86, 13);
+            this.label67.TabIndex = 4;
+            this.label67.Text = "Изображение 1";
+            // 
+            // pictureBox49
+            // 
+            this.pictureBox49.Location = new System.Drawing.Point(643, 19);
+            this.pictureBox49.Name = "pictureBox49";
+            this.pictureBox49.Size = new System.Drawing.Size(600, 550);
+            this.pictureBox49.TabIndex = 3;
+            this.pictureBox49.TabStop = false;
+            // 
+            // pictureBox50
+            // 
+            this.pictureBox50.Location = new System.Drawing.Point(6, 19);
+            this.pictureBox50.Name = "pictureBox50";
+            this.pictureBox50.Size = new System.Drawing.Size(600, 550);
+            this.pictureBox50.TabIndex = 1;
+            this.pictureBox50.TabStop = false;
+            // 
+            // tabPage35
+            // 
+            this.tabPage35.Controls.Add(this.label68);
+            this.tabPage35.Controls.Add(this.label69);
+            this.tabPage35.Controls.Add(this.pictureBox51);
+            this.tabPage35.Controls.Add(this.pictureBox52);
+            this.tabPage35.Location = new System.Drawing.Point(4, 22);
+            this.tabPage35.Name = "tabPage35";
+            this.tabPage35.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage35.Size = new System.Drawing.Size(1249, 611);
+            this.tabPage35.TabIndex = 1;
+            this.tabPage35.Text = "Интересные точки";
+            this.tabPage35.UseVisualStyleBackColor = true;
+            // 
+            // label68
+            // 
+            this.label68.AutoSize = true;
+            this.label68.Location = new System.Drawing.Point(649, 5);
+            this.label68.Name = "label68";
+            this.label68.Size = new System.Drawing.Size(86, 13);
+            this.label68.TabIndex = 9;
+            this.label68.Text = "Изображение 2";
+            // 
+            // label69
+            // 
+            this.label69.AutoSize = true;
+            this.label69.Location = new System.Drawing.Point(9, 5);
+            this.label69.Name = "label69";
+            this.label69.Size = new System.Drawing.Size(86, 13);
+            this.label69.TabIndex = 8;
+            this.label69.Text = "Изображение 1";
+            // 
+            // pictureBox51
+            // 
+            this.pictureBox51.Location = new System.Drawing.Point(643, 21);
+            this.pictureBox51.Name = "pictureBox51";
+            this.pictureBox51.Size = new System.Drawing.Size(600, 550);
+            this.pictureBox51.TabIndex = 7;
+            this.pictureBox51.TabStop = false;
+            // 
+            // pictureBox52
+            // 
+            this.pictureBox52.Location = new System.Drawing.Point(9, 21);
+            this.pictureBox52.Name = "pictureBox52";
+            this.pictureBox52.Size = new System.Drawing.Size(600, 550);
+            this.pictureBox52.TabIndex = 6;
+            this.pictureBox52.TabStop = false;
+            // 
+            // tabPage36
+            // 
+            this.tabPage36.Controls.Add(this.label70);
+            this.tabPage36.Controls.Add(this.pictureBox53);
+            this.tabPage36.Location = new System.Drawing.Point(4, 22);
+            this.tabPage36.Name = "tabPage36";
+            this.tabPage36.Size = new System.Drawing.Size(1249, 611);
+            this.tabPage36.TabIndex = 2;
+            this.tabPage36.Text = "Сопоставление точек";
+            this.tabPage36.UseVisualStyleBackColor = true;
+            // 
+            // label70
+            // 
+            this.label70.AutoSize = true;
+            this.label70.Location = new System.Drawing.Point(7, 5);
+            this.label70.Name = "label70";
+            this.label70.Size = new System.Drawing.Size(77, 13);
+            this.label70.TabIndex = 8;
+            this.label70.Text = "Изображения";
+            // 
+            // pictureBox53
+            // 
+            this.pictureBox53.Location = new System.Drawing.Point(7, 21);
+            this.pictureBox53.Name = "pictureBox53";
+            this.pictureBox53.Size = new System.Drawing.Size(1239, 550);
+            this.pictureBox53.TabIndex = 6;
+            this.pictureBox53.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2293,6 +2542,20 @@
             this.tabPage32.ResumeLayout(false);
             this.tabPage32.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox48)).EndInit();
+            this.tabPage33.ResumeLayout(false);
+            this.tabPage33.PerformLayout();
+            this.tabControl8.ResumeLayout(false);
+            this.tabPage34.ResumeLayout(false);
+            this.tabPage34.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox49)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox50)).EndInit();
+            this.tabPage35.ResumeLayout(false);
+            this.tabPage35.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox51)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox52)).EndInit();
+            this.tabPage36.ResumeLayout(false);
+            this.tabPage36.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox53)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2484,6 +2747,28 @@
         private System.Windows.Forms.TabPage tabPage32;
         private System.Windows.Forms.Label label62;
         private System.Windows.Forms.PictureBox pictureBox48;
+        private System.Windows.Forms.TabPage tabPage33;
+        private System.Windows.Forms.TextBox textBox15;
+        private System.Windows.Forms.Label label63;
+        private System.Windows.Forms.TextBox textBox16;
+        private System.Windows.Forms.Label label64;
+        private System.Windows.Forms.TextBox textBox17;
+        private System.Windows.Forms.Label label65;
+        private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.TabControl tabControl8;
+        private System.Windows.Forms.TabPage tabPage34;
+        private System.Windows.Forms.Label label66;
+        private System.Windows.Forms.Label label67;
+        private System.Windows.Forms.PictureBox pictureBox49;
+        private System.Windows.Forms.PictureBox pictureBox50;
+        private System.Windows.Forms.TabPage tabPage35;
+        private System.Windows.Forms.Label label68;
+        private System.Windows.Forms.Label label69;
+        private System.Windows.Forms.PictureBox pictureBox51;
+        private System.Windows.Forms.PictureBox pictureBox52;
+        private System.Windows.Forms.TabPage tabPage36;
+        private System.Windows.Forms.Label label70;
+        private System.Windows.Forms.PictureBox pictureBox53;
     }
 }
 

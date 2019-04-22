@@ -69,6 +69,7 @@ namespace ITOI
             F.ClearDir(BasePath + "Lab 3");
             F.ClearDir(BasePath + "Lab 4");
             F.ClearDir(BasePath + "Lab 5");
+            F.ClearDir(BasePath + "Lab 6");
             /*-------------------------------*/
 
             BeginImg = new Img(BasePath + "Begin/BeginImage0.png");
@@ -727,6 +728,145 @@ namespace ITOI
                     Harris1.ImageWithANMS.Save(BasePath + "Lab 5/HarrisANMS1.png");
                     Harris2.ImageWithANMS.Save(BasePath + "Lab 5/HarrisANMS2.png");
                     SootvBmp.Save(BasePath + "Lab 5/Result.png");
+
+                }
+                catch
+                {
+                    MessageBox.Show("Введите данные корректно!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Введите данные!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /* Дескрипторы (Лаб 6)*/
+        private void button12_Click(object sender, EventArgs e)
+        {
+            if (textBox17.Text != "" && textBox16.Text != "" && textBox15.Text != "")
+            {
+                try
+                {
+                    int HarrisRadius = Convert.ToInt32(textBox17.Text);
+                    double HarrisDolya = Convert.ToDouble(textBox16.Text);
+                    int Npoints = Convert.ToInt32(textBox15.Text);
+
+                    Img BegImg1 = new Img(GrayImg.GrayMatrix, IWidth, IHeight);
+
+                    /*-------------------------*/
+                    int size = Convert.ToInt32(Math.Ceiling(Math.Sqrt(IWidth * IWidth + IHeight * IHeight)));
+                    Bitmap RotateBMP = new Bitmap(size, size, PixelFormat.Format32bppArgb);
+                    for (int y = 0; y < size; y++)
+                    {
+                        for (int x = 0; x < size; x++)
+                        {
+                            RotateBMP.SetPixel(x, y, Color.White);
+                        }
+                    }
+                    int o = (size - IHeight) / 2;
+                    int oo = (size - IWidth) / 2;
+                    for (int y = o; y < IHeight + o; y++)
+                    {
+                        for (int x = oo; x < IWidth + oo; x++)
+                        {
+                            RotateBMP.SetPixel(x, y, GrayImg.Bitmap.GetPixel(x - oo, y - o));
+                        }
+                    }
+                    RotateBMP = F.RotateImage(RotateBMP, 45.0F);
+                    Img BegImg2 = new Img(RotateBMP);
+                    /*
+                    byte[,] SdvigMtx = F.Sdvig(TempImg.GrayMatrix, TempImg.Width, TempImg.Height, out int nWidth, out int nHeight, 0, -50);
+                    TempImg = new Img(SdvigMtx, nWidth, nHeight);
+                    
+                    byte[,] ContrastMtx = F.Contrast(TempImg.GrayMatrix, TempImg.Width, TempImg.Height, -10);
+                    Img BegImg2 = new Img(ContrastMtx, TempImg.Width, TempImg.Height);
+                    */
+                    /*--------------------------*/
+
+                    //Img BegImg2 = new Img(BasePath + "Temp/GrayImage.png");
+
+                    BegImg1.Draw(pictureBox50);
+                    BegImg2.Draw(pictureBox49);
+
+                    Harris Harris1 = new Harris(BegImg1, HarrisRadius, HarrisDolya);
+                    Harris1.ANMS(Npoints);
+                    Harris Harris2 = new Harris(BegImg2, HarrisRadius, HarrisDolya);
+                    Harris2.ANMS(Npoints);
+
+                    Harris1.ImageWithANMS.Draw(pictureBox52);
+                    Harris2.ImageWithANMS.Draw(pictureBox51);
+
+                    Harris1.Descript5();
+                    Harris2.Descript5();
+
+                    int[] S = F.DescriptSootv5(Harris1, Harris2, 16 * 8, 0.8);
+                    int rst = 20;
+                    int h = Math.Max(Harris1.ImageWithANMS.Height, Harris2.ImageWithANMS.Height);
+                    Bitmap SootvBmp = new Bitmap(Harris1.ImageWithANMS.Width + Harris2.ImageWithANMS.Width + rst, h, PixelFormat.Format32bppArgb);
+
+                    for (int y = 0; y < Harris1.ImageWithANMS.Height; y++)
+                    {
+                        for (int x = 0; x < Harris1.ImageWithANMS.Width; x++)
+                        {
+                            SootvBmp.SetPixel(x, y, Harris1.ImageWithANMS.Bitmap.GetPixel(x, y));
+                        }
+                    }
+                    for (int y = 0; y < h; y++)
+                    {
+                        for (int x = Harris1.ImageWithANMS.Width; x < Harris1.ImageWithANMS.Width + rst; x++)
+                        {
+                            SootvBmp.SetPixel(x, y, Color.White);
+                        }
+                    }
+                    for (int y = 0; y < Harris2.ImageWithANMS.Height; y++)
+                    {
+                        for (int x = Harris1.ImageWithANMS.Width + rst; x < Harris1.ImageWithANMS.Width + rst + Harris2.ImageWithANMS.Width; x++)
+                        {
+                            SootvBmp.SetPixel(x, y, Harris2.ImageWithANMS.Bitmap.GetPixel(x - (Harris1.ImageWithANMS.Width + rst), y));
+                        }
+                    }
+
+                    Random rand = new Random();
+                    Graphics g = Graphics.FromImage(SootvBmp);
+                    Pen pen;
+                    Point p1, p2;
+                    for (int i = 0; i < Harris1.NewPoints; i++)
+                    {
+                        if (S[i] != -1)
+                        {
+                            int ra = rand.Next(0, 101);
+                            if (ra >= 0 && ra < 20)
+                            {
+                                pen = new Pen(Brushes.Blue, 2);
+                            }
+                            else if (ra >= 20 && ra < 40)
+                            {
+                                pen = new Pen(Brushes.Green, 2);
+                            }
+                            else if (ra >= 40 && ra < 60)
+                            {
+                                pen = new Pen(Brushes.Aqua, 2);
+                            }
+                            else if (ra >= 60 && ra < 80)
+                            {
+                                pen = new Pen(Brushes.Yellow, 2);
+                            }
+                            else
+                            {
+                                pen = new Pen(Brushes.Violet, 2);
+                            }
+
+                            p1 = new Point(Harris1.IntPointsCoord[i, 1], Harris1.IntPointsCoord[i, 0]);
+                            p2 = new Point(Harris2.IntPointsCoord[S[i], 1] + (Harris1.ImageWithANMS.Width + rst), Harris2.IntPointsCoord[S[i], 0]);
+                            g.DrawLine(pen, p1, p2);
+                        }
+                    }
+                    pictureBox53.Image = SootvBmp;
+
+                    Harris1.ImageWithANMS.Save(BasePath + "Lab 6/HarrisANMS1.png");
+                    Harris2.ImageWithANMS.Save(BasePath + "Lab 6/HarrisANMS2.png");
+                    SootvBmp.Save(BasePath + "Lab 6/Result.png");
 
                 }
                 catch
