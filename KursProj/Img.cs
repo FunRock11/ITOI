@@ -11,8 +11,10 @@ namespace KursProj
 {
     class Img
     {
+        public string Path = "";
         public int Height;
         public int Width;
+        public Bitmap ColourBitmap;
         public Bitmap Bitmap;
         public byte[,] GrayMatrix;
         public double[,] GrayMatrixDouble;
@@ -24,6 +26,7 @@ namespace KursProj
             Height = height;
             Width = width;
             Bitmap = new Bitmap(Width, Height, PixelFormat.Format32bppArgb);
+            ColourBitmap = Bitmap;
             GrayMatrix = new byte[Height, Width];
             Color color;
             for (int y = 0; y < Height; y++)
@@ -43,6 +46,7 @@ namespace KursProj
             Height = height;
             Width = width;
             Bitmap = new Bitmap(Width, Height, PixelFormat.Format32bppArgb);
+            ColourBitmap = Bitmap;
             GrayMatrixDouble = new double[Height, Width];
             Color color;
             for (int y = 0; y < Height; y++)
@@ -65,17 +69,21 @@ namespace KursProj
 
         public Img(string path)
         {
-            Bitmap = new Bitmap(path);
-            Height = Bitmap.Height;
-            Width = Bitmap.Width;
+            Path = path;
+            ColourBitmap = new Bitmap(path);
+            Height = ColourBitmap.Height;
+            Width = ColourBitmap.Width;
+            Bitmap = new Bitmap(Width, Height, PixelFormat.Format32bppArgb);
             GrayMatrix = new byte[Height, Width];
             Color color;
             for (int y = 0; y < Height; y++)
             {
                 for (int x = 0; x < Width; x++)
                 {
-                    color = Bitmap.GetPixel(x, y);
+                    color = ColourBitmap.GetPixel(x, y);
                     GrayMatrix[y, x] = Convert.ToByte(Math.Round(0.213 * color.R + 0.715 * color.G + 0.072 * color.B));
+                    color = Color.FromArgb(255, GrayMatrix[y, x], GrayMatrix[y, x], GrayMatrix[y, x]);
+                    Bitmap.SetPixel(x, y, color);
                 }
             }
             GrayMatrixDouble = InitDoubleGrayMatrix(GrayMatrix, Width, Height);
@@ -86,6 +94,7 @@ namespace KursProj
             Height = bitmap.Height;
             Width = bitmap.Width;
             Bitmap = new Bitmap(Width, Height, PixelFormat.Format32bppArgb);
+            ColourBitmap = Bitmap;
             GrayMatrix = new byte[Height, Width];
             Color color;
             for (int y = 0; y < Height; y++)
