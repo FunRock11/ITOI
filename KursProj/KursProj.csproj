@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{94DD956E-AA5B-47BA-A964-7DDB6A1ED3AA}</ProjectGuid>
+    <ProjectGuid>{A4FBE642-DC47-40A5-8B4F-D744DBF782A4}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>ITOI</RootNamespace>
-    <AssemblyName>ITOI</AssemblyName>
+    <RootNamespace>KursProj</RootNamespace>
+    <AssemblyName>KursProj</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -52,15 +52,9 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Func.cs" />
-    <Compile Include="GaussCore.cs" />
-    <Compile Include="Harris.cs" />
     <Compile Include="Img.cs" />
-    <Compile Include="InterestingPoints.cs" />
-    <Compile Include="Moravek.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SIFT.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

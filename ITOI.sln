@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2050
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITOI", "ITOI\ITOI.csproj", "{94DD956E-AA5B-47BA-A964-7DDB6A1ED3AA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KursProj", "KursProj\KursProj.csproj", "{A4FBE642-DC47-40A5-8B4F-D744DBF782A4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{94DD956E-AA5B-47BA-A964-7DDB6A1ED3AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94DD956E-AA5B-47BA-A964-7DDB6A1ED3AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94DD956E-AA5B-47BA-A964-7DDB6A1ED3AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4FBE642-DC47-40A5-8B4F-D744DBF782A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4FBE642-DC47-40A5-8B4F-D744DBF782A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4FBE642-DC47-40A5-8B4F-D744DBF782A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4FBE642-DC47-40A5-8B4F-D744DBF782A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

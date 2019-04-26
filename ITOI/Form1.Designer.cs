@@ -236,6 +236,8 @@
             this.tabPage36 = new System.Windows.Forms.TabPage();
             this.label70 = new System.Windows.Forms.Label();
             this.pictureBox53 = new System.Windows.Forms.PictureBox();
+            this.label71 = new System.Windows.Forms.Label();
+            this.textBox18 = new System.Windows.Forms.TextBox();
             this.tabControl2.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -2008,6 +2010,7 @@
             this.textBox12.Size = new System.Drawing.Size(51, 20);
             this.textBox12.TabIndex = 29;
             this.textBox12.Text = "50";
+            this.textBox12.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPress1);
             // 
             // label51
             // 
@@ -2026,6 +2029,7 @@
             this.textBox13.Size = new System.Drawing.Size(100, 20);
             this.textBox13.TabIndex = 27;
             this.textBox13.Text = "0,1";
+            this.textBox13.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPress2);
             // 
             // label56
             // 
@@ -2044,6 +2048,7 @@
             this.textBox14.Size = new System.Drawing.Size(33, 20);
             this.textBox14.TabIndex = 25;
             this.textBox14.Text = "3";
+            this.textBox14.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPress1);
             // 
             // label57
             // 
@@ -2201,6 +2206,8 @@
             // 
             // tabPage33
             // 
+            this.tabPage33.Controls.Add(this.textBox18);
+            this.tabPage33.Controls.Add(this.label71);
             this.tabPage33.Controls.Add(this.textBox15);
             this.tabPage33.Controls.Add(this.label63);
             this.tabPage33.Controls.Add(this.textBox16);
@@ -2224,6 +2231,7 @@
             this.textBox15.Size = new System.Drawing.Size(51, 20);
             this.textBox15.TabIndex = 37;
             this.textBox15.Text = "50";
+            this.textBox15.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPress1);
             // 
             // label63
             // 
@@ -2242,6 +2250,7 @@
             this.textBox16.Size = new System.Drawing.Size(100, 20);
             this.textBox16.TabIndex = 35;
             this.textBox16.Text = "0,1";
+            this.textBox16.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPress2);
             // 
             // label64
             // 
@@ -2260,6 +2269,7 @@
             this.textBox17.Size = new System.Drawing.Size(33, 20);
             this.textBox17.TabIndex = 33;
             this.textBox17.Text = "3";
+            this.textBox17.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPress1);
             // 
             // label65
             // 
@@ -2272,7 +2282,7 @@
             // 
             // button12
             // 
-            this.button12.Location = new System.Drawing.Point(510, 5);
+            this.button12.Location = new System.Drawing.Point(509, 11);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(140, 37);
             this.button12.TabIndex = 31;
@@ -2414,6 +2424,25 @@
             this.pictureBox53.Size = new System.Drawing.Size(1239, 550);
             this.pictureBox53.TabIndex = 6;
             this.pictureBox53.TabStop = false;
+            // 
+            // label71
+            // 
+            this.label71.AutoSize = true;
+            this.label71.Location = new System.Drawing.Point(359, 35);
+            this.label71.Name = "label71";
+            this.label71.Size = new System.Drawing.Size(56, 13);
+            this.label71.TabIndex = 38;
+            this.label71.Text = "Масштаб:";
+            // 
+            // textBox18
+            // 
+            this.textBox18.Location = new System.Drawing.Point(421, 32);
+            this.textBox18.MaxLength = 1;
+            this.textBox18.Name = "textBox18";
+            this.textBox18.Size = new System.Drawing.Size(51, 20);
+            this.textBox18.TabIndex = 39;
+            this.textBox18.Text = "3";
+            this.textBox18.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPress1);
             // 
             // Form1
             // 
@@ -2769,6 +2798,8 @@
         private System.Windows.Forms.TabPage tabPage36;
         private System.Windows.Forms.Label label70;
         private System.Windows.Forms.PictureBox pictureBox53;
+        private System.Windows.Forms.TextBox textBox18;
+        private System.Windows.Forms.Label label71;
     }
 }
 

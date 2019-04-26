@@ -7,13 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ITOI
+namespace KursProj
 {
     class Img
     {
         public int Height;
         public int Width;
-        public Bitmap ColourBitmap;
         public Bitmap Bitmap;
         public byte[,] GrayMatrix;
         public double[,] GrayMatrixDouble;
@@ -25,7 +24,6 @@ namespace ITOI
             Height = height;
             Width = width;
             Bitmap = new Bitmap(Width, Height, PixelFormat.Format32bppArgb);
-            ColourBitmap = Bitmap;
             GrayMatrix = new byte[Height, Width];
             Color color;
             for (int y = 0; y < Height; y++)
@@ -45,7 +43,6 @@ namespace ITOI
             Height = height;
             Width = width;
             Bitmap = new Bitmap(Width, Height, PixelFormat.Format32bppArgb);
-            ColourBitmap = Bitmap;
             GrayMatrixDouble = new double[Height, Width];
             Color color;
             for (int y = 0; y < Height; y++)
@@ -68,7 +65,7 @@ namespace ITOI
 
         public Img(string path)
         {
-            ColourBitmap = new Bitmap(path);
+            Bitmap = new Bitmap(path);
             Height = Bitmap.Height;
             Width = Bitmap.Width;
             GrayMatrix = new byte[Height, Width];
@@ -79,8 +76,6 @@ namespace ITOI
                 {
                     color = Bitmap.GetPixel(x, y);
                     GrayMatrix[y, x] = Convert.ToByte(Math.Round(0.213 * color.R + 0.715 * color.G + 0.072 * color.B));
-                    color = Color.FromArgb(255, GrayMatrix[y, x], GrayMatrix[y, x], GrayMatrix[y, x]);
-                    Bitmap.SetPixel(x, y, color);
                 }
             }
             GrayMatrixDouble = InitDoubleGrayMatrix(GrayMatrix, Width, Height);
@@ -91,7 +86,6 @@ namespace ITOI
             Height = bitmap.Height;
             Width = bitmap.Width;
             Bitmap = new Bitmap(Width, Height, PixelFormat.Format32bppArgb);
-            ColourBitmap = Bitmap;
             GrayMatrix = new byte[Height, Width];
             Color color;
             for (int y = 0; y < Height; y++)

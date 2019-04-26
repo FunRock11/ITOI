@@ -72,7 +72,7 @@ namespace ITOI
             F.ClearDir(BasePath + "Lab 6");
             /*-------------------------------*/
 
-            BeginImg = new Img(BasePath + "Begin/BeginImage0.png");
+            BeginImg = new Img(BasePath + "Begin/BeginImage9.png");
             GrayImg = new Img(BeginImg.GrayMatrix, BeginImg.Width, BeginImg.Height);
             GrayImg.Save(BasePath + "Result/GrayImage.png");
 
@@ -744,17 +744,19 @@ namespace ITOI
         /* Дескрипторы (Лаб 6)*/
         private void button12_Click(object sender, EventArgs e)
         {
-            if (textBox17.Text != "" && textBox16.Text != "" && textBox15.Text != "")
+            if (textBox18.Text != "" && textBox17.Text != "" && textBox16.Text != "" && textBox15.Text != "")
             {
-                try
-                {
+                //try
+                //{
                     int HarrisRadius = Convert.ToInt32(textBox17.Text);
                     double HarrisDolya = Convert.ToDouble(textBox16.Text);
                     int Npoints = Convert.ToInt32(textBox15.Text);
+                    int Mashtab = Convert.ToInt32(textBox18.Text);
 
                     Img BegImg1 = new Img(GrayImg.GrayMatrix, IWidth, IHeight);
 
                     /*-------------------------*/
+                    /*
                     int size = Convert.ToInt32(Math.Ceiling(Math.Sqrt(IWidth * IWidth + IHeight * IHeight)));
                     Bitmap RotateBMP = new Bitmap(size, size, PixelFormat.Format32bppArgb);
                     for (int y = 0; y < size; y++)
@@ -775,6 +777,7 @@ namespace ITOI
                     }
                     RotateBMP = F.RotateImage(RotateBMP, 45.0F);
                     Img BegImg2 = new Img(RotateBMP);
+                    */
                     /*
                     byte[,] SdvigMtx = F.Sdvig(TempImg.GrayMatrix, TempImg.Width, TempImg.Height, out int nWidth, out int nHeight, 0, -50);
                     TempImg = new Img(SdvigMtx, nWidth, nHeight);
@@ -787,92 +790,31 @@ namespace ITOI
                     //Img BegImg2 = new Img(BasePath + "Temp/GrayImage.png");
 
                     BegImg1.Draw(pictureBox50);
-                    BegImg2.Draw(pictureBox49);
+                    //BegImg2.Draw(pictureBox49);
 
-                    Harris Harris1 = new Harris(BegImg1, HarrisRadius, HarrisDolya);
-                    Harris1.ANMS(Npoints);
-                    Harris Harris2 = new Harris(BegImg2, HarrisRadius, HarrisDolya);
-                    Harris2.ANMS(Npoints);
+                    SIFT SIFT1 = new SIFT(BegImg1, HarrisRadius, HarrisDolya, Npoints, Mashtab);
 
-                    Harris1.ImageWithANMS.Draw(pictureBox52);
-                    Harris2.ImageWithANMS.Draw(pictureBox51);
+                
+                Graphics g = Graphics.FromImage(BegImg1.Bitmap);
 
-                    Harris1.Descript5();
-                    Harris2.Descript5();
-
-                    int[] S = F.DescriptSootv5(Harris1, Harris2, 16 * 8, 0.8);
-                    int rst = 20;
-                    int h = Math.Max(Harris1.ImageWithANMS.Height, Harris2.ImageWithANMS.Height);
-                    Bitmap SootvBmp = new Bitmap(Harris1.ImageWithANMS.Width + Harris2.ImageWithANMS.Width + rst, h, PixelFormat.Format32bppArgb);
-
-                    for (int y = 0; y < Harris1.ImageWithANMS.Height; y++)
-                    {
-                        for (int x = 0; x < Harris1.ImageWithANMS.Width; x++)
-                        {
-                            SootvBmp.SetPixel(x, y, Harris1.ImageWithANMS.Bitmap.GetPixel(x, y));
-                        }
-                    }
-                    for (int y = 0; y < h; y++)
-                    {
-                        for (int x = Harris1.ImageWithANMS.Width; x < Harris1.ImageWithANMS.Width + rst; x++)
-                        {
-                            SootvBmp.SetPixel(x, y, Color.White);
-                        }
-                    }
-                    for (int y = 0; y < Harris2.ImageWithANMS.Height; y++)
-                    {
-                        for (int x = Harris1.ImageWithANMS.Width + rst; x < Harris1.ImageWithANMS.Width + rst + Harris2.ImageWithANMS.Width; x++)
-                        {
-                            SootvBmp.SetPixel(x, y, Harris2.ImageWithANMS.Bitmap.GetPixel(x - (Harris1.ImageWithANMS.Width + rst), y));
-                        }
-                    }
-
-                    Random rand = new Random();
-                    Graphics g = Graphics.FromImage(SootvBmp);
-                    Pen pen;
-                    Point p1, p2;
-                    for (int i = 0; i < Harris1.NewPoints; i++)
-                    {
-                        if (S[i] != -1)
-                        {
-                            int ra = rand.Next(0, 101);
-                            if (ra >= 0 && ra < 20)
-                            {
-                                pen = new Pen(Brushes.Blue, 2);
-                            }
-                            else if (ra >= 20 && ra < 40)
-                            {
-                                pen = new Pen(Brushes.Green, 2);
-                            }
-                            else if (ra >= 40 && ra < 60)
-                            {
-                                pen = new Pen(Brushes.Aqua, 2);
-                            }
-                            else if (ra >= 60 && ra < 80)
-                            {
-                                pen = new Pen(Brushes.Yellow, 2);
-                            }
-                            else
-                            {
-                                pen = new Pen(Brushes.Violet, 2);
-                            }
-
-                            p1 = new Point(Harris1.IntPointsCoord[i, 1], Harris1.IntPointsCoord[i, 0]);
-                            p2 = new Point(Harris2.IntPointsCoord[S[i], 1] + (Harris1.ImageWithANMS.Width + rst), Harris2.IntPointsCoord[S[i], 0]);
-                            g.DrawLine(pen, p1, p2);
-                        }
-                    }
-                    pictureBox53.Image = SootvBmp;
-
-                    Harris1.ImageWithANMS.Save(BasePath + "Lab 6/HarrisANMS1.png");
-                    Harris2.ImageWithANMS.Save(BasePath + "Lab 6/HarrisANMS2.png");
-                    SootvBmp.Save(BasePath + "Lab 6/Result.png");
-
-                }
-                catch
+                for (int i = 0; i < SIFT1.InterestingPoints.Count; i++)
                 {
-                    MessageBox.Show("Введите данные корректно!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    int x0 = SIFT1.InterestingPoints[i].X - SIFT1.InterestingPoints[i].Radius;
+                    int y0 = SIFT1.InterestingPoints[i].Y - SIFT1.InterestingPoints[i].Radius;
+                    int d = SIFT1.InterestingPoints[i].Radius * 2;
+                    Pen pen = new Pen(Brushes.Blue, 1);
+                    g.DrawEllipse(pen, x0, y0, d, d);
                 }
+
+
+
+                pictureBox49.Image = BegImg1.Bitmap;
+
+                //}
+                //catch
+                //{
+                //    MessageBox.Show("Введите данные корректно!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //}
             }
             else
             {
