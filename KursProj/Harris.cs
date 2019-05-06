@@ -30,15 +30,20 @@ namespace KursProj
         public int NewPoints;
         public int NeedPoints;
 
+        public string Path;
+
         private double MAXmin = -999999999;
         private double MINmin = 999999999;
 
         public double[,] Theta;
         public double[,] Sobel;
 
+        public int P;
+
         public Harris(Img image, int windowradius, double r, int size)
         {
             Image = image;
+            Path = Image.Path;
             WindowRadius = windowradius;
             T = r;
 
@@ -489,7 +494,7 @@ namespace KursProj
 
         }
 
-        public int PointComparisonANMS(Harris harris, int E)
+        public void PointComparisonANMS(Harris harris, int E)
         {
             int P = 0;
 
@@ -505,7 +510,7 @@ namespace KursProj
                 }
             }
 
-            return P;
+            this.P = P;
         }
 
 
@@ -571,7 +576,7 @@ namespace KursProj
 
         }
 
-        public int PointComparisonMS(Harris harris, int E)
+        public void PointComparisonMS(Harris harris, int E)
         {
             int P = 0;
 
@@ -587,7 +592,7 @@ namespace KursProj
                 }
             }
 
-            return P;
+            this.P = P;
         }
 
     }

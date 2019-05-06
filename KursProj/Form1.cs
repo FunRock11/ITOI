@@ -8,39 +8,49 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Threading;
 
 namespace KursProj
 {
     public partial class Form1 : Form
     {
-        OpenFileDialog openFileDialog = new OpenFileDialog();
+        OpenFileDialog openFileDialog;
+        FolderBrowserDialog folderBrowserDialog;
         string BasePath = "../../TestFiles/";
 
         Img BeginImg;
-        string BeginPath;
+        string BeginPath = "";
+        string DirPath = "";
         List<Img> Images;
         List<Harris> Harris;
 
         public Form1()
         {
             InitializeComponent();
-            BeginPath = Path.GetFullPath(BasePath + "BeginImage1.png");
-            BeginImg = new Img(BeginPath);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (BeginPath == "")
+            {
+                MessageBox.Show("Для начала выберите исходное изображение!", "Информация!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else if (DirPath == "")
+            {
+                MessageBox.Show("Для начала выберите каталог для поиска!", "Информация!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             Images = new List<Img>();
             Harris = new List<Harris>();
-            FindFiles(Path.GetFullPath(BasePath));
+            FindFiles(DirPath);
 
-            int[] P = new int[Images.Count];
-            int ii = 0;
             foreach (Img img in Images)
             {
                 int size = Math.Min(Math.Min(BeginImg.Width, BeginImg.Height), Math.Min(img.Width, img.Height));
-                Harris BeginHarris = new Harris(BeginImg, 2, 0.5, size);
-                Harris.Add(new Harris(img, 2, 0.5, size));
+                Harris BeginHarris = new Harris(BeginImg, 2, 0.1, size);
+                Harris.Add(new Harris(img, 2, 0.1, size));
 
                 int NumPoints = 100;
                 NumPoints = Math.Min(NumPoints, BeginHarris.NPoints);
@@ -49,12 +59,17 @@ namespace KursProj
                 BeginHarris.MS(NumPoints);
                 Harris[Harris.Count - 1].MS(NumPoints);
 
-                P[ii] = BeginHarris.PointComparisonMS(Harris[ii], 2);
-
-                ii++;
+                Harris[Harris.Count - 1].PointComparisonMS(BeginHarris, 2);
             }
 
-            int a = 0;
+            foreach(Harris harris in Harris)
+            {
+                double R = (double)harris.P / harris.NewPoints * 100.0;
+                if (R >= 50)
+                {
+                    listBox1.Items.Add(harris.Path);
+                }
+            }
 
         }
 
@@ -82,6 +97,34 @@ namespace KursProj
                 }
                 catch { }
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Изображения(*.png)|*.png";
+            openFileDialog.InitialDirectory = Path.GetFullPath(BasePath);
+            if (openFileDialog.ShowDialog() == DialogResult.Cancel)
+            {
+                return;
+            }
+            BeginPath = openFileDialog.FileName;
+            label1.Text = "Исходное изображение: " + BeginPath;
+            label1.Visible = true;
+            BeginImg = new Img(BeginPath);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            folderBrowserDialog = new FolderBrowserDialog();
+            folderBrowserDialog.SelectedPath = Path.GetFullPath(BasePath);
+            if (folderBrowserDialog.ShowDialog() == DialogResult.Cancel)
+            {
+                return;
+            }
+            DirPath = folderBrowserDialog.SelectedPath;
+            label2.Text = "Каталог для поиска: " + DirPath;
+            label2.Visible = true;
         }
     }
 }
