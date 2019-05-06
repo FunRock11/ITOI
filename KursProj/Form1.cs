@@ -31,39 +31,28 @@ namespace KursProj
         private void button1_Click(object sender, EventArgs e)
         {
             Images = new List<Img>();
-            Images.Add(BeginImg);
             Harris = new List<Harris>();
             FindFiles(Path.GetFullPath(BasePath));
+
+            int[] P = new int[Images.Count];
+            int ii = 0;
             foreach (Img img in Images)
             {
-                Harris.Add(new Harris(img, 2, 0.1));
-            }
+                int size = Math.Min(Math.Min(BeginImg.Width, BeginImg.Height), Math.Min(img.Width, img.Height));
+                Harris BeginHarris = new Harris(BeginImg, 2, 0.5, size);
+                Harris.Add(new Harris(img, 2, 0.5, size));
 
+                int NumPoints = 100;
+                NumPoints = Math.Min(NumPoints, BeginHarris.NPoints);
+                NumPoints = Math.Min(NumPoints, Harris[Harris.Count - 1].NPoints);
 
-            int NumPoints = 50;
-            foreach (Harris h in Harris)
-            {
-                NumPoints = Math.Min(NumPoints, h.NPoints);
-            }
+                BeginHarris.MS(NumPoints);
+                Harris[Harris.Count - 1].MS(NumPoints);
 
-            foreach (Harris h in Harris)
-            {
-                h.MS(NumPoints);
-            }
-            
-            foreach(Harris h in Harris)
-            {
-                h.Hashed();
-            }
+                P[ii] = BeginHarris.PointComparisonMS(Harris[ii], 2);
 
-            int[] P = new int[Harris.Count];
-            for (int i = 0; i < Harris.Count; i++)
-            {
-                P[i] = Harris[0].HemmingRast(Harris[i], 5);
+                ii++;
             }
-
-            Harris[0].ImageWithMS.Draw(pictureBox1);
-            Harris[2].ImageWithMS.Draw(pictureBox2);
 
             int a = 0;
 

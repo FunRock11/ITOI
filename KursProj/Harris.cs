@@ -13,6 +13,7 @@ namespace KursProj
         Func F = new Func();
         public Img Image;
         public Img ImageWithPoints;
+        public Img ImageWithANMS;
         public Img ImageWithMS;
         public int WindowRadius;
         public double T;
@@ -21,6 +22,7 @@ namespace KursProj
         public double[,] MinL;
         public double[,] MaxL;
         List<InterestingPoint> InterestingPoints;
+        List<InterestingPoint> InterestingPointsANMS;
         List<InterestingPoint> InterestingPointsMS;
         public GaussCore GaussMatrix;
         private double[,] MTX;
@@ -28,25 +30,174 @@ namespace KursProj
         public int NewPoints;
         public int NeedPoints;
 
-        public int[] Hash;
-
         private double MAXmin = -999999999;
         private double MINmin = 999999999;
 
-        public Harris(Img image, int windowradius, double r)
+        public double[,] Theta;
+        public double[,] Sobel;
+
+        public Harris(Img image, int windowradius, double r, int size)
         {
             Image = image;
             WindowRadius = windowradius;
             T = r;
 
+            NormalizeSize(size);
+
+            MTX = new double[Image.Height, Image.Width];
+            for (int y = 0; y < Image.Height; y++)
+            {
+                for (int x = 0; x < Image.Width; x++)
+                {
+                    MTX[y, x] = Image.GrayMatrixDouble[y, x];
+                }
+            }
+            Rotate();
+
             GaussMatrix = new GaussCore(windowradius, 1);
             MTX = F.Svertka(Image.GrayMatrixDouble, Image.Width, Image.Height, GaussMatrix.Matrix, GaussMatrix.Radius, 1);
 
+            
             Derivative();
             Minl();
             IntPoints();
             PColor(1);
         }
+
+        private void NormalizeSize(int size)
+        {
+            int SizeMin = Math.Min(Image.Height, Image.Width);
+            Bitmap bitmap = new Bitmap(Image.Bitmap, new Size(size, size));
+            Image = new Img(bitmap);
+        }
+
+        private void SobelAndTheta()
+        {
+            Derivative();
+            double dx = 0.0;
+            double dy = 0.0;
+            Theta = new double[Image.Height, Image.Width];
+            Sobel = new double[Image.Height, Image.Width];
+
+            for (int y = 0; y < Image.Height; y++)
+            {
+                for (int x = 0; x < Image.Width; x++)
+                {
+                    Theta[y, x] = Math.Atan2(DerivativeX[y, x], DerivativeY[y, x]) + Math.PI;
+
+                    dx = Math.Pow(DerivativeX[y, x], 2);
+                    dy = Math.Pow(DerivativeY[y, x], 2);
+                    Sobel[y, x] = Math.Sqrt(dx + dy);
+                }
+            }
+        }
+
+        private void Rotate()
+        {
+            SobelAndTheta();
+
+            double[,] korzinaO = new double[36, 2];
+            for (int i = 0; i < 36; i++)
+            {
+                korzinaO[i, 0] = (Math.PI / 18) * i;
+                korzinaO[i, 1] = (Math.PI / 18) * (i + 1);
+            }
+
+            double[] D = new double[36];
+            for (int y = 0; y < Image.Height; y++)
+            {
+                for (int x = 0; x < Image.Width; x++)
+                {
+                    double L = Sobel[y, x];
+                    double Fi = Theta[y, x];
+                    if (Fi == 0)
+                    {
+                        Fi = Math.PI * 2;
+                    }
+                    int korzina1 = -10, korzina2 = -10; // смежные корзины
+                    double c1 = 0, c2 = 0; // коэф-ты для корзин
+                    for (int i = 0; i < 36; i++)
+                    {
+                        if (Fi == korzinaO[i, 1])
+                        {
+                            korzina1 = i;
+                            korzina2 = i + 1;
+                            if (korzina2 == 36)
+                            {
+                                korzina2 = 0;
+                            }
+                            c1 = 0.5;
+                            c2 = 0.5;
+                        }
+                    }
+                    if (korzina1 == -10 || korzina2 == -10)
+                    {
+                        for (int i = 0; i < 36; i++)
+                        {
+                            if (Fi > korzinaO[i, 0] && Fi < korzinaO[i, 1])
+                            {
+                                korzina1 = i;
+                                double a1 = korzinaO[i, 1] - Fi;
+                                double a0 = Fi - korzinaO[i, 0];
+                                if (a0 > a1)
+                                {
+                                    korzina2 = i + 1;
+                                    if (korzina2 == 36)
+                                    {
+                                        korzina2 = 0;
+                                    }
+
+                                    double d = Math.PI / 18;
+                                    double b = a1 + (Math.PI / 36);
+                                    c1 = b / d;
+                                    c2 = 1 - c1;
+                                }
+                                else if (a1 > a0)
+                                {
+                                    korzina2 = i - 1;
+                                    if (korzina2 == -1)
+                                    {
+                                        korzina2 = 35;
+                                    }
+
+                                    double d = Math.PI / 18;
+                                    double b = a0 + (Math.PI / 36);
+                                    c1 = b / d;
+                                    c2 = 1 - c1;
+                                }
+                                else
+                                {
+                                    korzina2 = 0;
+                                    c1 = 1;
+                                    c2 = 0;
+                                }
+                            }
+                        }
+                    }
+                    D[korzina1] += L * c1;
+                    D[korzina2] += L * c2;
+                }
+            }
+
+            double GMaxVal = -999999999;
+            int GMax = 0;
+
+            for (int i = 0; i < 36; i++)
+            {
+                if (D[i] > GMaxVal)
+                {
+                    GMaxVal = D[i];
+                    GMax = i;
+                }
+            }
+
+            double alpha = (korzinaO[GMax, 1] - korzinaO[GMax, 0]) / 2 + korzinaO[GMax, 0];
+            float ugol = (float)(alpha * 180 / Math.PI);
+            Bitmap bitmap = F.RotateImage(Image.Bitmap, ugol);
+            Image = new Img(bitmap);
+
+        }
+
 
         private void Derivative()
         {
@@ -231,6 +382,133 @@ namespace KursProj
             }
         }
 
+
+
+
+        public void ANMS(int needpoints)
+        {
+            NeedPoints = needpoints;
+            RANMS();
+            IWANMS(1);
+        }
+
+        private void RANMS()
+        {
+            NewPoints = NPoints;
+            InterestingPointsANMS = new List<InterestingPoint>();
+            foreach (InterestingPoint ip in InterestingPoints)
+            {
+                InterestingPointsANMS.Add(ip);
+            }
+
+            if (NPoints > NeedPoints)
+            {
+                int r = WindowRadius + 1;
+                while (NeedPoints < NewPoints)
+                {
+                    bool[] ToDelete = new bool[InterestingPointsANMS.Count];
+                    for (int i = 0; i < InterestingPointsANMS.Count; i++)
+                    {
+                        ToDelete[i] = false;
+                    }
+                    int i1 = 0;
+                    foreach (InterestingPoint ip in InterestingPointsANMS)
+                    {
+                        if (!ToDelete[i1])
+                        {
+                            int i2 = 0;
+                            foreach (InterestingPoint ip1 in InterestingPointsANMS)
+                            {
+                                if (!ToDelete[i2])
+                                {
+                                    if (Math.Abs(ip.X - ip1.X) <= r && Math.Abs(ip.Y - ip1.Y) <= r)
+                                    {
+                                        if (Math.Abs(ip.X - ip1.X) == 0 && Math.Abs(ip.Y - ip1.Y) == 0)
+                                        {
+                                            continue;
+                                        }
+                                        else if (ip1.Value <= ip.Value)
+                                        {
+                                            ToDelete[i2] = true;
+                                            NewPoints--;
+                                            if (NeedPoints == NewPoints)
+                                            {
+                                                for (int i = InterestingPointsANMS.Count - 1; i >= 0; i--)
+                                                {
+                                                    if (ToDelete[i])
+                                                    {
+                                                        InterestingPointsANMS.RemoveAt(i);
+                                                    }
+                                                }
+                                                return;
+                                            }
+                                        }
+                                    }
+                                }
+                                i2++;
+                            }
+                        }
+                        i1++;
+                    }
+
+                    for (int i = InterestingPointsANMS.Count - 1; i >= 0; i--)
+                    {
+                        if (ToDelete[i])
+                        {
+                            InterestingPointsANMS.RemoveAt(i);
+                        }
+                    }
+
+                    r++;
+                }
+
+            }
+
+        }
+
+        private void IWANMS(int r)
+        {
+            ImageWithANMS = new Img(Image.GrayMatrix, Image.Width, Image.Height);
+            Color color;
+
+            foreach (InterestingPoint ip in InterestingPointsANMS)
+            {
+                for (int hWinX = -r; hWinX <= r; hWinX++)
+                {
+                    for (int hWinY = -r; hWinY <= r; hWinY++)
+                    {
+                        if (ip.X + hWinX < ImageWithANMS.Width && ip.X + hWinX >= 0
+                            && ip.Y + hWinY < ImageWithANMS.Height && ip.Y + hWinY >= 0)
+                        {
+                            color = Color.FromArgb(255, 255, 0, 0);
+                            ImageWithANMS.Bitmap.SetPixel(ip.X + hWinX, ip.Y + hWinY, color);
+                        }
+                    }
+                }
+            }
+
+        }
+
+        public int PointComparisonANMS(Harris harris, int E)
+        {
+            int P = 0;
+
+            foreach (InterestingPoint ip in InterestingPointsANMS)
+            {
+                foreach (InterestingPoint ip1 in harris.InterestingPointsANMS)
+                {
+                    if (Math.Abs(ip.X - ip1.X) <= E && Math.Abs(ip.Y - ip1.Y) <= E)
+                    {
+                        P++;
+                        break;
+                    }
+                }
+            }
+
+            return P;
+        }
+
+
         public void MS(int needpoints)
         {
             NeedPoints = needpoints;
@@ -254,7 +532,7 @@ namespace KursProj
                     double vMin = 999999999;
                     int iiMin = 0;
                     int ii = 0;
-                    foreach(InterestingPoint ip in InterestingPointsMS)
+                    foreach (InterestingPoint ip in InterestingPointsMS)
                     {
                         if (ip.Value < vMin)
                         {
@@ -292,60 +570,25 @@ namespace KursProj
             }
 
         }
-        
-        public void Hashed()
-        {
-            int NumLines = NewPoints * (NewPoints - 1) / 2;
-            Hash = new int[NumLines];
 
-            int k = 0;
-            for (int i = 0; i < InterestingPointsMS.Count; i++)
-            {
-                for (int y = i + 1; y < InterestingPointsMS.Count; y++)
-                {
-                    int rast = Convert.ToInt32(Math.Round(Math.Sqrt(Math.Pow((InterestingPointsMS[i].X - InterestingPointsMS[y].X), 2) + Math.Pow((InterestingPointsMS[i].Y - InterestingPointsMS[y].Y), 2))));
-                    Hash[k] = rast;
-                    k++;
-                }
-            }
-
-            Array.Sort(Hash);
-            Array.Reverse(Hash);
-        }
-
-        public int HemmingRast(Harris harris, int E)
+        public int PointComparisonMS(Harris harris, int E)
         {
             int P = 0;
-            int MaxVal = Math.Max(harris.Hash[0], Hash[0]);
-            int LengthMaxVal = MaxVal.ToString().Length;
-            string TempString = "";
-            for (int i = 0; i < LengthMaxVal; i++)
-            {
-                TempString += "9";
-            }
-            int M = Convert.ToInt32(TempString);
-            double Ka = (double)M / Hash[0];
-            double Kb = (double)M / harris.Hash[0];
 
-            int NumLines = NewPoints * (NewPoints - 1) / 2;
-            int[] HashTemp1 = new int[NumLines];
-            int[] HashTemp2 = new int[NumLines];
-            for (int i = 0; i < NumLines; i++)
+            foreach (InterestingPoint ip in InterestingPointsMS)
             {
-                HashTemp1[i] = Convert.ToInt32(Math.Round(Hash[i] * Ka));
-                HashTemp2[i] = Convert.ToInt32(Math.Round(harris.Hash[i] * Kb));
-            }
-
-            for (int i = 0; i < NumLines; i++)
-            {
-                int r = Math.Abs(HashTemp1[i] - HashTemp2[i]);
-                if (r > E)
+                foreach (InterestingPoint ip1 in harris.InterestingPointsMS)
                 {
-                    P++;
+                    if (Math.Abs(ip.X - ip1.X) <= E && Math.Abs(ip.Y - ip1.Y) <= E)
+                    {
+                        P++;
+                        break;
+                    }
                 }
             }
 
             return P;
         }
+
     }
 }

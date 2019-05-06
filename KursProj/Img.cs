@@ -11,6 +11,8 @@ namespace KursProj
 {
     class Img
     {
+        Func F = new Func();
+
         public string Path = "";
         public int Height;
         public int Width;
