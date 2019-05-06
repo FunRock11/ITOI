@@ -72,7 +72,7 @@ namespace ITOI
             F.ClearDir(BasePath + "Lab 6");
             /*-------------------------------*/
 
-            BeginImg = new Img(BasePath + "Begin/BeginImage9.png");
+            BeginImg = new Img(BasePath + "Begin/BeginImage1.png");
             GrayImg = new Img(BeginImg.GrayMatrix, BeginImg.Width, BeginImg.Height);
             GrayImg.Save(BasePath + "Result/GrayImage.png");
 

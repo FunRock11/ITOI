@@ -52,7 +52,11 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Func.cs" />
+    <Compile Include="GaussCore.cs" />
+    <Compile Include="Harris.cs" />
     <Compile Include="Img.cs" />
+    <Compile Include="InterestingPoint.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

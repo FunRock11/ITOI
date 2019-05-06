@@ -14,22 +14,59 @@ namespace KursProj
     public partial class Form1 : Form
     {
         OpenFileDialog openFileDialog = new OpenFileDialog();
-        string BasePath = "../../../files/";
+        string BasePath = "../../TestFiles/";
 
         Img BeginImg;
+        string BeginPath;
         List<Img> Images;
+        List<Harris> Harris;
 
         public Form1()
         {
             InitializeComponent();
-            BeginImg = new Img(BasePath + "Begin/BeginImage0.png");
+            BeginPath = Path.GetFullPath(BasePath + "BeginImage1.png");
+            BeginImg = new Img(BeginPath);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             Images = new List<Img>();
-            FindFiles("C:\\Users\\6\\Desktop\\");
+            Images.Add(BeginImg);
+            Harris = new List<Harris>();
+            FindFiles(Path.GetFullPath(BasePath));
+            foreach (Img img in Images)
+            {
+                Harris.Add(new Harris(img, 2, 0.1));
+            }
+
+
+            int NumPoints = 50;
+            foreach (Harris h in Harris)
+            {
+                NumPoints = Math.Min(NumPoints, h.NPoints);
+            }
+
+            foreach (Harris h in Harris)
+            {
+                h.MS(NumPoints);
+            }
+            
+            foreach(Harris h in Harris)
+            {
+                h.Hashed();
+            }
+
+            int[] P = new int[Harris.Count];
+            for (int i = 0; i < Harris.Count; i++)
+            {
+                P[i] = Harris[0].HemmingRast(Harris[i], 5);
+            }
+
+            Harris[0].ImageWithMS.Draw(pictureBox1);
+            Harris[2].ImageWithMS.Draw(pictureBox2);
+
             int a = 0;
+
         }
 
         private void FindFiles(string CoreDir)
@@ -48,7 +85,10 @@ namespace KursProj
 
                     foreach (string f in files)
                     {
-                        Images.Add(new Img(f));
+                        if (f != BeginPath)
+                        {
+                            Images.Add(new Img(f));
+                        }
                     }
                 }
                 catch { }
