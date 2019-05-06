@@ -111,7 +111,6 @@
             this.label3.Size = new System.Drawing.Size(205, 20);
             this.label3.TabIndex = 6;
             this.label3.Text = "Найденные изображения:";
-            this.label3.Visible = false;
             // 
             // Form1
             // 
