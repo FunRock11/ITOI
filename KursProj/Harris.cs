@@ -42,7 +42,7 @@ namespace KursProj
 
         public Harris(Img image, int windowradius, double r, int size)
         {
-            Image = image;
+            Image = new Img(image.Bitmap);
             Path = Image.Path;
             WindowRadius = windowradius;
             T = r;

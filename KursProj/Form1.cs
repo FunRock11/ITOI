@@ -172,12 +172,13 @@ namespace KursProj
             }
 
             int ii = 1;
-            foreach(Harris harris in Harris)
+            for (int i = 0; i < Images.Count; i++)
             {
-                double R = (double)harris.P / harris.NewPoints * 100.0;
+                double R = (double)Harris[i].P / Harris[i].NewPoints * 100.0;
                 if (R >= 50)
                 {
-                    listBox1.Items.Add(Convert.ToString(ii) + ". " + harris.Path + " (P = " + Convert.ToString(Math.Round(R, 2)) + "%)");
+                    imageList1.Images.Add(Images[i].ColourBitmap);
+                    listView1.Items.Add(Images[i].Path + " (P = " + Convert.ToString(Math.Round(R, 2)) + "%)", ii - 1);
                     ii++;
                 }
             }
@@ -220,9 +221,11 @@ namespace KursProj
                 return;
             }
             BeginPath = openFileDialog.FileName;
-            label1.Text = "Исходное изображение: " + BeginPath;
-            label1.Visible = true;
+            textBox1.Text = Path.GetFileName(BeginPath);
+            textBox1.Visible = true;
+            label4.Visible = true;
             BeginImg = new Img(BeginPath);
+            pictureBox1.Image = BeginImg.ColourBitmap;
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -234,8 +237,9 @@ namespace KursProj
                 return;
             }
             DirPath = folderBrowserDialog.SelectedPath;
-            label2.Text = "Каталог для поиска: " + DirPath;
-            label2.Visible = true;
+            textBox2.Text = DirPath;
+            label5.Visible = true;
+            textBox2.Visible = true;
         }
     }
 }
