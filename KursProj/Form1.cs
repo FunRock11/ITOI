@@ -17,6 +17,7 @@ namespace KursProj
         OpenFileDialog openFileDialog;
         FolderBrowserDialog folderBrowserDialog;
         string BasePath = "../../TestFiles/";
+        string TempPath = "../../TempFiles/";
 
         Img BeginImg;
         Img BeginImg1;
@@ -26,93 +27,46 @@ namespace KursProj
         string DirPath = "";
         List<Img> Images;
         Harris[] Harris;
+        string[] Status;
+        int NumNotCompletedProcess;
 
         public Form1()
         {
             InitializeComponent();
         }
 
-        private void ThreadProc1()
+        private void ThreadProc(object x)
         {
-            int i11 = 0;
-            int i12 = Convert.ToInt32(Math.Round((double)Images.Count / 4));
-            for (int i1 = i11; i1 < i12; i1++)
+            Img begimg = (Img)x;
+            while (NumNotCompletedProcess > 0)
             {
-                int size1 = Math.Min(Math.Min(BeginImg1.Width, BeginImg1.Height), Math.Min(Images[i1].Width, Images[i1].Height));
-                Harris BeginHarris1 = new Harris(BeginImg1, 2, 0.1, size1);
-                Harris[i1] = new Harris(Images[i1], 2, 0.1, size1);
+                for (int i = 0; i < Status.Length; i++)
+                {
+                    if (Status[i] == "Not completed")
+                    {
+                        Status[i] = "In progress";
+                        NumNotCompletedProcess--;
 
-                int NumPoints1 = 100;
-                NumPoints1 = Math.Min(NumPoints1, BeginHarris1.NPoints);
-                NumPoints1 = Math.Min(NumPoints1, Harris[i1].NPoints);
+                        int size = Math.Min(Math.Min(begimg.Width, begimg.Height), Math.Min(Images[i].Width, Images[i].Height));
+                        Harris BeginHarris = new Harris(begimg, 2, 0.1, size);
+                        Harris[i] = new Harris(Images[i], 2, 0.1, size);
 
-                BeginHarris1.MS(NumPoints1);
-                Harris[i1].MS(NumPoints1);
+                        int NumPoints = 100;
+                        NumPoints = Math.Min(NumPoints, BeginHarris.NPoints);
+                        NumPoints = Math.Min(NumPoints, Harris[i].NPoints);
 
-                Harris[i1].PointComparisonMS(BeginHarris1, 2);
-            }
-        }
+                        BeginHarris.MS(NumPoints);
+                        Harris[i].MS(NumPoints);
 
-        private void ThreadProc2()
-        {
-            int i21 = Convert.ToInt32(Math.Round((double)Images.Count / 4));
-            int i22 = Convert.ToInt32(Math.Round((double)Images.Count / 2));
-            for (int i2 = i21; i2 < i22; i2++)
-            {
-                int size2 = Math.Min(Math.Min(BeginImg2.Width, BeginImg2.Height), Math.Min(Images[i2].Width, Images[i2].Height));
-                Harris BeginHarris2 = new Harris(BeginImg2, 2, 0.1, size2);
-                Harris[i2] = new Harris(Images[i2], 2, 0.1, size2);
+                        Harris[i].PointComparisonMS(BeginHarris, 2);
 
-                int NumPoints2 = 100;
-                NumPoints2 = Math.Min(NumPoints2, BeginHarris2.NPoints);
-                NumPoints2 = Math.Min(NumPoints2, Harris[i2].NPoints);
-
-                BeginHarris2.MS(NumPoints2);
-                Harris[i2].MS(NumPoints2);
-
-                Harris[i2].PointComparisonMS(BeginHarris2, 2);
-            }
-        }
-
-        private void ThreadProc3()
-        {
-            int i31 = Convert.ToInt32(Math.Round((double)Images.Count / 2));
-            int i32 = Images.Count - Convert.ToInt32(Math.Round((double)Images.Count / 4));
-            for (int i3 = i31; i3 < i32; i3++)
-            {
-                int size3 = Math.Min(Math.Min(BeginImg3.Width, BeginImg3.Height), Math.Min(Images[i3].Width, Images[i3].Height));
-                Harris BeginHarris3 = new Harris(BeginImg3, 2, 0.1, size3);
-                Harris[i3] = new Harris(Images[i3], 2, 0.1, size3);
-
-                int NumPoints3 = 100;
-                NumPoints3 = Math.Min(NumPoints3, BeginHarris3.NPoints);
-                NumPoints3 = Math.Min(NumPoints3, Harris[i3].NPoints);
-
-                BeginHarris3.MS(NumPoints3);
-                Harris[i3].MS(NumPoints3);
-
-                Harris[i3].PointComparisonMS(BeginHarris3, 2);
-            }
-        }
-
-        private void ThreadProc4()
-        {
-            int i41 = Images.Count - Convert.ToInt32(Math.Round((double)Images.Count / 4));
-            int i42 = Images.Count;
-            for (int i4 = i41; i4 < i42; i4++)
-            {
-                int size4 = Math.Min(Math.Min(BeginImg.Width, BeginImg.Height), Math.Min(Images[i4].Width, Images[i4].Height));
-                Harris BeginHarris4 = new Harris(BeginImg, 2, 0.1, size4);
-                Harris[i4] = new Harris(Images[i4], 2, 0.1, size4);
-
-                int NumPoints4 = 100;
-                NumPoints4 = Math.Min(NumPoints4, BeginHarris4.NPoints);
-                NumPoints4 = Math.Min(NumPoints4, Harris[i4].NPoints);
-
-                BeginHarris4.MS(NumPoints4);
-                Harris[i4].MS(NumPoints4);
-
-                Harris[i4].PointComparisonMS(BeginHarris4, 2);
+                        Status[i] = "Completed";
+                        /*
+                        Harris[i].ImageWithMS.Save(TempPath + i + ".png");
+                        BeginHarris.ImageWithMS.Save(TempPath + "Begin" + i + ".png");
+                        */
+                    }
+                }
             }
         }
 
@@ -131,45 +85,31 @@ namespace KursProj
 
             Images = new List<Img>();
             FindFiles(DirPath);
-
             Harris = new Harris[Images.Count];
-            if (Images.Count >= 4)
+
+            Status = new string[Images.Count];
+            NumNotCompletedProcess = Status.Length;
+            for (int i = 0; i < Status.Length; i++)
             {
-                BeginImg1 = new Img(BeginImg.Bitmap);
-                BeginImg2 = new Img(BeginImg.Bitmap);
-                BeginImg3 = new Img(BeginImg.Bitmap);
-
-                Thread thread1 = new Thread(ThreadProc1);
-                Thread thread2 = new Thread(ThreadProc2);
-                Thread thread3 = new Thread(ThreadProc3);
-
-                thread1.Start();
-                thread2.Start();
-                thread3.Start();
-                ThreadProc4();
-
-                thread1.Join();
-                thread2.Join();
-                thread3.Join();
+                Status[i] = "Not completed";
             }
-            else
-            {
-                for (int i = 0; i < Images.Count; i++)
-                {
-                    int size = Math.Min(Math.Min(BeginImg.Width, BeginImg.Height), Math.Min(Images[i].Width, Images[i].Height));
-                    Harris BeginHarris = new Harris(BeginImg, 2, 0.1, size);
-                    Harris[i] = new Harris(Images[i], 2, 0.1, size);
 
-                    int NumPoints = 100;
-                    NumPoints = Math.Min(NumPoints, BeginHarris.NPoints);
-                    NumPoints = Math.Min(NumPoints, Harris[i].NPoints);
+            BeginImg1 = new Img(BeginImg.Bitmap);
+            BeginImg2 = new Img(BeginImg.Bitmap);
+            BeginImg3 = new Img(BeginImg.Bitmap);
 
-                    BeginHarris.MS(NumPoints);
-                    Harris[i].MS(NumPoints);
+            Thread thread1 = new Thread(ThreadProc);
+            Thread thread2 = new Thread(ThreadProc);
+            Thread thread3 = new Thread(ThreadProc);
 
-                    Harris[i].PointComparisonMS(BeginHarris, 2);
-                }
-            }
+            thread1.Start(BeginImg1);
+            thread2.Start(BeginImg2);
+            thread3.Start(BeginImg3);
+            ThreadProc(BeginImg);
+
+            thread1.Join();
+            thread2.Join();
+            thread3.Join();
 
             imageList1.Images.Clear();
             listView1.Items.Clear();
