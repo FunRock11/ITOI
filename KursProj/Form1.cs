@@ -58,7 +58,7 @@ namespace KursProj
                         BeginHarris.MS(NumPoints);
                         Harris[i].MS(NumPoints);
 
-                        Harris[i].PointComparisonMS(BeginHarris, 2);
+                        Harris[i].PointComparisonMS(BeginHarris);
 
                         Status[i] = "Completed";
                         /*

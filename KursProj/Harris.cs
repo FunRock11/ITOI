@@ -576,15 +576,25 @@ namespace KursProj
 
         }
 
-        public void PointComparisonMS(Harris harris, int E)
+        public void PointComparisonMS(Harris harris)
         {
             int P = 0;
+            int EY = 0;
+            int EX = 0;
 
             foreach (InterestingPoint ip in InterestingPointsMS)
             {
+                int y0 = ip.Y - Image.Height / 2;
+                int x0 = ip.X - Image.Width / 2;
+                int x1 = Convert.ToInt32(Math.Round(x0 * Math.Cos(0.174533) + y0 * Math.Sin(0.174533)));
+                int y1 = Convert.ToInt32(Math.Round(y0 * Math.Cos(0.174533) - x0 * Math.Sin(0.174533)));
+                EX = Math.Abs(x0 - x1);
+                EY = Math.Abs(y0 - y1);
+
+
                 foreach (InterestingPoint ip1 in harris.InterestingPointsMS)
                 {
-                    if (Math.Abs(ip.X - ip1.X) <= E && Math.Abs(ip.Y - ip1.Y) <= E)
+                    if (Math.Abs(ip.X - ip1.X) <= EX && Math.Abs(ip.Y - ip1.Y) <= EY)
                     {
                         P++;
                         break;
