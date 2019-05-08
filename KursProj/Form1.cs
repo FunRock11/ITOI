@@ -171,6 +171,9 @@ namespace KursProj
                 }
             }
 
+            imageList1.Images.Clear();
+            listView1.Items.Clear();
+
             int ii = 1;
             for (int i = 0; i < Images.Count; i++)
             {
