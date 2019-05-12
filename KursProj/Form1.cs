@@ -61,10 +61,6 @@ namespace KursProj
                         Harris[i].PointComparisonMS(BeginHarris);
 
                         Status[i] = "Completed";
-                        /*
-                        Harris[i].ImageWithMS.Save(TempPath + i + ".png");
-                        BeginHarris.ImageWithMS.Save(TempPath + "Begin" + i + ".png");
-                        */
                     }
                 }
             }
@@ -118,7 +114,7 @@ namespace KursProj
             for (int i = 0; i < Images.Count; i++)
             {
                 double R = (double)Harris[i].P / Harris[i].NewPoints * 100.0;
-                if (R >= 50)
+                if (R >= 65)
                 {
                     imageList1.Images.Add(Images[i].ColourBitmap);
                     listView1.Items.Add(Images[i].Path + " (P = " + Convert.ToString(Math.Round(R, 2)) + "%)", ii - 1);
