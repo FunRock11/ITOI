@@ -79,6 +79,8 @@ namespace KursProj
                 return;
             }
 
+            DateTime Time0 = DateTime.Now;
+
             Images = new List<Img>();
             FindFiles(DirPath);
             Harris = new Harris[Images.Count];
@@ -121,6 +123,10 @@ namespace KursProj
                     ii++;
                 }
             }
+
+            TimeSpan Time1 = DateTime.Now.Subtract(Time0);
+            label1.Text = "Время выполнения: " + Math.Round(Time1.TotalSeconds, 2).ToString() + " сек.";
+            label1.Visible = true;
 
         }
 
